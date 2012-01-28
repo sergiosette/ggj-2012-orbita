@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -30,22 +31,36 @@ public class Prototipo extends JFrame {
 	private boolean downPressed = false;
 	private String configPath = "config.txt";
 	private String imagePath;
+	private List<InimigoLinhaReta> listaInimigos;
+	private Random randomGenerator;
+	private BufferedImage imageTile = null;
+	private BufferedImage imageInimigo = null;
+	private BufferedImage imageNucleo = null;
+	
+	private Nucleo nucleo;
 
 
 	public Prototipo() {
+		this.randomGenerator = new Random();
 		this.setTitle("Game");
 		this.setSize(800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.addKeyListener(new InputHandler(this));
+		setListaInimigos(new ArrayList<InimigoLinhaReta>());
 		
-		BufferedImage imageTeste = null;
+		
+	
 		BufferedReader reader;
 		try {			
-			 reader = new  BufferedReader(new FileReader(new File("config.txt")));			
+			 reader = new  BufferedReader(new FileReader(new File(configPath)));			
 			imagePath = reader.readLine();
-			 imageTeste = ImageIO.read(new File(imagePath));
+			 imageTile = ImageIO.read(new File(imagePath));
+			 imagePath = reader.readLine();
+			 imageInimigo = ImageIO.read(new File(imagePath));
+			 imagePath = reader.readLine();
+			 imageNucleo = ImageIO.read(new File(imagePath));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,27 +70,21 @@ public class Prototipo extends JFrame {
 		}
 		
 		
+		this.nucleo = new Nucleo(400,300,imageNucleo,this);
 		
-		BufferedImage retangulo = new BufferedImage(25,50,BufferedImage.TYPE_INT_RGB);
-		this.anel = new Anel(20, new Point(400,300),0,imageTeste, 10,5);
+		this.anel = new Anel(20, nucleo,0,imageTile, 10,5);
+		
+		this.setListaInimigos(gerarInimigos(30));
+		
 		List<Boolean> tiles = new ArrayList<Boolean>();
 		tiles.add(false);
 		tiles.add(true);
 		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
 		tiles.add(false);
 		tiles.add(true);
 		tiles.add(true);
 		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
 		tiles.add(false);
-		tiles.add(true);
-		tiles.add(true);
 		tiles.add(true);
 		
 		this.anel.setTiles(tiles);
@@ -87,17 +96,58 @@ public class Prototipo extends JFrame {
 		canvas.createBufferStrategy(2);
 		this.strategy = canvas.getBufferStrategy();
 	}
+	
+	public InimigoLinhaReta gerarInimigo() {
+		int x = 0;
+		int y = 0;
+		int quadrante = randomGenerator.nextInt(3);
+		switch (quadrante) {
+			case 0:
+				x = randomGenerator.nextInt(50) - 50;
+				y = randomGenerator.nextInt(700) - 50;
+				break;
+			case 1:
+				x = randomGenerator.nextInt(800);
+				y = randomGenerator.nextInt(50) - 50;
+				break;
+			case 2:
+				x = randomGenerator.nextInt(50) + 800;
+				y = randomGenerator.nextInt(700) - 50;
+				break;
+			case 3:
+				x = randomGenerator.nextInt(800);
+				y = randomGenerator.nextInt(50) + 650;
+				break;
+		}
+		double speed = randomGenerator.nextDouble()  * 0.75 + 0.25;
+		InimigoLinhaReta inimigo = new InimigoLinhaReta(x, y, speed, this.imageInimigo, this);
+		return inimigo;
+	}
+	
+	public List<InimigoLinhaReta> gerarInimigos(int number) {
+		List<InimigoLinhaReta> resultado = new ArrayList<InimigoLinhaReta>();
+		for (int i = 0; i < number; i = i + 1) {
+			
+			InimigoLinhaReta inimigo = gerarInimigo();
+			resultado.add(inimigo);
+		}
+		return resultado;
+	}
 
-
+	
+	private double moduloVetor(int x, int y) {
+		return Math.sqrt((x * x) + (y * y));
+	}
 
 
 	public void start() {
-		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-
 		
-		g.setColor(Color.BLACK);
 
 		while (true) {
+			
+			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+			
+			
 			if (leftPressed) this.anel.setAngulo(anel.getAngulo() - anel.getSpeed());
 			if (rightPressed) this.anel.setAngulo(anel.getAngulo() + anel.getSpeed());
 			/*
@@ -106,10 +156,28 @@ public class Prototipo extends JFrame {
 			*/
 			if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
 			if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
-			g = (Graphics2D) strategy.getDrawGraphics();
+			
+			
 			g.setColor(Color.white);
 			g.fillRect(0, 0, getWidth(), getHeight());
+			
+			nucleo.paint(g);
+			
 			anel.paint(g, this);
+			
+			
+			if (this.listaInimigos != null & this.listaInimigos.size() > 0) {
+				for (InimigoLinhaReta inimigo : this.listaInimigos) {
+					double xVetor = nucleo.getX() - inimigo.getX();
+					double yVetor = nucleo.getY() - inimigo.getY();
+					double modulo = moduloVetor((int)xVetor,(int)yVetor);
+					inimigo.setX(inimigo.getX() + (xVetor / modulo * inimigo.getSpeed()));
+					inimigo.setY(inimigo.getY() + (yVetor / modulo * inimigo.getSpeed()));
+					inimigo.paint(g);
+				}
+			}
+			
+			
 			g.dispose();
 			strategy.show();
 
@@ -154,5 +222,19 @@ public class Prototipo extends JFrame {
 	    if(e.getKeyCode() == KeyEvent.VK_DOWN){
 	    	this.downPressed = false;
 	    }
+	}
+
+
+
+
+	public List<InimigoLinhaReta> getListaInimigos() {
+		return listaInimigos;
+	}
+
+
+
+
+	public void setListaInimigos(List<InimigoLinhaReta> listaInimigos) {
+		this.listaInimigos = listaInimigos;
 	}
 }

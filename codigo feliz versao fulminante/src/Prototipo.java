@@ -72,18 +72,13 @@ public class Prototipo extends JFrame {
 		
 		this.nucleo = new Nucleo(400,300,imageNucleo,this);
 		
-		this.anel = new Anel(20, nucleo,0,imageTile, 10,5);
+		this.anel = new Anel(250, nucleo,0,imageTile, 10,5);
 		
 		this.setListaInimigos(gerarInimigos(30));
 		
 		List<Boolean> tiles = new ArrayList<Boolean>();
-		tiles.add(false);
-		tiles.add(true);		
-		tiles.add(false);
+		
 		tiles.add(true);
-		tiles.add(false);
-		tiles.add(true);
-		tiles.add(false);
 		
 		this.anel.setTiles(tiles);
 

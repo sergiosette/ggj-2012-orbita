@@ -14,7 +14,7 @@ public class Anel {
 	private double angulo;
 	private double raio;
 	private BufferedImage image;
-	private Point centroRotacao;
+	private Nucleo nucleo;
 	private boolean debug = true;
 	private double speed;
 	private double tamanhoDoTile;
@@ -28,7 +28,7 @@ public class Anel {
 	public Anel(double raio,Nucleo nucleo, int angulo, BufferedImage image, double speed, double tamanhoDoTile) {
 		this.tiles = new ArrayList<Boolean>();
 		this.setRaio(raio);
-		this.centroRotacao = new Point(nucleo.getX(), nucleo.getY());
+		this.nucleo = nucleo;
 		this.speed = speed;
 		this.tamanhoDoTile = tamanhoDoTile;		
 		this.setAngulo(angulo);
@@ -36,19 +36,19 @@ public class Anel {
 	}
 	
 	public double getX() {
-		return this.getRaio() + this.centroRotacao.getX();		
+		return this.getRaio() + this.nucleo.getX();		
 	}
 	
 	public double getY() {
-		return this.centroRotacao.getY();		
+		return this.nucleo.getY();		
 	}
 	
 	
 	
 	public void paint(Graphics2D g, JFrame frame) {
 		 AffineTransform affineTransform = new AffineTransform();		 
-		 affineTransform.setToTranslation(getX() - (image.getWidth() / 2),getY() - (image.getHeight() / 2));
-		 affineTransform.rotate(Math.toRadians(getAngulo()), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
+		 affineTransform.setToTranslation(getX(),getY());
+		 affineTransform.rotate(Math.toRadians(getAngulo()), nucleo.getX() - getX(), nucleo.getY() - getY());
 		 g.setColor(Color.BLACK);
 
 		
@@ -57,11 +57,14 @@ public class Anel {
 		 
 		 for (Boolean tile : this.getTiles()) {			 
 			 if (tile) {
-				 g.drawImage(getImage(), affineTransform, frame);
-				 affineTransform.rotate(Math.toRadians(incrementoTile), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());				 
+				 AffineTransform affineTransform2 = new AffineTransform(affineTransform); 
+				 affineTransform2.translate(-(getImage().getWidth() / 2), -(getImage().getHeight() / 2));
+				 g.drawImage(getImage(), affineTransform2, frame);
+				 			 
+				 affineTransform.rotate(Math.toRadians(incrementoTile), nucleo.getX() - getX() , nucleo.getY() - getY());				 
 			 }
 			 else {
-				 affineTransform.rotate(Math.toRadians(incrementoVazio), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
+				 affineTransform.rotate(Math.toRadians(incrementoVazio), nucleo.getX() - getX() , nucleo.getY() - getY());
 			 }
 			 
 		 }
@@ -69,7 +72,7 @@ public class Anel {
 			 g.setColor(Color.RED);
 			 
 			 g.fillOval((int)getX(), (int)getY(), 5,5);
-			 //g.fillOval((int) getX(), (int)centroRotacao.getY() - (image.getHeight() / 2), 5,5);
+			 g.fillOval((int) getX(), (int)nucleo.getY() - (image.getHeight() / 2), 5,5);
 		 }
 	}
 	
@@ -98,12 +101,12 @@ public class Anel {
 	}
 
 	
-	public Point getCentroRotacao() {
-		return centroRotacao;
+	public Nucleo getCentroRotacao() {
+		return nucleo;
 	}
 
-	public void setCentroRotacao(Point centroRotacao) {
-		this.centroRotacao = centroRotacao;
+	public void setCentroRotacao(Nucleo nucleo) {
+		this.nucleo = nucleo;
 	}
 
 	public double getSpeed() {

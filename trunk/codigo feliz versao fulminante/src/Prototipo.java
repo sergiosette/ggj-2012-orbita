@@ -18,6 +18,11 @@ public class Prototipo extends JFrame {
 	private Canvas canvas;
 	private BufferStrategy strategy;
 	private Anel anel;
+	
+	private boolean leftPressed = false;;
+	private boolean rightPressed = false;;
+	private boolean upPressed = false;;
+	private boolean downPressed = false;
 
 
 	public Prototipo() {
@@ -76,6 +81,10 @@ public class Prototipo extends JFrame {
 		g.setColor(Color.BLACK);
 
 		while (true) {
+			if (leftPressed) this.anel.setAngulo(anel.getAngulo() - anel.getSpeed());
+			if (rightPressed) this.anel.setAngulo(anel.getAngulo() + anel.getSpeed());
+			if (upPressed) this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() + 5),(int)Math.round(anel.getPosicao().getY())));
+			if (downPressed) this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() - 5),(int)Math.round(anel.getPosicao().getY())));
 			g = (Graphics2D) strategy.getDrawGraphics();
 			g.setColor(Color.white);
 			g.fillRect(0, 0, getWidth(), getHeight());
@@ -97,23 +106,32 @@ public class Prototipo extends JFrame {
 	
 	public void keyPressed(KeyEvent e) {
 	    if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-	        this.anel.setAngulo(anel.getAngulo() - anel.getSpeed());
+	    	this.leftPressed = true;	        
 	    }
 	    if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-	    	this.anel.setAngulo(anel.getAngulo() + anel.getSpeed());
+	    	this.rightPressed = true;
 	    }
 	    if(e.getKeyCode() == KeyEvent.VK_UP) {
-	    	this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() + 5),(int)Math.round(anel.getPosicao().getY())));
+	    	this.upPressed = true;
+	    	
 	    }
 	    if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-	    	this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() - 5),(int)Math.round(anel.getPosicao().getY())));
+	    	this.downPressed = true;
 	    }
 	}
 
 	public void keyReleased(KeyEvent e) {
 	    if(e.getKeyCode() == KeyEvent.VK_LEFT){
+	    	this.leftPressed = false;
 	    }
 	    if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+	    	this.rightPressed = false;
+	    }
+	    if(e.getKeyCode() == KeyEvent.VK_UP){
+	    	this.upPressed = false;
+	    }
+	    if(e.getKeyCode() == KeyEvent.VK_DOWN){
+	    	this.downPressed = false;
 	    }
 	}
 }

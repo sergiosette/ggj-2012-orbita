@@ -73,11 +73,11 @@ public class Prototipo extends JFrame {
 		this.nucleo = new Nucleo(400,300,imageNucleo,this);
 		
 		this.anel = new Anel(250, nucleo,0,imageTile, 10,5);
+
 		
 		this.setListaInimigos(gerarInimigos(30));
 		
 		List<Boolean> tiles = new ArrayList<Boolean>();
-		
 		tiles.add(false);
 		tiles.add(true);
 		tiles.add(true);
@@ -166,7 +166,7 @@ public class Prototipo extends JFrame {
 			nucleo.paint(g);
 			
 			anel.paint(g, this);
-			
+			anel.desenharBBs(g);
 			
 			if (this.listaInimigos != null & this.listaInimigos.size() > 0) {
 				for (InimigoLinhaReta inimigo : this.listaInimigos) {
@@ -182,7 +182,7 @@ public class Prototipo extends JFrame {
 			
 			
 			g.dispose();
-			this.revalidate();
+			this.validate();
 			
 
 			try { Thread.sleep(10); } catch (Exception e) {

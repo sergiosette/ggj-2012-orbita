@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -41,11 +42,13 @@ public class Anel {
 	
 	public double getY() {
 		return this.nucleo.getY();		
+
 	}
 	
 	
 	
 	public void paint(Graphics2D g, JFrame frame) {
+		
 		 AffineTransform affineTransform = new AffineTransform();		 
 		 affineTransform.setToTranslation(getX(),getY());
 		 affineTransform.rotate(Math.toRadians(getAngulo()), nucleo.getX() - getX(), nucleo.getY() - getY());
@@ -55,8 +58,10 @@ public class Anel {
 		 double incrementoTile = (360 * (image.getWidth() / (Math.PI * 2 * Math.abs(getRaio()))));
 		 double incrementoVazio = anguloDoVazio();
 		 
+
 		 for (Boolean tile : this.getTiles()) {			 
 			 if (tile) {
+
 				 AffineTransform affineTransform2 = new AffineTransform(affineTransform); 
 				 affineTransform2.translate(-(getImage().getWidth() / 2), -(getImage().getHeight() / 2));
 				 g.drawImage(getImage(), affineTransform2, frame);
@@ -74,6 +79,52 @@ public class Anel {
 			 g.fillOval((int)getX(), (int)getY(), 5,5);
 			 g.fillOval((int) getX(), (int)nucleo.getY() - (image.getHeight() / 2), 5,5);
 		 }
+	}
+	
+	private void rotate (Point vector, double angle)
+	{
+		double a = Math.toRadians(angle) ;
+		double s = Math.sin(a);
+		double c = Math.cos(a);
+		double ox = vector.x;
+		double oy = vector.y;
+		//rotacionar o vetor direção
+		vector.x = (int) (ox*c + oy*(-s));
+		vector.y = (int) (ox*s + oy*c);
+		//normalizar o vetor direção
+		//normalize (x, y);
+	}
+
+	
+	public void desenharBBs(Graphics2D g)
+	{
+		g.setColor(Color.RED);
+		
+		double incrementoTile = (360 * (image.getWidth() / (Math.PI * 2 * Math.abs(getRaio()))));
+		double incrementoVazio = anguloDoVazio();
+		 
+		int centrox = (int)nucleo.getX();
+		int centroy = (int)nucleo.getY();
+		
+		int bbinicialx = (int)getX();//(int) centrox;//  (int) getRaio();
+		int bbinicialy = (int)getY();//(int) centroy - (int)getRaio();
+		
+		int vetorCentroX = bbinicialx - centrox;
+		int vetorCentroY = bbinicialy - centroy;
+		
+		Point vetor = new Point(vetorCentroX, vetorCentroY);
+		rotate(vetor, getAngulo());
+		int raiocolisao = (Math.max(getImage().getWidth(), getImage().getHeight()))/2;
+		for (int i = 0; i < tiles.size(); i++)
+		{
+			if (tiles.get(i))
+			{
+				g.drawOval(centrox+vetor.x - raiocolisao, centroy+vetor.y - raiocolisao, raiocolisao*2, raiocolisao*2);
+				rotate (vetor, incrementoTile);
+			} else {
+				rotate(vetor, incrementoVazio);
+			}
+		}
 	}
 	
 	private double anguloDoVazio() {

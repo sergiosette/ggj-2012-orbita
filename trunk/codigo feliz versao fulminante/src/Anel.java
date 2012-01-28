@@ -25,10 +25,10 @@ public class Anel {
 	
 	
 	
-	public Anel(double raio,Point centroRotacao, int angulo, BufferedImage image, double speed, double tamanhoDoTile) {
+	public Anel(double raio,Nucleo nucleo, int angulo, BufferedImage image, double speed, double tamanhoDoTile) {
 		this.tiles = new ArrayList<Boolean>();
 		this.setRaio(raio);
-		this.centroRotacao = centroRotacao;
+		this.centroRotacao = new Point(nucleo.getX(), nucleo.getY());
 		this.speed = speed;
 		this.tamanhoDoTile = tamanhoDoTile;		
 		this.setAngulo(angulo);
@@ -47,7 +47,7 @@ public class Anel {
 	
 	public void paint(Graphics2D g, JFrame frame) {
 		 AffineTransform affineTransform = new AffineTransform();		 
-		 affineTransform.setToTranslation(getX() - (image.getWidth() / 2),getY()- (image.getHeight() / 2));
+		 affineTransform.setToTranslation(getX(),getY());
 		 affineTransform.rotate(Math.toRadians(getAngulo()), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
 		 g.setColor(Color.BLACK);
 
@@ -69,13 +69,12 @@ public class Anel {
 			 g.setColor(Color.RED);
 			 
 			 g.fillOval((int)getX(), (int)getY(), 5,5);
-			 g.fillOval((int) Math.round(centroRotacao.getX() - (image.getWidth() / 2)), Math.round((int)centroRotacao.getY() - (image.getHeight() / 2)), 5,5);
+			 g.fillOval((int) getX(), (int)centroRotacao.getY() - (image.getHeight() / 2), 5,5);
 		 }
-         g.dispose();
 	}
 	
 	private double anguloDoVazio() {
-		double porcentagemNaoOcupada = (1 - (image.getWidth() * this.countCheio / (Math.PI * 2 * Math.abs(raio))));
+		double porcentagemNaoOcupada = (1 - (image.getHeight() * this.countCheio / (Math.PI * 2 * Math.abs(raio))));
 		double resultado = 360 * porcentagemNaoOcupada / countEspaco;
 		return resultado;
 	}

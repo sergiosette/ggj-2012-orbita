@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 
 public class Anel {
 	
-	private Point posicao;
 	private double angulo;
+	private double raio;
 	private BufferedImage image;
 	private Point centroRotacao;
 	private boolean debug = true;
@@ -20,11 +20,14 @@ public class Anel {
 	private double tamanhoDoTile;
 	private List<Boolean> tiles;
 	
+	private int countEspaco;
+	private int countCheio;
 	
 	
-	public Anel(Point posicao, Point centroRotacao, int angulo, BufferedImage image, double speed, double tamanhoDoTile) {
+	
+	public Anel(double raio,Point centroRotacao, int angulo, BufferedImage image, double speed, double tamanhoDoTile) {
 		this.tiles = new ArrayList<Boolean>();
-		this.setPosicao(posicao);
+		this.setRaio(raio);
 		this.centroRotacao = centroRotacao;
 		this.speed = speed;
 		this.tamanhoDoTile = tamanhoDoTile;		
@@ -32,28 +35,51 @@ public class Anel {
 		this.setImage(image);
 	}
 	
+	public double getX() {
+		return this.getRaio() + this.centroRotacao.getX() - (image.getWidth() / 2);		
+	}
+	
+	public double getY() {
+		return this.centroRotacao.getY() - (image.getHeight() / 2);		
+	}
+	
+	
+	
 	public void paint(Graphics2D g, JFrame frame) {
 		 AffineTransform affineTransform = new AffineTransform();		 
-		 affineTransform.setToTranslation(posicao.getX() - (image.getWidth() / 2),posicao.getY()- (image.getHeight() / 2));
-		 affineTransform.rotate(Math.toRadians(getAngulo()), centroRotacao.getX() - posicao.getX(), centroRotacao.getY() - posicao.getY());
+		 affineTransform.setToTranslation(getX() - (image.getWidth() / 2),getY()- (image.getHeight() / 2));
+		 affineTransform.rotate(Math.toRadians(getAngulo()), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
 		 g.setColor(Color.BLACK);
 
 		
-		 double incr = 0;
-		 for (Boolean tile : this.getTiles()) {
-			 affineTransform.rotate(Math.toRadians(incr), centroRotacao.getX() - posicao.getX(), centroRotacao.getY() - posicao.getY());
+		 double incrementoTile = (360 * (image.getWidth() / (Math.PI * 2 * Math.abs(getRaio()))));
+		 double incrementoVazio = anguloDoVazio();
+		 System.out.println("Tile: " + incrementoTile);
+		 System.out.println("Vazio: " + incrementoVazio);
+		 
+		 for (Boolean tile : this.getTiles()) {			 
 			 if (tile) {
+				 affineTransform.rotate(Math.toRadians(incrementoTile), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
 				 g.drawImage(getImage(), affineTransform, frame);
 			 }
-			 incr = 15;
+			 else {
+				 affineTransform.rotate(Math.toRadians(incrementoVazio), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
+			 }
+			 
 		 }
 		 if (debug) {
 			 g.setColor(Color.RED);
 			 
-			 g.fillOval((int)posicao.getX(), (int)posicao.getY(), 5,5);
+			 g.fillOval((int)getX(), (int)getY(), 5,5);
 			 g.fillOval((int) Math.round(centroRotacao.getX() - (image.getWidth() / 2)), Math.round((int)centroRotacao.getY() - (image.getHeight() / 2)), 5,5);
 		 }
          g.dispose();
+	}
+	
+	private double anguloDoVazio() {
+		double porcentagemNaoOcupada = (1 - (image.getWidth() * this.countCheio / (Math.PI * 2 * Math.abs(raio))));
+		double resultado = 360 * porcentagemNaoOcupada / countEspaco;
+		return resultado;
 	}
 
 	
@@ -74,14 +100,7 @@ public class Anel {
 		this.image = image;
 	}
 
-	public Point getPosicao() {
-		return posicao;
-	}
-
-	public void setPosicao(Point posicao) {
-		this.posicao = posicao;
-	}
-
+	
 	public Point getCentroRotacao() {
 		return centroRotacao;
 	}
@@ -111,7 +130,23 @@ public class Anel {
 	}
 
 	public void setTiles(List<Boolean> tiles) {
-		this.tiles = tiles;
+		this.tiles = tiles;		
+		for (Boolean b : tiles) {
+			if (b) {
+				this.countCheio++;
+			}
+			else {
+				this.countEspaco++;
+			}
+		}
+	}
+
+	public double getRaio() {
+		return raio;
+	}
+
+	public void setRaio(double raio) {
+		this.raio = raio;
 	}
 
 }

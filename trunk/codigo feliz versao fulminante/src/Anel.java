@@ -36,18 +36,18 @@ public class Anel {
 	}
 	
 	public double getX() {
-		return this.getRaio() + this.centroRotacao.getX() - (image.getWidth() / 2);		
+		return this.getRaio() + this.centroRotacao.getX();		
 	}
 	
 	public double getY() {
-		return this.centroRotacao.getY() - (image.getHeight() / 2);		
+		return this.centroRotacao.getY();		
 	}
 	
 	
 	
 	public void paint(Graphics2D g, JFrame frame) {
 		 AffineTransform affineTransform = new AffineTransform();		 
-		 affineTransform.setToTranslation(getX(),getY());
+		 affineTransform.setToTranslation(getX() - (image.getWidth() / 2),getY() - (image.getHeight() / 2));
 		 affineTransform.rotate(Math.toRadians(getAngulo()), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
 		 g.setColor(Color.BLACK);
 
@@ -57,8 +57,8 @@ public class Anel {
 		 
 		 for (Boolean tile : this.getTiles()) {			 
 			 if (tile) {
-				 affineTransform.rotate(Math.toRadians(incrementoTile), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
 				 g.drawImage(getImage(), affineTransform, frame);
+				 affineTransform.rotate(Math.toRadians(incrementoTile), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());				 
 			 }
 			 else {
 				 affineTransform.rotate(Math.toRadians(incrementoVazio), centroRotacao.getX() - getX(), centroRotacao.getY() - getY());
@@ -69,7 +69,7 @@ public class Anel {
 			 g.setColor(Color.RED);
 			 
 			 g.fillOval((int)getX(), (int)getY(), 5,5);
-			 g.fillOval((int) getX(), (int)centroRotacao.getY() - (image.getHeight() / 2), 5,5);
+			 //g.fillOval((int) getX(), (int)centroRotacao.getY() - (image.getHeight() / 2), 5,5);
 		 }
 	}
 	

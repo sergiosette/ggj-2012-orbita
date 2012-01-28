@@ -78,21 +78,19 @@ public class Prototipo extends JFrame {
 		
 		List<Boolean> tiles = new ArrayList<Boolean>();
 		tiles.add(false);
-		tiles.add(true);
+		tiles.add(true);		
+		tiles.add(false);
 		tiles.add(true);
 		tiles.add(false);
 		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
 		tiles.add(false);
-		tiles.add(true);
 		
 		this.anel.setTiles(tiles);
 
 
-		Canvas canvas = new Canvas();
+		canvas = new Canvas();
 		this.getContentPane().add(canvas);
-		canvas.setIgnoreRepaint(true);
+		//canvas.setIgnoreRepaint(true);
 		canvas.createBufferStrategy(2);
 		this.strategy = canvas.getBufferStrategy();
 	}
@@ -176,10 +174,12 @@ public class Prototipo extends JFrame {
 					inimigo.paint(g);
 				}
 			}
+			strategy.show();
 			
 			
 			g.dispose();
-			strategy.show();
+			this.revalidate();
+			
 
 			try { Thread.sleep(10); } catch (Exception e) {
 				e.printStackTrace();

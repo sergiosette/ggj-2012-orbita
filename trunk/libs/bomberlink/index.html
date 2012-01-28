@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Bomberlink Prototype</title>
+		<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="load.js"></script>
+		<script type="text/javascript" src="game.js"></script>
+		<script type="text/javascript" src="sprite.js"></script>
+		
+		<script type="text/javascript" src="bomberlink.js"></script>
+		<script type="text/javascript" src="link.js"></script>
+		<link href="bomberlink.css" media="screen" rel="stylesheet" type="text/css"/>
+	</head>
+
+	<body>
+		<div id="media">
+			<img id="greenlink" src="images/greenlink.png"/>
+		</div>
+		
+		<div id="loading"></div>
+		
+		<canvas id="bomberlink" width="640" height="480"></canvas>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#media img').waitForLoad(function() {
+					$('#loading').hide();
+					
+					var bomberlink = new Bomberlink('bomberlink');
+					bomberlink.start();
+				});
+			});
+
+		</script>
+	</body>
+
+</html>

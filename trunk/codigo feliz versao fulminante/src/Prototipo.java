@@ -33,8 +33,8 @@ public class Prototipo extends JFrame {
 		this.setVisible(true);
 		this.addKeyListener(new InputHandler(this));
 		
-		BufferedImage retangulo = new BufferedImage(50,50,BufferedImage.TYPE_INT_RGB);
-		this.anel = new Anel(new Point(100,300), new Point(400,300),0,retangulo, 10,5);
+		BufferedImage retangulo = new BufferedImage(25,50,BufferedImage.TYPE_INT_RGB);
+		this.anel = new Anel(50, new Point(400,300),0,retangulo, 10,5);
 		List<Boolean> tiles = new ArrayList<Boolean>();
 		tiles.add(true);
 		tiles.add(true);		
@@ -44,23 +44,7 @@ public class Prototipo extends JFrame {
 		tiles.add(false);
 		tiles.add(false);		
 		tiles.add(true);
-		tiles.add(true);
-		tiles.add(false);
-		tiles.add(false);
-		tiles.add(false);		
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
 		tiles.add(true);		
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(false);
-		tiles.add(false);
-		tiles.add(false);		
-		tiles.add(true);
-		tiles.add(true);		
-		tiles.add(true);
-		tiles.add(true);
 		this.anel.setTiles(tiles);
 
 
@@ -83,8 +67,12 @@ public class Prototipo extends JFrame {
 		while (true) {
 			if (leftPressed) this.anel.setAngulo(anel.getAngulo() - anel.getSpeed());
 			if (rightPressed) this.anel.setAngulo(anel.getAngulo() + anel.getSpeed());
+			/*
 			if (upPressed) this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() + 5),(int)Math.round(anel.getPosicao().getY())));
 			if (downPressed) this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() - 5),(int)Math.round(anel.getPosicao().getY())));
+			*/
+			if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
+			if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
 			g = (Graphics2D) strategy.getDrawGraphics();
 			g.setColor(Color.white);
 			g.fillRect(0, 0, getWidth(), getHeight());

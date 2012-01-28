@@ -79,6 +79,8 @@ public class Anel {
 			 g.fillOval((int)getX(), (int)getY(), 5,5);
 			 g.fillOval((int) getX(), (int)nucleo.getY() - (image.getHeight() / 2), 5,5);
 		 }
+		 
+         //g.dispose();
 	}
 	
 	private void rotate (Point vector, double angle)

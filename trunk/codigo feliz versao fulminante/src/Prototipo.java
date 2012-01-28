@@ -29,6 +29,12 @@ public class Prototipo extends JFrame {
 	private boolean rightPressed = false;;
 	private boolean upPressed = false;;
 	private boolean downPressed = false;
+	
+	private Configuracao config = null;
+	
+	private long pontos = 0;
+	private List<Boolean> tiles = null;
+	
 	private String configPath = "config.txt";
 	private String imagePath;
 	private List<InimigoLinhaReta> listaInimigos;
@@ -38,9 +44,13 @@ public class Prototipo extends JFrame {
 	private BufferedImage imageNucleo = null;
 	
 	private Nucleo nucleo;
-
-
+	
+	
 	public Prototipo() {
+		
+		this.config = new Configuracao();
+		this.config.carregar();
+		
 		this.randomGenerator = new Random();
 		this.setTitle("Game");
 		this.setSize(800, 600);
@@ -50,17 +60,11 @@ public class Prototipo extends JFrame {
 		this.addKeyListener(new InputHandler(this));
 		setListaInimigos(new ArrayList<InimigoLinhaReta>());
 		
-		
-	
-		BufferedReader reader;
-		try {			
-			 reader = new  BufferedReader(new FileReader(new File(configPath)));			
-			imagePath = reader.readLine();
-			 imageTile = ImageIO.read(new File(imagePath));
-			 imagePath = reader.readLine();
-			 imageInimigo = ImageIO.read(new File(imagePath));
-			 imagePath = reader.readLine();
-			 imageNucleo = ImageIO.read(new File(imagePath));
+		try {
+			this.imageTile = ImageIO.read(new File(this.config.getTile()));
+			this.imageInimigo = ImageIO.read(new File(this.config.getInimigo()));
+			//this.imageBackground = ImageIO.read(new File(this.config.getBackground()));
+			this.imageNucleo = ImageIO.read(new File(this.config.getNucleo()));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,29 +73,14 @@ public class Prototipo extends JFrame {
 			e.printStackTrace();
 		}
 		
+		this.nucleo = new Nucleo(400,300,this.imageNucleo,this);
 		
-		this.nucleo = new Nucleo(400,300,imageNucleo,this);
-		
-		this.anel = new Anel(250, nucleo,0,imageTile, 10,5);
-
+		this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.getHeight());
+		this.tiles = getRandomTiles();
 		
 		this.setListaInimigos(gerarInimigos(30));
 		
-		List<Boolean> tiles = new ArrayList<Boolean>();
-		tiles.add(false);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(true);
-		tiles.add(false);
-		
-		this.anel.setTiles(tiles);
-
-
+		this.anel.setTiles(this.tiles);
 		canvas = new Canvas();
 		this.getContentPane().add(canvas);
 		//canvas.setIgnoreRepaint(true);
@@ -163,10 +152,20 @@ public class Prototipo extends JFrame {
 			g.setColor(Color.white);
 			g.fillRect(0, 0, getWidth(), getHeight());
 			
+			String pontuacao = "Pontuação: ";
+			if (pontos > 8000) {
+				pontuacao = pontuacao+String.valueOf(pontos);
+			} else {
+				pontuacao = pontuacao+"mais de 8000!!";
+			}
+			
 			nucleo.paint(g);
 			
 			anel.paint(g, this);
 			anel.desenharBBs(g);
+			
+			g.setColor(Color.BLACK);
+			g.drawChars(pontuacao.toCharArray(), 0, pontuacao.length(), 600, 500);
 			
 			if (this.listaInimigos != null & this.listaInimigos.size() > 0) {
 				for (InimigoLinhaReta inimigo : this.listaInimigos) {
@@ -180,10 +179,10 @@ public class Prototipo extends JFrame {
 			}
 			strategy.show();
 			
-			
 			g.dispose();
-			this.validate();
 			
+			this.validate();
+			//strategy.show();
 
 			try { Thread.sleep(10); } catch (Exception e) {
 				e.printStackTrace();
@@ -195,7 +194,6 @@ public class Prototipo extends JFrame {
 		Prototipo game = new Prototipo();
 		game.start();
 	}
-	
 	
 	public void keyPressed(KeyEvent e) {
 	    if(e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -227,18 +225,34 @@ public class Prototipo extends JFrame {
 	    	this.downPressed = false;
 	    }
 	}
-
-
-
-
+	
+	public ArrayList<Boolean> getRandomTiles() {
+		double circulo = 2 * Math.PI * this.anel.getRaio();
+		int quantidade = (int)( circulo / this.imageTile.getWidth() );
+		ArrayList<Boolean> tiles = new ArrayList<Boolean>(quantidade);
+		Random random = new Random(quantidade);
+		//tiles.add(false);
+		for (int i = 0; i < quantidade; i++) {
+			if (random.nextInt(10) > -1) {
+				tiles.add(true);
+			} else {
+				tiles.add(false);
+			}
+		}
+		//tiles.add(false);
+		return tiles;
+	}
+	
+	public void draw() {
+		
+	}
+	
 	public List<InimigoLinhaReta> getListaInimigos() {
 		return listaInimigos;
 	}
-
-
-
-
+	
 	public void setListaInimigos(List<InimigoLinhaReta> listaInimigos) {
 		this.listaInimigos = listaInimigos;
 	}
+	
 }

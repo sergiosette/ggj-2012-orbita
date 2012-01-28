@@ -54,8 +54,6 @@ public class Anel {
 		
 		 double incrementoTile = (360 * (image.getWidth() / (Math.PI * 2 * Math.abs(getRaio()))));
 		 double incrementoVazio = anguloDoVazio();
-		 System.out.println("Tile: " + incrementoTile);
-		 System.out.println("Vazio: " + incrementoVazio);
 		 
 		 for (Boolean tile : this.getTiles()) {			 
 			 if (tile) {

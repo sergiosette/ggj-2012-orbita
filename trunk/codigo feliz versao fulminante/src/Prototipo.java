@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
@@ -23,6 +28,8 @@ public class Prototipo extends JFrame {
 	private boolean rightPressed = false;;
 	private boolean upPressed = false;;
 	private boolean downPressed = false;
+	private String configPath = "config.txt";
+	private String imagePath;
 
 
 	public Prototipo() {
@@ -33,18 +40,44 @@ public class Prototipo extends JFrame {
 		this.setVisible(true);
 		this.addKeyListener(new InputHandler(this));
 		
+		BufferedImage imageTeste = null;
+		BufferedReader reader;
+		try {			
+			 reader = new  BufferedReader(new FileReader(new File("config.txt")));			
+			imagePath = reader.readLine();
+			 imageTeste = ImageIO.read(new File(imagePath));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		BufferedImage retangulo = new BufferedImage(25,50,BufferedImage.TYPE_INT_RGB);
-		this.anel = new Anel(50, new Point(400,300),0,retangulo, 10,5);
+		this.anel = new Anel(20, new Point(400,300),0,imageTeste, 10,5);
 		List<Boolean> tiles = new ArrayList<Boolean>();
+		tiles.add(false);
 		tiles.add(true);
-		tiles.add(true);		
+		tiles.add(true);
 		tiles.add(true);
 		tiles.add(true);
 		tiles.add(false);
-		tiles.add(false);
-		tiles.add(false);		
 		tiles.add(true);
-		tiles.add(true);		
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(false);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		
 		this.anel.setTiles(tiles);
 
 

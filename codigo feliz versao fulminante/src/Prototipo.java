@@ -78,7 +78,16 @@ public class Prototipo extends JFrame {
 		
 		List<Boolean> tiles = new ArrayList<Boolean>();
 		
+		tiles.add(false);
 		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(true);
+		tiles.add(false);
 		
 		this.anel.setTiles(tiles);
 

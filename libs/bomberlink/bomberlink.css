@@ -1,0 +1,8 @@
+html, body { height: 100%; width: 100% }
+body { background: #666; margin: 0 }
+
+#media { position: absolute; top: -9999px }
+
+#loading { background: url('images/loading.gif'); height: 100px; left: 50%; position: absolute; top: 50%; margin: -50px 0 0 -50px; width: 100px }
+
+#bomberlink { box-shadow: 0 0 10px rgba(0, 0, 0, 0.75); display: none; height: 100%; margin: 0 auto; image-rendering: -moz-crisp-edges; image-rendering: -webkit-optimize-contrast }

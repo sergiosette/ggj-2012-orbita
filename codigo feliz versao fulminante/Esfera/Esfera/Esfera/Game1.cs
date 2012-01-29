@@ -18,7 +18,7 @@ namespace Esfera
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        static Configuracao config;
+        private Configuracao config = null;
 
         public static int WIDTH = 800;
         public static int HEIGHT = 600;
@@ -28,7 +28,8 @@ namespace Esfera
         private bool rightPressed = false;
         private bool upPressed = false;
         private bool downPressed = false;
-
+    
+        private int fpsCounter = 30;
         private bool gameOver = false;
         private long pontos = 0;
         private int combo = 0;
@@ -45,6 +46,11 @@ namespace Esfera
         private Nucleo nucleo;
 
         SpriteFont Font1;
+
+        private int backgroundDeslocamentoX = 0;
+        private int backgroundDeslocamentoY = 0;
+        private int backgroundYSpeed = 0;
+        private int backgroundXSpeed = 0;
 
         public InimigoLinhaReta gerarInimigo()
         {
@@ -316,6 +322,7 @@ namespace Esfera
             imageNucleo = this.Content.Load<Texture2D>("nucleo");
             imageTile = this.Content.Load<Texture2D>("objeto2");
             imageBackground = this.Content.Load<Texture2D>("shen_long_by_momovega-d3bd4fu");
+            //fpsCounter = int.Parse(this.config.getFPS());
             Font1 = Content.Load<SpriteFont>(@"Arial");
 
 
@@ -357,7 +364,17 @@ namespace Esfera
 
             if (this.verificarGameOver())
                 return;
+
+            //if ( != 0)
+
             if (randomGenerator.Next(20) < 1) gerarInimigos(1);
+
+            int numeroGerado = randomGenerator.Next(100);
+            if ((this.backgroundXSpeed == 0 && this.backgroundYSpeed == 0) || numeroGerado < 1)
+            {
+                this.backgroundXSpeed = randomGenerator.Next(2) - 1;
+                this.backgroundYSpeed = randomGenerator.Next(2) - 1;
+            }
 
             checkInput();
 
@@ -369,8 +386,21 @@ namespace Esfera
 
             checarColisao();
 
+            if (this.backgroundDeslocamentoX + this.backgroundXSpeed > 0 ||
+                    this.backgroundDeslocamentoX + this.backgroundXSpeed < -400)
+            {
+                this.backgroundXSpeed = this.backgroundXSpeed * -1;
+            }
+            if (this.backgroundDeslocamentoY + this.backgroundYSpeed > 0 ||
+                    this.backgroundDeslocamentoY + this.backgroundYSpeed < -200)
+            {
+                this.backgroundYSpeed = this.backgroundYSpeed * -1;
+            }
+            this.backgroundDeslocamentoX = this.backgroundDeslocamentoX + backgroundXSpeed;
+            this.backgroundDeslocamentoY = this.backgroundDeslocamentoY + backgroundYSpeed;
+
             Agendador.Update(gameTime);
-            
+
             if (this.listaInimigos != null & this.listaInimigos.Count > 0)
             {
                 foreach (InimigoLinhaReta inimigo in this.listaInimigos)
@@ -398,7 +428,7 @@ namespace Esfera
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(this.imageBackground, new Rectangle(0, 0, 800, 600), Color.White);
+            spriteBatch.Draw(this.imageBackground, new Rectangle(backgroundDeslocamentoX, backgroundDeslocamentoY, 1200, 800), Color.White);
             nucleo.paint(spriteBatch);
 
             if (this.listaInimigos != null && this.listaInimigos.Count > 0)

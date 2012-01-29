@@ -24,7 +24,7 @@ public class InimigoLinhaReta {
 	public void paint(SpriteBatch sb) {
 		// SE TIVER ERRO O ERRO É AQUI E A CULPA É DE FAGNER
 		//g.drawImage(getImage(), (int)getX() - (getImage().Width / 2), (int) getY()- (getImage().Height / 2), getImage().Width, getImage().Height,prototipo);
-		sb.Draw(image, new Vector2((float)getX(),(float)getY()), Color.White);
+		sb.Draw(image, new Vector2((int)getX() - (getImage().Width / 2), (int)getY() - (getImage().Height / 2)), Color.White);
 
 		//FFFFFFUUUUUUUUUUUUUUUUUUUUU
 		//g.drawRect((int) this.getX()- (getImage().Width / 2), (int) this.getY()- (getImage().Height / 2),  getImage().Width, getImage().Height);

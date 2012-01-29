@@ -47,7 +47,7 @@ class Anel {
 	
 	
 	
-	public void paint(SpriteBatch g) {
+	public void paint(SpriteBatch sb) {
 		
          //AffineTransform affineTransform = new AffineTransform();		 
          //affineTransform.setToTranslation(getX(),getY());
@@ -59,20 +59,21 @@ class Anel {
          //double incrementoVazio = anguloDoVazio();
 		 
 
-         //for (Boolean tile : this.getTiles()) {			 
-         //    if (tile) {
+         foreach (Boolean tile in getTiles()) {			 
+             if (tile) {
 
-         //        AffineTransform affineTransform2 = new AffineTransform(affineTransform); 
-         //        affineTransform2.translate(-(getImage().getWidth() / 2), -(getImage().getHeight() / 2));
-         //        g.drawImage(getImage(), affineTransform2, frame);
-				 			 
-         //        affineTransform.rotate(Math.toRadians(incrementoTile), nucleo.getX() - getX() , nucleo.getY() - getY());				 
-         //    }
-         //    else {
-         //        affineTransform.rotate(Math.toRadians(incrementoVazio), nucleo.getX() - getX() , nucleo.getY() - getY());
-         //    }
+                 //AffineTransform affineTransform2 = new AffineTransform(affineTransform); 
+                 //affineTransform2.translate(-(getImage().getWidth() / 2), -(getImage().getHeight() / 2));
+                 //sb.drawImage(getImage(), affineTransform2, frame);
+				 sb.Draw(this.image, new Vector2((int)getX() - (getImage().Width / 2), (int)getY() - (getImage().Height/ 2)), Color.White);
 			 
-         //}
+                 //affineTransform.rotate(Math.toRadians(incrementoTile), nucleo.getX() - getX() , nucleo.getY() - getY());				 
+             }
+             else {
+                 //affineTransform.rotate(Math.toRadians(incrementoVazio), nucleo.getX() - getX() , nucleo.getY() - getY());
+             }
+			 
+         }
          //if (debug) {
          //    g.setColor(Color.RED);
 			 

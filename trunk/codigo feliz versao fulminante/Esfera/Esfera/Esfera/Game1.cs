@@ -8,13 +8,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace Esfera
 {
@@ -186,6 +179,7 @@ namespace Esfera
         public void update(SpriteBatch sb)
         {
             //Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
+            checkInput();
 
             if (leftPressed) this.anel.setAngulo(anel.getAngulo() - anel.getSpeed());
             if (rightPressed) this.anel.setAngulo(anel.getAngulo() + anel.getSpeed());
@@ -219,7 +213,7 @@ namespace Esfera
                 }
             }
 
-            String pontuacao = "Pontuação: ";
+            String pontuacao = "SCORE: ";
             if (pontos > 8000)
             {
                 pontuacao = pontuacao + "mais de 8000!!";
@@ -229,7 +223,7 @@ namespace Esfera
                 pontuacao = pontuacao + pontos;
             }
 
-            SpriteFont Font1 = Content.Load<SpriteFont>("Courier New");
+            SpriteFont Font1 = Content.Load<SpriteFont>(@"Arial");
 
             // TODO: Load your game content here            
             Vector2 FontPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
@@ -314,19 +308,7 @@ namespace Esfera
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            config = new Configuracao();
-            config.carregar();
-
-            this.nucleo = new Nucleo(400,300,this.imageNucleo);
-
-            this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
-            this.tiles = getRandomTiles();
-
-            this.setListaInimigos(gerarInimigos(30));
-
-            this.anel.setTiles(this.tiles);
-
-        }
+       }
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -341,32 +323,38 @@ namespace Esfera
             base.Initialize();
         }
 
-        Texture2D textureInimigo;
-        Texture2D textureCentro;
-        Texture2D textureObjeto; 
-
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
         {
-            config = new Configuracao();
-            config.carregar();
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
             graphics.ApplyChanges();
             
             
             this.Window.Title = "Game";
-            
-            
-            textureInimigo = 
-                this.Content.Load<Texture2D>("inimigo");
-            textureCentro = this.Content.Load<Texture2D>("nucleo");
-            textureObjeto = this.Content.Load<Texture2D>("objeto");
 
+            config = new Configuracao();
+            config.carregar();
+
+            randomGenerator = new Random();
+
+            imageInimigo = 
+                this.Content.Load<Texture2D>("inimigo");
+            imageNucleo = this.Content.Load<Texture2D>("nucleo");
+            imageTile = this.Content.Load<Texture2D>("objeto");
+
+            
+            this.nucleo = new Nucleo(400, 300, this.imageNucleo);
+
+            this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
+            this.tiles = getRandomTiles();
+
+            this.setListaInimigos(gerarInimigos(30));
+
+            this.anel.setTiles(this.tiles);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
         
@@ -408,7 +396,8 @@ namespace Esfera
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(textureCentro, new Vector2(400, 300), Color.White);
+            update(spriteBatch);
+            draw();
             spriteBatch.End();
 
             base.Draw(gameTime);

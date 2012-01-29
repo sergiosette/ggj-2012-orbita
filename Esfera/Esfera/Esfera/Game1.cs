@@ -8,6 +8,13 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Esfera
 {
@@ -20,8 +27,8 @@ namespace Esfera
         SpriteBatch spriteBatch;
         static Configuracao config;
 
-        public static int WIDTH = 800;
-        public static int HEIGHT = 600;
+
+        private Texture2D strategy;
         private Anel anel;
 
         private bool leftPressed = false;
@@ -29,20 +36,20 @@ namespace Esfera
         private bool upPressed = false;
         private bool downPressed = false;
 
-        private bool gameOver = false;
         private long pontos = 0;
         private List<bool> tiles = null;
-        
+
+        private String configPath = "config.txt";
+        private String imagePath;
         private List<InimigoLinhaReta> listaInimigos;
         private Random randomGenerator;
         private Texture2D imageTile = null;
         private Texture2D imageInimigo = null;
         private Texture2D imageNucleo = null;
-        private Texture2D imageBackground = null;
 
         private Nucleo nucleo;
 
-        SpriteFont Font1;
+
 
         public InimigoLinhaReta gerarInimigo()
         {
@@ -73,16 +80,16 @@ namespace Esfera
             return inimigo;
         }
 
-        public void gerarInimigos(int number)
+        public List<InimigoLinhaReta> gerarInimigos(int number)
         {
-            
+            List<InimigoLinhaReta> resultado = new List<InimigoLinhaReta>();
             for (int i = 0; i < number; i = i + 1)
             {
 
                 InimigoLinhaReta inimigo = gerarInimigo();
-                this.listaInimigos.Add(inimigo);
+                resultado.Add(inimigo);
             }
-          
+            return resultado;
         }
 
 
@@ -93,9 +100,9 @@ namespace Esfera
 
         private void checarColisao()
         {
-            double raioTile = (imageTile.Width + imageTile.Height) / 4;
-            double raioInimigo = (imageInimigo.Width + imageInimigo.Height) / 4;
-            double raioCentro = (imageNucleo.Width + imageNucleo.Height) / 4;
+            double raioTile = Math.Max(imageTile.Width / 2, imageTile.Height / 2);
+            double raioInimigo = Math.Max(imageInimigo.Width / 2, imageInimigo.Height / 2);
+            double raioCentro = Math.Max(imageTile.Width / 2, imageTile.Height / 2);
 
             double somaRaioSquared = Math.Pow(raioTile + raioInimigo, 2);
             double somaRaioCentroSquared = Math.Pow(raioTile + raioCentro, 2);
@@ -131,10 +138,6 @@ namespace Esfera
             if (bateuCentro)
             {
                 this.aumentaRaio();
-                //if (this.anel.getRaio() >= Math.Min(WIDTH, HEIGHT) - 1.8*Math.Max(Math.Abs(this.imageTile.Height), Math.Abs(this.imageTile.Width)))
-                //{
-                //    this.gameOver = true;
-                //}
             }
 
             foreach (InimigoLinhaReta inimigoRemovido in inimigosColididos)
@@ -147,11 +150,10 @@ namespace Esfera
         {
             bool gameOver = false;
             Rectangle bounds = new Rectangle(0, 0, 800, 600);
-            int borda = Math.Min(this.imageTile.Height, this.imageTile.Width);
 
             foreach (Point centroTile in this.anel.buscarCentroTiles())
             {
-                if (centroTile.X < 0 || centroTile.Y < 0 || centroTile.X > bounds.Width - borda/2 || centroTile.Y > bounds.Height - borda/2)
+                if (centroTile.X < 0 || centroTile.Y < 0 || centroTile.X > bounds.Width || centroTile.Y > bounds.Height)
                 {
                     gameOver = true;
                 }
@@ -181,20 +183,63 @@ namespace Esfera
             return dx * dx + dy * dy;
         }
 
-        public void PrintString(SpriteBatch sb, String s, int x, int y)
+        public void update(SpriteBatch sb)
         {
-            this.PrintString(sb, s, x, y, Color.Black);
-        }
+            //Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
 
-        public void PrintString(SpriteBatch sb, String s, int x, int y, Color color)
-        {
-            Vector2 FontPos = new Vector2(x,y);
+            if (leftPressed) this.anel.setAngulo(anel.getAngulo() - anel.getSpeed());
+            if (rightPressed) this.anel.setAngulo(anel.getAngulo() + anel.getSpeed());
+            /*
+            if (upPressed) this.anel.setPosicao(new Vector2((int)Math.round(anel.getPosicao().getX() + 5),(int)Math.round(anel.getPosicao().getY())));
+            if (downPressed) this.anel.setPosicao(new Vector2((int)Math.round(anel.getPosicao().getX() - 5),(int)Math.round(anel.getPosicao().getY())));
+             */
+            if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
+            if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
+
+            checarColisao();
+
+            //g.setColor(Color.White);
+            //g.fillRect(0, 0, 800, 600);
+
+            nucleo.paint(sb);
+
+            anel.paint(sb);
+            anel.desenharBBs(sb);
+
+            if (this.listaInimigos != null & this.listaInimigos.Count > 0)
+            {
+                foreach (InimigoLinhaReta inimigo in this.listaInimigos)
+                {
+                    double xVetor = nucleo.getX() - inimigo.getX();
+                    double yVetor = nucleo.getY() - inimigo.getY();
+                    double modulo = moduloVetor((int)xVetor, (int)yVetor);
+                    inimigo.setX(inimigo.getX() + (xVetor / modulo * inimigo.getSpeed()));
+                    inimigo.setY(inimigo.getY() + (yVetor / modulo * inimigo.getSpeed()));
+                    inimigo.paint(sb);
+                }
+            }
+
+            String pontuacao = "Pontuação: ";
+            if (pontos > 8000)
+            {
+                pontuacao = pontuacao + "mais de 8000!!";
+            }
+            else
+            {
+                pontuacao = pontuacao + pontos;
+            }
+
+            SpriteFont Font1 = Content.Load<SpriteFont>("Courier New");
+
+            // TODO: Load your game content here            
+            Vector2 FontPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+                graphics.GraphicsDevice.Viewport.Height / 2);
 
             // Find the center of the string
-//            Vector2 fontOrigin = Font1.MeasureString(s) / 2;
+            Vector2 FontOrigin = Font1.MeasureString(pontuacao) / 2;
             // Draw the string
-            spriteBatch.DrawString(Font1, s, FontPos, color,
-                0, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.5f);
+            spriteBatch.DrawString(Font1, pontuacao, FontPos, Color.LightGreen,
+                0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
 
         }
 
@@ -233,8 +278,7 @@ namespace Esfera
             int quantidade = (int)(circulo / this.imageTile.Height);
             List<bool> tiles = new List<bool>(quantidade);
             tiles.Add(false);
-            tiles.Add(true);
-            for (int i = 2; i < quantidade - 1; i++)
+            for (int i = 1; i < quantidade - 1; i++)
             {
                 if (randomGenerator.Next(10) > 3)
                 {
@@ -270,7 +314,9 @@ namespace Esfera
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-       }
+            config = new Configuracao();
+
+        }
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -285,40 +331,41 @@ namespace Esfera
             base.Initialize();
         }
 
+        Texture2D textureInimigo;
+        Texture2D textureCentro;
+        Texture2D textureObjeto; 
+
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
         {
+            config.carregar();
+
+            this.nucleo = new Nucleo(400, 300, this.imageNucleo);
+
+            this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
+            this.tiles = getRandomTiles();
+
+            this.setListaInimigos(gerarInimigos(30));
+
+            this.anel.setTiles(this.tiles);
+
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
             graphics.ApplyChanges();
             
             
             this.Window.Title = "Game";
-
-            config = new Configuracao();
-            config.carregar();
-
-            randomGenerator = new Random();
-
-            imageInimigo = 
+            
+            
+            textureInimigo = 
                 this.Content.Load<Texture2D>("inimigo");
-            imageNucleo = this.Content.Load<Texture2D>("nucleo");
-            imageTile = this.Content.Load<Texture2D>("objeto2");
-            imageBackground = this.Content.Load<Texture2D>("shen_long_by_momovega-d3bd4fu");
-            Font1 = Content.Load<SpriteFont>(@"Arial");
+            textureCentro = this.Content.Load<Texture2D>("nucleo");
+            textureObjeto = this.Content.Load<Texture2D>("objeto");
 
-
-            this.listaInimigos = new List<InimigoLinhaReta>();
-            this.nucleo = new Nucleo(400, 300, this.imageNucleo);
-
-            this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
-            this.tiles = getRandomTiles();
-
-
-            this.anel.setTiles(this.tiles);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
         
@@ -341,53 +388,11 @@ namespace Esfera
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            if (this.verificarGameOver())
-                return;
-            if (randomGenerator.Next(20) < 1) gerarInimigos(1);
-
-            //Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
-            checkInput();
-
-            if (leftPressed) this.anel.setAngulo((anel.getAngulo() - anel.getSpeed())%360);
-            if (rightPressed) this.anel.setAngulo((anel.getAngulo() + anel.getSpeed())%360);
-            /*
-            if (upPressed) this.anel.setPosicao(new Vector2((int)Math.round(anel.getPosicao().getX() + 5),(int)Math.round(anel.getPosicao().getY())));
-            if (downPressed) this.anel.setPosicao(new Vector2((int)Math.round(anel.getPosicao().getX() - 5),(int)Math.round(anel.getPosicao().getY())));
-             */
-            if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
-            if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
-
-            checarColisao();
-
-            //g.setColor(Color.White);
-            //g.fillRect(0, 0, 800, 600);
-
-            //nucleo.paint(sb);
-
-            //anel.paint(sb, this);
-            //anel.desenharBBs(sb);
-
-            //PrintString(sb, "centros "+ anel.buscarCentroTiles().Count, 40, 20);
-
-            if (this.listaInimigos != null & this.listaInimigos.Count > 0)
-            {
-                foreach (InimigoLinhaReta inimigo in this.listaInimigos)
-                {
-                    double xVetor = nucleo.getX() - inimigo.getX();
-                    double yVetor = nucleo.getY() - inimigo.getY();
-                    double modulo = moduloVetor((int)xVetor, (int)yVetor);
-                    inimigo.setX(inimigo.getX() + (xVetor / modulo * inimigo.getSpeed()));
-                    inimigo.setY(inimigo.getY() + (yVetor / modulo * inimigo.getSpeed()));
-                    //inimigo.paint(sb);
-                }
-            }
-
-            pontos++;
+            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -400,38 +405,9 @@ namespace Esfera
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(this.imageBackground, new Rectangle(0, 0, 800, 600), Color.White);
-            nucleo.paint(spriteBatch);
-
-            if (this.listaInimigos != null && this.listaInimigos.Count > 0)
-            {
-                foreach (InimigoLinhaReta inimigo in this.listaInimigos)
-                {
-                    inimigo.paint(spriteBatch);
-                }
-            }
-            
-            anel.paint(spriteBatch, this);
-            anel.desenharBBs(spriteBatch);
-
-            PrintString(spriteBatch, "centros " + anel.buscarCentroTiles().Count, 40, 20);
-            String pontuacao = "SCORE: ";
-            if (pontos > 9000)
-            {
-                pontuacao = pontuacao + "It's over 9000!!";
-            }
-            else
-            {
-                pontuacao = pontuacao + pontos;
-            }
-
-
-            PrintString(spriteBatch, pontuacao, 500, 500);
-
-            draw();
+            spriteBatch.Draw(textureCentro, new Vector2(400, 300), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

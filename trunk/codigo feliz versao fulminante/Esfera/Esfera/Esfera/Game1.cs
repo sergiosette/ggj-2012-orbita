@@ -21,7 +21,6 @@ namespace Esfera
         static Configuracao config;
 
 
-        private Texture2D strategy;
         private Anel anel;
 
         private bool leftPressed = false;
@@ -42,7 +41,7 @@ namespace Esfera
 
         private Nucleo nucleo;
 
-
+        SpriteFont Font1;
 
         public InimigoLinhaReta gerarInimigo()
         {
@@ -197,8 +196,10 @@ namespace Esfera
 
             nucleo.paint(sb);
 
-            anel.paint(sb);
+            anel.paint(sb, this);
             anel.desenharBBs(sb);
+
+            PrintString(sb, "centros "+ anel.buscarCentroTiles().Count, 40, 20);
 
             if (this.listaInimigos != null & this.listaInimigos.Count > 0)
             {
@@ -223,16 +224,20 @@ namespace Esfera
                 pontuacao = pontuacao + pontos;
             }
 
-            SpriteFont Font1 = Content.Load<SpriteFont>(@"Arial");
 
+            PrintString(sb, pontuacao, 10, 10);
             // TODO: Load your game content here            
-            Vector2 FontPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
-                graphics.GraphicsDevice.Viewport.Height / 2);
+            
+        }
+
+        public void PrintString(SpriteBatch sb, String s, int x, int y)
+        {
+            Vector2 FontPos = new Vector2(x,y);
 
             // Find the center of the string
-            Vector2 FontOrigin = Font1.MeasureString(pontuacao) / 2;
+            Vector2 FontOrigin = Font1.MeasureString(s) / 2;
             // Draw the string
-            spriteBatch.DrawString(Font1, pontuacao, FontPos, Color.LightGreen,
+            spriteBatch.DrawString(Font1, s, FontPos, Color.Black,
                 0, FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
 
         }
@@ -345,6 +350,8 @@ namespace Esfera
                 this.Content.Load<Texture2D>("inimigo");
             imageNucleo = this.Content.Load<Texture2D>("nucleo");
             imageTile = this.Content.Load<Texture2D>("objeto");
+
+            Font1 = Content.Load<SpriteFont>(@"Arial");
 
             
             this.nucleo = new Nucleo(400, 300, this.imageNucleo);

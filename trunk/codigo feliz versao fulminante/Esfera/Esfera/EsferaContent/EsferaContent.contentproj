@@ -42,18 +42,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="inimigo.png">
+    <Compile Include="temas\1\inimigo.png">
       <Name>inimigo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="nucleo.jpg">
+    <Compile Include="temas\1\nucleo.jpg">
       <Name>nucleo</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="objeto.png">
-      <Name>objeto</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -66,15 +61,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="objeto2.png">
-      <Name>objeto2</Name>
+    <Compile Include="temas\1\shen_long_by_momovega-d3bd4fu.png">
+      <Name>shen_long_by_momovega-d3bd4fu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="shen_long_by_momovega-d3bd4fu.png">
-      <Name>shen_long_by_momovega-d3bd4fu</Name>
+    <Compile Include="temas\1\powerup.png">
+      <Name>powerup</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="temas\2\" />
+    <Folder Include="temas\3\" />
+    <Folder Include="temas\4\" />
+    <Folder Include="temas\5\" />
+    <Folder Include="temas\6\" />
+    <Folder Include="temas\7\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="temas\1\object transp2 35 p 105.png">
+      <Name>object transp2 35 p 105</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

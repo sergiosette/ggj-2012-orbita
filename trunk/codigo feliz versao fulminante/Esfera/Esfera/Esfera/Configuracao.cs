@@ -15,6 +15,7 @@ public class Configuracao {
 	private static String tile = "tile";
 	private static String nucleo = "nucleo";
 	private static String background = "background";
+    private static String fps = "fps";
 	
 	private IDictionary<String,String> config = null;
 	
@@ -36,7 +37,9 @@ public class Configuracao {
 					this.config.Add(nucleo, parse(line,nucleo));
 				} else if (line.StartsWith(tile)) {
 					this.config.Add(tile, parse(line,tile));
-				}
+                } else if (line.StartsWith(fps)) {
+                    this.config.Add(fps, parse(line, fps));
+                }
 				line = reader.ReadLine();
 				
 			}
@@ -55,6 +58,10 @@ public class Configuracao {
 	public String getBackground() {
 		return this.config[background];
 	}
+
+    public String getFPS() {
+        return this.config[fps];
+    }
 	
 	public String getInimigo() {
 		return this.config[inimigo];

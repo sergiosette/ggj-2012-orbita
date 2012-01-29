@@ -18,22 +18,18 @@ namespace Esfera
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Configuracao config = null;
+        static Configuracao config;
 
         public static int WIDTH = 800;
         public static int HEIGHT = 600;
         private Anel anel;
-        private Anel anelFrozen;
-        private Anel anelFullArmor;
 
-        private int powerUPDuration = 0;
+        public bool leftPressed = false;
+        public bool rightPressed = false;
+        public bool upPressed = false;
+        public bool downPressed = false;
+        public bool enterPressed = false;
 
-        private bool leftPressed = false;
-        private bool rightPressed = false;
-        private bool upPressed = false;
-        private bool downPressed = false;
-    
-        private int fpsCounter = 30;
         private bool gameOver = false;
         private long pontos = 0;
         private int combo = 0;
@@ -46,16 +42,13 @@ namespace Esfera
         private Texture2D imageInimigo = null;
         private Texture2D imageNucleo = null;
         private Texture2D imageBackground = null;
-        private Texture2D imagePowerUP = null;
+        private Texture2D imageMainPage = null;
+
+        private MainPage mainPage = null;
 
         private Nucleo nucleo;
 
         SpriteFont Font1;
-
-        private int backgroundDeslocamentoX = 0;
-        private int backgroundDeslocamentoY = 0;
-        private int backgroundYSpeed = 0;
-        private int backgroundXSpeed = 0;
 
         public InimigoLinhaReta gerarInimigo()
         {
@@ -84,35 +77,6 @@ namespace Esfera
             double speed = randomGenerator.NextDouble() * 0.75 + 0.25;
             InimigoLinhaReta inimigo = new InimigoLinhaReta(x, y, speed, this.imageInimigo);
             return inimigo;
-        }
-
-        public void gerarPowerUP()
-        {
-            int x = 0;
-            int y = 0;
-            int quadrante = randomGenerator.Next(4);
-            switch (quadrante)
-            {
-                case 0:
-                    x = randomGenerator.Next(51) - 50;
-                    y = randomGenerator.Next(701) - 50;
-                    break;
-                case 1:
-                    x = randomGenerator.Next(801);
-                    y = randomGenerator.Next(51) - 50;
-                    break;
-                case 2:
-                    x = randomGenerator.Next(51) + 800;
-                    y = randomGenerator.Next(701) - 50;
-                    break;
-                case 3:
-                    x = randomGenerator.Next(801);
-                    y = randomGenerator.Next(51) + 650;
-                    break;
-            }
-            double speed = randomGenerator.NextDouble() * 0.75 + 0.25;
-            PowerUP powerup = new PowerUP(x, y, speed, this.imagePowerUP);
-            this.listaInimigos.Add(powerup);
         }
 
         public void gerarInimigos(int number)
@@ -152,18 +116,9 @@ namespace Esfera
                 if (quadradoDistancia(inimigo.getPoint(), centroPonto) < somaRaioCentroSquared)
                 {
                     inimigosColididos.Add(inimigo);
-                    if (inimigo is PowerUP)
-                    {
-                        this.anelFrozen = this.anel;
-                        this.anel = this.anelFullArmor;
-                        this.powerUPDuration = 6;
-                    }
-                    else
-                    {
-                        bateuCentro = true;
-                        combo = 0;
-                        multiplier = 1;
-                    }
+                    bateuCentro = true;
+                    combo = 0;
+                    multiplier = 1;
                     //System.out.println("Colidiu centro");
 
                 }
@@ -262,6 +217,7 @@ namespace Esfera
             this.downPressed = false;
             this.upPressed = false;
             this.rightPressed = false;
+            this.enterPressed = false;
 
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.Left))
@@ -280,6 +236,10 @@ namespace Esfera
             if (keyState.IsKeyDown(Keys.Down))
             {
                 this.downPressed = true;
+            }
+            if (keyState.IsKeyDown(Keys.Enter))
+            {
+                this.enterPressed = true;
             }
         }
 
@@ -306,10 +266,6 @@ namespace Esfera
             return tiles;
         }
 
-        public void draw()
-        {
-
-        }
 
         public List<InimigoLinhaReta> getListaInimigos()
         {
@@ -342,16 +298,6 @@ namespace Esfera
             base.Initialize();
         }
 
-        private List<Boolean> gerarFullArmor()
-        {
-            List<Boolean> result = new List<Boolean>();
-            for (int i = 0; i < 100; i = i + 1)
-            {
-                result.Add(true);
-            }
-            return result;
-        }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -371,25 +317,23 @@ namespace Esfera
             randomGenerator = new Random();
 
             imageInimigo = 
-                this.Content.Load<Texture2D>("temas/1/inimigo");
-            imageNucleo = this.Content.Load<Texture2D>("temas/1/nucleo");
-            imageTile = this.Content.Load<Texture2D>("temas/1/object transp2 35 p 105");
-            imageBackground = this.Content.Load<Texture2D>("temas/1/shen_long_by_momovega-d3bd4fu");
-            imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
-            //fpsCounter = int.Parse(this.config.getFPS());
+                this.Content.Load<Texture2D>("inimigo");
+            imageNucleo = this.Content.Load<Texture2D>("nucleo");
+            imageTile = this.Content.Load<Texture2D>("objeto2");
+            imageBackground = this.Content.Load<Texture2D>("shen_long_by_momovega-d3bd4fu");
             Font1 = Content.Load<SpriteFont>(@"Arial");
 
+            imageMainPage = this.Content.Load<Texture2D>("shen_long_by_momovega-d3bd4fu");
+            mainPage = new MainPage(imageMainPage);
 
             this.listaInimigos = new List<InimigoLinhaReta>();
             this.nucleo = new Nucleo(400, 300, this.imageNucleo);
 
             this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
             this.tiles = getRandomTiles();
+
+
             this.anel.setTiles(this.tiles);
-
-            this.anelFullArmor = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
-            anelFullArmor.setTiles(gerarFullArmor());
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -418,54 +362,36 @@ namespace Esfera
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            if (this.verificarGameOver())
-                return;
-
-            //if ( != 0)
-
-
-            int numeroGerado = randomGenerator.Next(100);
-            if ((this.backgroundXSpeed == 0 && this.backgroundYSpeed == 0) || numeroGerado < 1)
-            {
-                this.backgroundXSpeed = randomGenerator.Next(2) - 1;
-                this.backgroundYSpeed = randomGenerator.Next(2) - 1;
-            }
-
             checkInput();
 
-            if (leftPressed) this.anel.setAngulo((anel.getAngulo() - anel.getSpeed())%360);
-            if (rightPressed) this.anel.setAngulo((anel.getAngulo() + anel.getSpeed())%360);
-            
-            if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
-            if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
-
-            checarColisao();
-
-            if (this.backgroundDeslocamentoX + this.backgroundXSpeed > 0 ||
-                    this.backgroundDeslocamentoX + this.backgroundXSpeed < -400)
+            if (mainPage.Visible)
             {
-                this.backgroundXSpeed = this.backgroundXSpeed * -1;
-            }
-            if (this.backgroundDeslocamentoY + this.backgroundYSpeed > 0 ||
-                    this.backgroundDeslocamentoY + this.backgroundYSpeed < -200)
-            {
-                this.backgroundYSpeed = this.backgroundYSpeed * -1;
-            }
-            this.backgroundDeslocamentoX = this.backgroundDeslocamentoX + backgroundXSpeed;
-            this.backgroundDeslocamentoY = this.backgroundDeslocamentoY + backgroundYSpeed;
+                if (this.verificarGameOver())
+                    return;
+                if (randomGenerator.Next(20) < 1) gerarInimigos(1);
 
-            Agendador.Update(gameTime);
 
-            if (this.listaInimigos != null & this.listaInimigos.Count > 0)
-            {
-                foreach (InimigoLinhaReta inimigo in this.listaInimigos)
+                if (leftPressed) this.anel.setAngulo((anel.getAngulo() - anel.getSpeed()) % 360);
+                if (rightPressed) this.anel.setAngulo((anel.getAngulo() + anel.getSpeed()) % 360);
+
+                if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
+                if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
+
+                checarColisao();
+
+                Agendador.Update(gameTime);
+
+                if (this.listaInimigos != null & this.listaInimigos.Count > 0)
                 {
-                    double xVetor = nucleo.getX() - inimigo.getX();
-                    double yVetor = nucleo.getY() - inimigo.getY();
-                    double modulo = moduloVetor((int)xVetor, (int)yVetor);
-                    inimigo.setX(inimigo.getX() + (xVetor / modulo * inimigo.getSpeed()));
-                    inimigo.setY(inimigo.getY() + (yVetor / modulo * inimigo.getSpeed()));
-                    //inimigo.paint(sb);
+                    foreach (InimigoLinhaReta inimigo in this.listaInimigos)
+                    {
+                        double xVetor = nucleo.getX() - inimigo.getX();
+                        double yVetor = nucleo.getY() - inimigo.getY();
+                        double modulo = moduloVetor((int)xVetor, (int)yVetor);
+                        inimigo.setX(inimigo.getX() + (xVetor / modulo * inimigo.getSpeed()));
+                        inimigo.setY(inimigo.getY() + (yVetor / modulo * inimigo.getSpeed()));
+                        //inimigo.paint(sb);
+                    }
                 }
             }
 
@@ -483,36 +409,43 @@ namespace Esfera
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(this.imageBackground, new Rectangle(backgroundDeslocamentoX, backgroundDeslocamentoY, 1200, 800), Color.White);
-            nucleo.paint(spriteBatch);
 
-            if (this.listaInimigos != null && this.listaInimigos.Count > 0)
+            if (mainPage.Visible)
             {
-                foreach (InimigoLinhaReta inimigo in this.listaInimigos)
-                {
-                    inimigo.paint(spriteBatch);
-                }
-            }
-            
-            anel.paint(spriteBatch, this);
-            anel.desenharBBs(spriteBatch);
-
-            PrintString(spriteBatch, "centros " + anel.buscarCentroTiles().Count, 40, 20);
-            String pontuacao = "SCORE:";
-            if (pontos > 9000)
-            {
-                pontuacao = pontuacao + "It's over 9000!!";
+                mainPage.Draw(this,spriteBatch);
             }
             else
             {
-                pontuacao = pontuacao + pontos;
-            }
-            PrintString(spriteBatch, pontuacao, 530, 570);
+                spriteBatch.Draw(this.imageBackground, new Rectangle(0, 0, 800, 600), Color.White);
+                nucleo.paint(spriteBatch);
 
-            PrintString(spriteBatch, "COMBO:" + combo, 530, 490);
-            PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 530, 530);
-            PrintString(spriteBatch, "Tempo: " + contadorSegundos, 530, 10);
-            draw();
+                if (this.listaInimigos != null && this.listaInimigos.Count > 0)
+                {
+                    foreach (InimigoLinhaReta inimigo in this.listaInimigos)
+                    {
+                        inimigo.paint(spriteBatch);
+                    }
+                }
+
+                anel.paint(spriteBatch, this);
+                anel.desenharBBs(spriteBatch);
+
+                PrintString(spriteBatch, "centros " + anel.buscarCentroTiles().Count, 40, 20);
+                String pontuacao = "SCORE:";
+                if (pontos > 9000)
+                {
+                    pontuacao = pontuacao + "It's over 9000!!";
+                }
+                else
+                {
+                    pontuacao = pontuacao + pontos;
+                }
+                PrintString(spriteBatch, pontuacao, 530, 570);
+
+                PrintString(spriteBatch, "COMBO:" + combo, 530, 490);
+                PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 530, 530);
+                PrintString(spriteBatch, "Tempo: " + contadorSegundos, 530, 10);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -521,28 +454,9 @@ namespace Esfera
         int contadorSegundos = 0;
         public void AgendamentoDisparado()
         {
-            if (powerUPDuration > 0)
-            {
-                powerUPDuration = powerUPDuration - 1;
-            }
-            else
-            {
-                if (this.anel != null && this.anelFrozen
-                     != null) this.anel = anelFrozen;
-            }
-            int numInimigos = randomGenerator.Next(1,10);
-            gerarInimigos(numInimigos);
-            int gerarPowerup = randomGenerator.Next(1, 10);
-            if (gerarPowerup == 1)
-            {
-                gerarPowerUP();
-            }
             contadorSegundos++;
         }
     }
-    
-
-    
 
 
 

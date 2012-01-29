@@ -177,6 +177,7 @@ namespace Esfera
 
         public void update(SpriteBatch sb)
         {
+
             //Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
             checkInput();
 

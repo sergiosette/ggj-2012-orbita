@@ -31,6 +31,8 @@ namespace Esfera
 
         private bool gameOver = false;
         private long pontos = 0;
+        private int combo = 0;
+        private double multiplier = 1;
         private List<bool> tiles = null;
         
         private List<InimigoLinhaReta> listaInimigos;
@@ -111,6 +113,8 @@ namespace Esfera
                 {
                     inimigosColididos.Add(inimigo);
                     bateuCentro = true;
+                    combo = 0;
+                    multiplier = 1;
                     //System.out.println("Colidiu centro");
 
                 }
@@ -121,6 +125,10 @@ namespace Esfera
                         if (quadradoDistancia(inimigo.getPoint(), centroTile) < somaRaioSquared)
                         {
                             inimigosColididos.Add(inimigo);
+                            combo = combo + 1;
+                            //multiplier = Math.Max(1, Math.Pow(1.5,combo/10));
+                            multiplier = Math.Max(1, (1.5 * (combo / 10)));
+                            pontos = pontos + (long)(5 * multiplier);
                             //5System.out.println("colidiu");
                         }
 
@@ -387,8 +395,6 @@ namespace Esfera
                 }
             }
 
-            pontos++;
-
             base.Update(gameTime);
         }
 
@@ -418,7 +424,7 @@ namespace Esfera
             anel.desenharBBs(spriteBatch);
 
             PrintString(spriteBatch, "centros " + anel.buscarCentroTiles().Count, 40, 20);
-            String pontuacao = "SCORE: ";
+            String pontuacao = "SCORE:";
             if (pontos > 9000)
             {
                 pontuacao = pontuacao + "It's over 9000!!";
@@ -427,9 +433,10 @@ namespace Esfera
             {
                 pontuacao = pontuacao + pontos;
             }
+            PrintString(spriteBatch, pontuacao, 530, 570);
 
-
-            PrintString(spriteBatch, pontuacao, 500, 500);
+            PrintString(spriteBatch, "COMBO:" + combo, 530, 490);
+            PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 530, 530);
 
             draw();
             spriteBatch.End();

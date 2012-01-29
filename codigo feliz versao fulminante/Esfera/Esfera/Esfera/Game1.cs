@@ -60,10 +60,14 @@ namespace Esfera
         private Texture2D imageStart = null;
         private Texture2D imageGame = null;
         private Texture2D imageOver = null;
+        private Texture2D imageCreditos = null;
 
         private MainPage mainPage = null;
+        private CreditsPage creditsPage = null;
 
         private Nucleo nucleo;
+
+        private 
 
         SpriteFont Font1;
 
@@ -417,8 +421,10 @@ namespace Esfera
             imageGame = this.Content.Load<Texture2D>("game");
             imageOver = this.Content.Load<Texture2D>("over");
             imageStart = this.Content.Load<Texture2D>("start");
+            imageCreditos = this.Content.Load<Texture2D>("game");
 
-            mainPage = new MainPage(imageMainPage, imageStart);
+            mainPage = new MainPage(imageMainPage, imageStart, imageCreditos);
+            creditsPage = new CreditsPage(imageCreditos);
             this.listaInimigos = new List<InimigoLinhaReta>();
             this.nucleo = new Nucleo(400, 300, this.imageNucleo);
 
@@ -458,6 +464,10 @@ namespace Esfera
                 tocando = true;
             }
             checkInput();
+            if (creditsPage.Visible)
+            {
+                creditsPage.Update(this);
+            }
             if (mainPage.Visible)
             {
                 mainPage.Update(this);
@@ -545,6 +555,10 @@ namespace Esfera
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            if (creditsPage.Visible)
+            {
+                creditsPage.Draw(this, spriteBatch);
+            }
             if (mainPage.Visible)
             {
                 mainPage.Draw(this, spriteBatch);

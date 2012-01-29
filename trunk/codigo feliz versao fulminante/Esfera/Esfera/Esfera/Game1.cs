@@ -57,6 +57,9 @@ namespace Esfera
         private Texture2D imageBackground = null;
         private Texture2D imagePowerUP = null;
         private Texture2D imageMainPage = null;
+        private Texture2D imageStart = null;
+        private Texture2D imageGame = null;
+        private Texture2D imageOver = null;
 
         private MainPage mainPage = null;
 
@@ -410,7 +413,12 @@ namespace Esfera
             Font1 = Content.Load<SpriteFont>(@"Arial");
 
             imageMainPage = this.Content.Load<Texture2D>("temas/1/Crushed BG A");
-            mainPage = new MainPage(imageMainPage);
+
+            imageGame = this.Content.Load<Texture2D>("game");
+            imageOver = this.Content.Load<Texture2D>("over");
+            imageStart = this.Content.Load<Texture2D>("start");
+
+            mainPage = new MainPage(imageMainPage, imageStart);
             this.listaInimigos = new List<InimigoLinhaReta>();
             this.nucleo = new Nucleo(400, 300, this.imageNucleo);
 
@@ -563,7 +571,7 @@ namespace Esfera
 
                 PrintString(spriteBatch, "COMBO:" + combo, 530, 490);
                 PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 530, 530);
-                PrintString(spriteBatch, "Tempo: " + contadorSegundos, 530, 10);
+                PrintString(spriteBatch, "TIME: " + contadorSegundos, 530, 10);
             }
             spriteBatch.End();
 

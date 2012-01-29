@@ -10,16 +10,17 @@ namespace Esfera
     class MainPage
     {
         Texture2D texture;
+        Texture2D textureStart;
         List<String> opcoes = new List<String>();
         int opcao = 0;
 
         public bool Visible {get;set;}
 
-        public MainPage (Texture2D image)
+        public MainPage (Texture2D image, Texture2D imageStart)
         {
             texture = image;
-            opcoes.Add("New");
-            opcoes.Add("Exit");
+            texture = imageStart;
+            opcoes.Add("<Press ENTER>");
 
             Visible = true;
         }
@@ -50,6 +51,7 @@ namespace Esfera
         public void Draw(Game1 game, SpriteBatch sb)
         {
             sb.Draw(this.texture, new Rectangle(0, 0, 800, 600), Color.White);
+            sb.Draw(this.textureStart, new Rectangle(0,0,textureStart.Width,textureStart.Height), Color.White);
             int x = 50;
             int y = 400;
             foreach (String s in opcoes)
@@ -62,7 +64,6 @@ namespace Esfera
 
     enum Opcao
     {
-        novo,
-        sair
+        novo
     }
 }

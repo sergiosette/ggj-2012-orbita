@@ -3,13 +3,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,23 +90,23 @@ public class Prototipo extends JFrame {
 	public InimigoLinhaReta gerarInimigo() {
 		int x = 0;
 		int y = 0;
-		int quadrante = randomGenerator.nextInt(3);
+		int quadrante = randomGenerator.nextInt(4);
 		switch (quadrante) {
 		case 0:
-			x = randomGenerator.nextInt(50) - 50;
-			y = randomGenerator.nextInt(700) - 50;
+			x = randomGenerator.nextInt(51) - 50;
+			y = randomGenerator.nextInt(701) - 50;
 			break;
 		case 1:
-			x = randomGenerator.nextInt(800);
-			y = randomGenerator.nextInt(50) - 50;
+			x = randomGenerator.nextInt(801);
+			y = randomGenerator.nextInt(51) - 50;
 			break;
 		case 2:
-			x = randomGenerator.nextInt(50) + 800;
-			y = randomGenerator.nextInt(700) - 50;
+			x = randomGenerator.nextInt(51) + 800;
+			y = randomGenerator.nextInt(701) - 50;
 			break;
 		case 3:
-			x = randomGenerator.nextInt(800);
-			y = randomGenerator.nextInt(50) + 650;
+			x = randomGenerator.nextInt(801);
+			y = randomGenerator.nextInt(51) + 650;
 			break;
 		}
 		double speed = randomGenerator.nextDouble()  * 0.75 + 0.25;
@@ -176,6 +175,22 @@ public class Prototipo extends JFrame {
 		}
 	}
 	
+	public Boolean verificarGameOver()
+	{
+		Boolean gameOver = false;
+		Rectangle bounds = this.getBounds();
+		
+		for (Point centroTile: this.anel.buscarCentroTiles())
+		{
+			if (centroTile.x < 0 || centroTile.y < 0 || centroTile.x > bounds.width || centroTile.y > bounds.height)
+			{
+				gameOver = true;
+			}
+		}
+		
+		return gameOver;
+	}
+	
 	private void aumentaRaio()
 	{
 		this.anel.setRaio(anel.getRaio()*1.1);
@@ -191,7 +206,7 @@ public class Prototipo extends JFrame {
 	public void start() {
 
 
-		while (true) {
+		while (!verificarGameOver()) {
 
 			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 
@@ -209,22 +224,12 @@ public class Prototipo extends JFrame {
 
 			g.setColor(Color.white);
 			g.fillRect(0, 0, getWidth(), getHeight());
-
-			String pontuacao = "Pontuação: ";
-			if (pontos > 8000) {
-				pontuacao = pontuacao+String.valueOf(pontos);
-			} else {
-				pontuacao = pontuacao+"mais de 8000!!";
-			}
-
+			
 			nucleo.paint(g);
 
 			anel.paint(g, this);
 			anel.desenharBBs(g);
-
-			g.setColor(Color.BLACK);
-			g.drawChars(pontuacao.toCharArray(), 0, pontuacao.length(), 600, 500);
-
+			
 			if (this.listaInimigos != null & this.listaInimigos.size() > 0) {
 				for (InimigoLinhaReta inimigo : this.listaInimigos) {
 					double xVetor = nucleo.getX() - inimigo.getX();
@@ -235,6 +240,16 @@ public class Prototipo extends JFrame {
 					inimigo.paint(g);
 				}
 			}
+			
+			String pontuacao = "Pontuação: ";
+			if (pontos > 8000) {
+				pontuacao = pontuacao+"mais de 8000!!";
+			} else {
+				pontuacao = pontuacao+String.valueOf(pontos);
+			}
+			g.setColor(Color.BLACK);
+			g.drawChars(pontuacao.toCharArray(), 0, pontuacao.length(), 600, 500);
+			
 			strategy.show();
 
 			g.dispose();
@@ -286,18 +301,17 @@ public class Prototipo extends JFrame {
 
 	public ArrayList<Boolean> getRandomTiles() {
 		double circulo = 2 * Math.PI * this.anel.getRaio();
-		int quantidade = (int)( circulo / this.imageTile.getWidth() );
+		int quantidade = (int)( circulo / this.imageTile.getHeight() );
 		ArrayList<Boolean> tiles = new ArrayList<Boolean>(quantidade);
-		Random random = new Random(quantidade);
-		//tiles.add(false);
-		for (int i = 0; i < quantidade; i++) {
-			if (random.nextInt(10) > -1) {
+		tiles.add(false);
+		for (int i = 1; i < quantidade - 1; i++) {
+			if (randomGenerator.nextInt(10) > 3) {
 				tiles.add(true);
 			} else {
 				tiles.add(false);
 			}
 		}
-		//tiles.add(false);
+		tiles.add(false);
 		return tiles;
 	}
 

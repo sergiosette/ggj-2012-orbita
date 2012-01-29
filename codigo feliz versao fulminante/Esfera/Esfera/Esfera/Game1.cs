@@ -23,6 +23,10 @@ namespace Esfera
         public static int WIDTH = 800;
         public static int HEIGHT = 600;
         private Anel anel;
+        private Anel anelFrozen;
+        private Anel anelFullArmor;
+
+        private int powerUPDuration = 0;
 
         private bool leftPressed = false;
         private bool rightPressed = false;
@@ -42,6 +46,7 @@ namespace Esfera
         private Texture2D imageInimigo = null;
         private Texture2D imageNucleo = null;
         private Texture2D imageBackground = null;
+        private Texture2D imagePowerUP = null;
 
         private Nucleo nucleo;
 
@@ -81,6 +86,35 @@ namespace Esfera
             return inimigo;
         }
 
+        public void gerarPowerUP()
+        {
+            int x = 0;
+            int y = 0;
+            int quadrante = randomGenerator.Next(4);
+            switch (quadrante)
+            {
+                case 0:
+                    x = randomGenerator.Next(51) - 50;
+                    y = randomGenerator.Next(701) - 50;
+                    break;
+                case 1:
+                    x = randomGenerator.Next(801);
+                    y = randomGenerator.Next(51) - 50;
+                    break;
+                case 2:
+                    x = randomGenerator.Next(51) + 800;
+                    y = randomGenerator.Next(701) - 50;
+                    break;
+                case 3:
+                    x = randomGenerator.Next(801);
+                    y = randomGenerator.Next(51) + 650;
+                    break;
+            }
+            double speed = randomGenerator.NextDouble() * 0.75 + 0.25;
+            PowerUP powerup = new PowerUP(x, y, speed, this.imagePowerUP);
+            this.listaInimigos.Add(powerup);
+        }
+
         public void gerarInimigos(int number)
         {
             
@@ -118,9 +152,18 @@ namespace Esfera
                 if (quadradoDistancia(inimigo.getPoint(), centroPonto) < somaRaioCentroSquared)
                 {
                     inimigosColididos.Add(inimigo);
-                    bateuCentro = true;
-                    combo = 0;
-                    multiplier = 1;
+                    if (inimigo is PowerUP)
+                    {
+                        this.anelFrozen = this.anel;
+                        this.anel = this.anelFullArmor;
+                        this.powerUPDuration = 6;
+                    }
+                    else
+                    {
+                        bateuCentro = true;
+                        combo = 0;
+                        multiplier = 1;
+                    }
                     //System.out.println("Colidiu centro");
 
                 }
@@ -299,6 +342,16 @@ namespace Esfera
             base.Initialize();
         }
 
+        private List<Boolean> gerarFullArmor()
+        {
+            List<Boolean> result = new List<Boolean>();
+            for (int i = 0; i < 100; i = i + 1)
+            {
+                result.Add(true);
+            }
+            return result;
+        }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -318,10 +371,11 @@ namespace Esfera
             randomGenerator = new Random();
 
             imageInimigo = 
-                this.Content.Load<Texture2D>("inimigo");
-            imageNucleo = this.Content.Load<Texture2D>("nucleo");
-            imageTile = this.Content.Load<Texture2D>("objeto2");
-            imageBackground = this.Content.Load<Texture2D>("shen_long_by_momovega-d3bd4fu");
+                this.Content.Load<Texture2D>("temas/1/inimigo");
+            imageNucleo = this.Content.Load<Texture2D>("temas/1/nucleo");
+            imageTile = this.Content.Load<Texture2D>("temas/1/object transp2 35 p 105");
+            imageBackground = this.Content.Load<Texture2D>("temas/1/shen_long_by_momovega-d3bd4fu");
+            imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
             //fpsCounter = int.Parse(this.config.getFPS());
             Font1 = Content.Load<SpriteFont>(@"Arial");
 
@@ -331,9 +385,11 @@ namespace Esfera
 
             this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
             this.tiles = getRandomTiles();
-
-
             this.anel.setTiles(this.tiles);
+
+            this.anelFullArmor = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.Height);
+            anelFullArmor.setTiles(gerarFullArmor());
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -367,7 +423,6 @@ namespace Esfera
 
             //if ( != 0)
 
-            if (randomGenerator.Next(20) < 1) gerarInimigos(1);
 
             int numeroGerado = randomGenerator.Next(100);
             if ((this.backgroundXSpeed == 0 && this.backgroundYSpeed == 0) || numeroGerado < 1)
@@ -466,9 +521,28 @@ namespace Esfera
         int contadorSegundos = 0;
         public void AgendamentoDisparado()
         {
+            if (powerUPDuration > 0)
+            {
+                powerUPDuration = powerUPDuration - 1;
+            }
+            else
+            {
+                if (this.anel != null && this.anelFrozen
+                     != null) this.anel = anelFrozen;
+            }
+            int numInimigos = randomGenerator.Next(1,10);
+            gerarInimigos(numInimigos);
+            int gerarPowerup = randomGenerator.Next(1, 10);
+            if (gerarPowerup == 1)
+            {
+                gerarPowerUP();
+            }
             contadorSegundos++;
         }
     }
+    
+
+    
 
 
 

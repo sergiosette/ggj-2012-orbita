@@ -1,0 +1,3 @@
+tile=imagens\tile.png
+inimigo=imagens\inimigo.png
+nucleo=imagens\nucleo.jpg

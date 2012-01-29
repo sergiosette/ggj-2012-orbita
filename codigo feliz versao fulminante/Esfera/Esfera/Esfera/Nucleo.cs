@@ -24,7 +24,7 @@ public class Nucleo {
 	
 	public void paint(SpriteBatch sb) {
 		//g.drawImage(getImage(), (int)getX() - (getImage().getWidth() / 2), (int) getY()- (getImage().getHeight() / 2), getImage().getWidth(), getImage().getHeight(),prototipo);
-        sb.Draw(this.image, new Vector2(getX(), getY()), Color.White);
+        sb.Draw(this.image, new Vector2((int)getX() - (getImage().Width / 2), (int)getY() - (getImage().Height/ 2)), Color.White);
 	}
 	
 	

@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Anel.cs" />
     <Compile Include="Agendador.cs" />
+    <Compile Include="CreditsPage.cs" />
     <Compile Include="MainPage.cs" />
     <Compile Include="Configuracao.cs" />
     <Compile Include="Font.cs" />

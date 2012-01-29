@@ -103,7 +103,7 @@ public class Anel {
 		g.setColor(Color.RED);
 		
 		List<Point> listaCentroTiles = buscarCentroTiles();
-		int raiocolisao = (Math.max(getImage().getWidth(), getImage().getHeight()))/2;
+		int raiocolisao = ((getImage().getWidth() + getImage().getHeight()) / 2)/2;
 		for (Point centroTile: listaCentroTiles)
 		{
 			g.drawOval(centroTile.x - raiocolisao, centroTile.y - raiocolisao, raiocolisao*2, raiocolisao*2);

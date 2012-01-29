@@ -14,7 +14,7 @@ namespace Esfera
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Microsoft.Xna.Framework.Game, IAgendadorListener
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -329,7 +329,8 @@ namespace Esfera
             this.anel.setTiles(this.tiles);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-        
+
+            Agendador.AddListener(this, 1000);
             // TODO: use this.Content to load your game content here
         }
 
@@ -358,30 +359,18 @@ namespace Esfera
                 return;
             if (randomGenerator.Next(20) < 1) gerarInimigos(1);
 
-            //Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
             checkInput();
 
             if (leftPressed) this.anel.setAngulo((anel.getAngulo() - anel.getSpeed())%360);
             if (rightPressed) this.anel.setAngulo((anel.getAngulo() + anel.getSpeed())%360);
-            /*
-            if (upPressed) this.anel.setPosicao(new Vector2((int)Math.round(anel.getPosicao().getX() + 5),(int)Math.round(anel.getPosicao().getY())));
-            if (downPressed) this.anel.setPosicao(new Vector2((int)Math.round(anel.getPosicao().getX() - 5),(int)Math.round(anel.getPosicao().getY())));
-             */
+            
             if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
             if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
 
             checarColisao();
 
-            //g.setColor(Color.White);
-            //g.fillRect(0, 0, 800, 600);
-
-            //nucleo.paint(sb);
-
-            //anel.paint(sb, this);
-            //anel.desenharBBs(sb);
-
-            //PrintString(sb, "centros "+ anel.buscarCentroTiles().Count, 40, 20);
-
+            Agendador.Update(gameTime);
+            
             if (this.listaInimigos != null & this.listaInimigos.Count > 0)
             {
                 foreach (InimigoLinhaReta inimigo in this.listaInimigos)
@@ -437,13 +426,18 @@ namespace Esfera
 
             PrintString(spriteBatch, "COMBO:" + combo, 530, 490);
             PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 530, 530);
-
+            PrintString(spriteBatch, "Tempo: " + contadorSegundos, 530, 10);
             draw();
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
+        int contadorSegundos = 0;
+        public void AgendamentoDisparado()
+        {
+            contadorSegundos++;
+        }
     }
 
 

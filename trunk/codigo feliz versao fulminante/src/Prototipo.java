@@ -33,6 +33,7 @@ public class Prototipo extends JFrame {
 	private Configuracao config = null;
 
 	private long pontos = 0;
+	private int poweruptime = 0;
 	private List<Boolean> tiles = null;
 
 
@@ -42,6 +43,7 @@ public class Prototipo extends JFrame {
 	private BufferedImage imageInimigo = null;
 	private BufferedImage imageNucleo = null;
 	private BufferedImage imageFundo = null;
+	private BufferedImage imagePowerup = null;
 
 	private int backgroundXSpeed;
 	private int backgroundYSpeed;
@@ -133,6 +135,7 @@ public class Prototipo extends JFrame {
 			//this.imageBackground = ImageIO.read(new File(this.config.getBackground()));
 			this.imageNucleo = ImageIO.read(new File(this.config.getNucleo()));
 			this.imageFundo = ImageIO.read(new File(this.config.getBackground()));
+			this.imagePowerup = ImageIO.read(new File(this.config.getPowerup()));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,6 +188,33 @@ public class Prototipo extends JFrame {
 		InimigoLinhaReta inimigo = new InimigoLinhaReta(x, y, speed, this.imageInimigo, this);
 		return inimigo;
 	}
+	
+	public void gerarPowerup() {
+		int x = 0;
+		int y = 0;
+		int quadrante = randomGenerator.nextInt(4);
+		switch (quadrante) {
+		case 0:
+			x = randomGenerator.nextInt(51) - 50;
+			y = randomGenerator.nextInt(701) - 50;
+			break;
+		case 1:
+			x = randomGenerator.nextInt(801);
+			y = randomGenerator.nextInt(51) - 50;
+			break;
+		case 2:
+			x = randomGenerator.nextInt(51) + 800;
+			y = randomGenerator.nextInt(701) - 50;
+			break;
+		case 3:
+			x = randomGenerator.nextInt(801);
+			y = randomGenerator.nextInt(51) + 650;
+			break;
+		}
+		double speed = Math.abs(randomGenerator.nextDouble()  * 5 + 2);
+		PowerUp powerup = new PowerUp(x, y, speed, this.imagePowerup, this);
+		this.listaInimigos.add(powerup);
+	}
 
 	public void gerarInimigos(int number) {
 		for (int i = 0; i < number; i = i + 1) {
@@ -221,7 +251,12 @@ public class Prototipo extends JFrame {
 			if (quadradoDistancia(inimigo.getPoint(), centroPonto) < somaRaioCentroSquared)
 			{
 				inimigosColididos.add(inimigo);
-				bateuCentro = true;
+				if (inimigo instanceof PowerUp) {
+					this.poweruptime = 500;
+					this.anelOld = this.anel;
+					this.anel = this.fullArmor;
+				}
+				else bateuCentro = true;
 				//System.out.println("Colidiu centro");
 
 			} else {
@@ -283,12 +318,23 @@ public class Prototipo extends JFrame {
 
 			int numeroGerado = randomGenerator.nextInt(30);
 			if (numeroGerado < 1) this.gerarInimigos(1);
+			
+			numeroGerado = randomGenerator.nextInt(200);
+			if (numeroGerado < 1) this.gerarPowerup();
+			
 			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 
 			numeroGerado = randomGenerator.nextInt(100);
 			if ((this.backgroundXSpeed == 0 && this.backgroundYSpeed == 0 )|| numeroGerado < 1) {
 				this.backgroundXSpeed = randomGenerator.nextInt(2) - 1;
 				this.backgroundYSpeed = randomGenerator.nextInt(2) - 1;
+			}
+			
+			if (this.poweruptime <= 0) {
+				this.anel = this.anelOld;
+			}
+			else {
+				this.poweruptime = this.poweruptime - 1;
 			}
 
 

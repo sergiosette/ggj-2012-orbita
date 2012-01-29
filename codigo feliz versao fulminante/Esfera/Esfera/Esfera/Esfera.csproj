@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="Anel.cs" />
     <Compile Include="Agendador.cs" />
-    <Compile Include="PowerUP.cs" />
+    <Compile Include="MainPage.cs" />
     <Compile Include="Configuracao.cs" />
     <Compile Include="Font.cs" />
     <Compile Include="InimigoLinhaReta.cs" />

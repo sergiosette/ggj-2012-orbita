@@ -102,6 +102,17 @@ public class Anel {
 	{
 		g.setColor(Color.RED);
 		
+		List<Point> listaCentroTiles = buscarCentroTiles();
+		int raiocolisao = (Math.max(getImage().getWidth(), getImage().getHeight()))/2;
+		for (Point centroTile: listaCentroTiles)
+		{
+			g.drawOval(centroTile.x - raiocolisao, centroTile.y - raiocolisao, raiocolisao*2, raiocolisao*2);
+		}
+	}
+	
+	public List<Point> buscarCentroTiles ()
+	{
+		List<Point> listaCentroTiles = new ArrayList<Point>();
 		double incrementoTile = (360 * (image.getWidth() / (Math.PI * 2 * Math.abs(getRaio()))));
 		double incrementoVazio = anguloDoVazio();
 		 
@@ -116,17 +127,19 @@ public class Anel {
 		
 		Point vetor = new Point(vetorCentroX, vetorCentroY);
 		rotate(vetor, getAngulo());
-		int raiocolisao = (Math.max(getImage().getWidth(), getImage().getHeight()))/2;
+		
 		for (int i = 0; i < tiles.size(); i++)
 		{
 			if (tiles.get(i))
 			{
-				g.drawOval(centrox+vetor.x - raiocolisao, centroy+vetor.y - raiocolisao, raiocolisao*2, raiocolisao*2);
+				listaCentroTiles.add(new Point(centrox+vetor.x, centroy+vetor.y));
 				rotate (vetor, incrementoTile);
 			} else {
 				rotate(vetor, incrementoVazio);
 			}
-		}
+		}		
+		
+		return listaCentroTiles;
 	}
 	
 	private double anguloDoVazio() {

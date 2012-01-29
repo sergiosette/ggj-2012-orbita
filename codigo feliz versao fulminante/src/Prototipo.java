@@ -23,6 +23,7 @@ public class Prototipo extends JFrame {
 	private Canvas canvas;
 	private BufferStrategy strategy;
 	private Anel anel;
+	private Anel anelOld;
 
 	private boolean leftPressed = false;;
 	private boolean rightPressed = false;;
@@ -34,22 +35,89 @@ public class Prototipo extends JFrame {
 	private long pontos = 0;
 	private List<Boolean> tiles = null;
 
-	private String configPath = "config.txt";
-	private String imagePath;
+
 	private List<InimigoLinhaReta> listaInimigos;
 	private Random randomGenerator;
 	private BufferedImage imageTile = null;
 	private BufferedImage imageInimigo = null;
 	private BufferedImage imageNucleo = null;
+	private BufferedImage imageFundo = null;
+
+	private int backgroundXSpeed;
+	private int backgroundYSpeed;
+
+	private int backgroundDeslocamentoX = 0;
+	private int backgroundDeslocamentoY = 0;
+
+	private Anel fullArmor;
 
 	private Nucleo nucleo;
 
 
 	public Prototipo() {
+		List<Boolean> fullbool = new ArrayList<Boolean>();
+
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);	
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);	
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);
+		fullbool.add(true);	
+
 
 		this.config = new Configuracao();
 		this.config.carregar();
 
+		this.backgroundXSpeed = 0;
+		this.backgroundYSpeed = 0;
 		this.randomGenerator = new Random();
 		this.setTitle("Game");
 		this.setSize(800, 600);
@@ -64,6 +132,7 @@ public class Prototipo extends JFrame {
 			this.imageInimigo = ImageIO.read(new File(this.config.getInimigo()));
 			//this.imageBackground = ImageIO.read(new File(this.config.getBackground()));
 			this.imageNucleo = ImageIO.read(new File(this.config.getNucleo()));
+			this.imageFundo = ImageIO.read(new File(this.config.getBackground()));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,10 +143,13 @@ public class Prototipo extends JFrame {
 
 		this.nucleo = new Nucleo(400,300,this.imageNucleo,this);
 
-		this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 10, this.imageTile.getHeight());
+		this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 2, this.imageTile.getHeight());
+		this.anelOld = anel;
+		this.fullArmor =  new Anel(160, this.nucleo, 0, this.imageTile, 2, this.imageTile.getHeight());
+		fullArmor.setTiles(fullbool);
 		this.tiles = getRandomTiles();
 
-		this.setListaInimigos(gerarInimigos(30));
+		//this.setListaInimigos(gerarInimigos(30));
 
 		this.anel.setTiles(this.tiles);
 		canvas = new Canvas();
@@ -109,19 +181,17 @@ public class Prototipo extends JFrame {
 			y = randomGenerator.nextInt(51) + 650;
 			break;
 		}
-		double speed = randomGenerator.nextDouble()  * 0.75 + 0.25;
+		double speed = Math.abs(randomGenerator.nextDouble()  * 5 + 2);
 		InimigoLinhaReta inimigo = new InimigoLinhaReta(x, y, speed, this.imageInimigo, this);
 		return inimigo;
 	}
 
-	public List<InimigoLinhaReta> gerarInimigos(int number) {
-		List<InimigoLinhaReta> resultado = new ArrayList<InimigoLinhaReta>();
+	public void gerarInimigos(int number) {
 		for (int i = 0; i < number; i = i + 1) {
 
 			InimigoLinhaReta inimigo = gerarInimigo();
-			resultado.add(inimigo);
+			this.listaInimigos.add(inimigo);
 		}
-		return resultado;
 	}
 
 
@@ -131,16 +201,19 @@ public class Prototipo extends JFrame {
 
 	private void checarColisao()
 	{
-		double raioTile = Math.max(imageTile.getWidth()/2, imageTile.getHeight()/2);
-		double raioInimigo = Math.max(imageInimigo.getWidth()/2, imageInimigo.getHeight()/2);
+		double raioTile = (imageTile.getWidth()/2 + imageTile.getHeight()/2)/2;
+		double raioInimigo = Math.min(imageInimigo.getWidth()/2, imageInimigo.getHeight()/2);
+
+		//		double raioTile = (imageTile.getWidth() + imageTile.getHeight())/2;
+		//		double raioInimigo = (imageInimigo.getWidth() + imageInimigo.getHeight())/2;
 		double raioCentro = Math.max(imageTile.getWidth()/2, imageTile.getHeight()/2);
 
 		double somaRaioSquared = Math.pow(raioTile + raioInimigo, 2);
 		double somaRaioCentroSquared = Math.pow(raioTile+raioCentro, 2);
 		Point centroPonto = new Point(nucleo.getX(),nucleo.getY());
-		System.out.printf("raioTile %f raioInimigo %f somaRaioSquared %f\n", raioTile, raioInimigo, somaRaioSquared);
+		//System.out.printf("raioTile %f raioInimigo %f somaRaioSquared %f\n", raioTile, raioInimigo, somaRaioSquared);
 		Boolean bateuCentro = false;
-		
+
 		List<InimigoLinhaReta> inimigosColididos = new ArrayList<InimigoLinhaReta>();
 		for (InimigoLinhaReta inimigo : this.listaInimigos)
 		{
@@ -149,17 +222,17 @@ public class Prototipo extends JFrame {
 			{
 				inimigosColididos.add(inimigo);
 				bateuCentro = true;
-				System.out.println("Colidiu centro");
-				
+				//System.out.println("Colidiu centro");
+
 			} else {
 				for (Point centroTile: this.anel.buscarCentroTiles())
 				{
 					if (quadradoDistancia(inimigo.getPoint(), centroTile) < somaRaioSquared)
 					{
 						inimigosColididos.add(inimigo);
-						System.out.println("colidiu");
+						//System.out.println("colidiu");
 					}
-					
+
 				}
 			}
 		}
@@ -168,18 +241,18 @@ public class Prototipo extends JFrame {
 		{
 			this.aumentaRaio();
 		}
-		
+
 		for (InimigoLinhaReta inimigoRemovido: inimigosColididos)
 		{
 			listaInimigos.remove(inimigoRemovido);
 		}
 	}
-	
+
 	public Boolean verificarGameOver()
 	{
 		Boolean gameOver = false;
 		Rectangle bounds = this.getBounds();
-		
+
 		for (Point centroTile: this.anel.buscarCentroTiles())
 		{
 			if (centroTile.x < 0 || centroTile.y < 0 || centroTile.x > bounds.width || centroTile.y > bounds.height)
@@ -187,10 +260,10 @@ public class Prototipo extends JFrame {
 				gameOver = true;
 			}
 		}
-		
+
 		return gameOver;
 	}
-	
+
 	private void aumentaRaio()
 	{
 		this.anel.setRaio(anel.getRaio()*1.1);
@@ -208,7 +281,15 @@ public class Prototipo extends JFrame {
 
 		while (!verificarGameOver()) {
 
+			int numeroGerado = randomGenerator.nextInt(30);
+			if (numeroGerado < 1) this.gerarInimigos(1);
 			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+
+			numeroGerado = randomGenerator.nextInt(100);
+			if ((this.backgroundXSpeed == 0 && this.backgroundYSpeed == 0 )|| numeroGerado < 1) {
+				this.backgroundXSpeed = randomGenerator.nextInt(2) - 1;
+				this.backgroundYSpeed = randomGenerator.nextInt(2) - 1;
+			}
 
 
 			if (leftPressed) this.anel.setAngulo(anel.getAngulo() - anel.getSpeed());
@@ -217,19 +298,30 @@ public class Prototipo extends JFrame {
 			if (upPressed) this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() + 5),(int)Math.round(anel.getPosicao().getY())));
 			if (downPressed) this.anel.setPosicao(new Point((int)Math.round(anel.getPosicao().getX() - 5),(int)Math.round(anel.getPosicao().getY())));
 			 */
-			if (upPressed) this.anel.setRaio(this.anel.getRaio() + 10);
-			if (downPressed) this.anel.setRaio(this.anel.getRaio() - 10);
+			if (upPressed) this.anel.setRaio(this.anel.getRaio() + 3);
+			if (downPressed) this.anel.setRaio(this.anel.getRaio() - 3);
 
 			checarColisao();
 
 			g.setColor(Color.white);
-			g.fillRect(0, 0, getWidth(), getHeight());
-			
+			if (this.backgroundDeslocamentoX + this.backgroundXSpeed > 0 ||
+					this.backgroundDeslocamentoX + this.backgroundXSpeed < -400) {
+				this.backgroundXSpeed = this.backgroundXSpeed * -1;
+			}
+			if (this.backgroundDeslocamentoY + this.backgroundYSpeed > 0 ||
+					this.backgroundDeslocamentoY + this.backgroundYSpeed < -200) {
+				this.backgroundYSpeed = this.backgroundYSpeed * -1;
+			}
+			this.backgroundDeslocamentoX = this.backgroundDeslocamentoX + backgroundXSpeed;
+			this.backgroundDeslocamentoY = this.backgroundDeslocamentoY + backgroundYSpeed;
+
+			g.drawImage(this.imageFundo,backgroundDeslocamentoX,backgroundDeslocamentoY,1200 , 800 ,this);
+
 			nucleo.paint(g);
 
 			anel.paint(g, this);
 			anel.desenharBBs(g);
-			
+
 			if (this.listaInimigos != null & this.listaInimigos.size() > 0) {
 				for (InimigoLinhaReta inimigo : this.listaInimigos) {
 					double xVetor = nucleo.getX() - inimigo.getX();
@@ -240,7 +332,7 @@ public class Prototipo extends JFrame {
 					inimigo.paint(g);
 				}
 			}
-			
+
 			String pontuacao = "Pontuação: ";
 			if (pontos > 8000) {
 				pontuacao = pontuacao+"mais de 8000!!";
@@ -249,7 +341,7 @@ public class Prototipo extends JFrame {
 			}
 			g.setColor(Color.BLACK);
 			g.drawChars(pontuacao.toCharArray(), 0, pontuacao.length(), 600, 500);
-			
+
 			strategy.show();
 
 			g.dispose();
@@ -282,6 +374,9 @@ public class Prototipo extends JFrame {
 		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 			this.downPressed = true;
 		}
+		if(e.getKeyCode() == KeyEvent.VK_A){
+			this.anel = fullArmor;
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -297,23 +392,25 @@ public class Prototipo extends JFrame {
 		if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			this.downPressed = false;
 		}
+		if(e.getKeyCode() == KeyEvent.VK_A){
+			this.anel = anelOld;
+		}
 	}
 
 	public ArrayList<Boolean> getRandomTiles() {
+		int maxSegmentos = randomGenerator.nextInt(4) + 2;
+		int numeroSegmentos = 0;
+
 		double circulo = 2 * Math.PI * this.anel.getRaio();
 		int quantidade = (int)( circulo / this.imageTile.getHeight() );
 		ArrayList<Boolean> tiles = new ArrayList<Boolean>(quantidade);
 		tiles.add(false);
-		for (int i = 1; i < quantidade - 1; i++) {
-			if (randomGenerator.nextInt(10) > 3) {
-				tiles.add(true);
-			} else {
-				tiles.add(false);
-			}
+		while (tiles.size() < quantidade && numeroSegmentos < maxSegmentos) {
+			tiles.add(true);			
 		}
-		tiles.add(false);
 		return tiles;
 	}
+
 
 	public void draw() {
 

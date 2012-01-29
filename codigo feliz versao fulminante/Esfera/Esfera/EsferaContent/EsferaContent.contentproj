@@ -47,11 +47,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="temas\1\nucleo.jpg">
-      <Name>nucleo</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arial.spritefont">
@@ -75,9 +70,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="temas\2\" />
-    <Folder Include="temas\3\" />
-    <Folder Include="temas\4\" />
     <Folder Include="temas\5\" />
     <Folder Include="temas\6\" />
     <Folder Include="temas\7\" />
@@ -85,6 +77,69 @@
   <ItemGroup>
     <Compile Include="temas\1\object transp2 35 p 105.png">
       <Name>object transp2 35 p 105</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="temas\1\Armor asset.png">
+      <Name>Armor asset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="temas\1\Armor asset2.png">
+      <Name>Armor asset2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="temas\2\Crystal asse2t.png">
+      <Name>Crystal asse2t</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="temas\2\Crystal asset.png">
+      <Name>Crystal asset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="temas\3\Cyber asset 2.png">
+      <Name>Cyber asset 2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="temas\3\Cyber asset 22.png">
+      <Name>Cyber asset 22</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="temas\4\Zombie asse2t.png">
+      <Name>Zombie asse2t</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="temas\4\Zombie asset.png">
+      <Name>Zombie asset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="temas\1\Crushed BG A.JPG">
+      <Name>Crushed BG A</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="temas\1\Crystal assettemp.png">
+      <Name>Crystal assettemp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="temas\1\Crystal asse2t.png">
+      <Name>Crystal asse2t</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

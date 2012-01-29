@@ -23,7 +23,7 @@ namespace Esfera
 
         public void Update(Game1 game)
         {
-            if (false)
+            if (game.escPressed)
                 this.Visible = false;
         }
 

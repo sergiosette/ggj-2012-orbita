@@ -26,6 +26,8 @@ namespace Esfera
 
         private Texture2D[] tileArray = new Texture2D[5];
         private Texture2D[] nucleoArray = new Texture2D[5];
+        private Texture2D[] backgroundArray = new Texture2D[10];
+        private Texture2D[] inimigosArray = new Texture2D[6];
 
         public static int WIDTH = 800;
         public static int HEIGHT = 600;
@@ -41,6 +43,7 @@ namespace Esfera
         public bool upPressed = false;
         public bool downPressed = false;
         public bool enterPressed = false;
+        public bool escPressed = false;
 
         private int fpsCounter = 30;
         private bool gameOver = false;
@@ -51,6 +54,7 @@ namespace Esfera
 
         private List<InimigoLinhaReta> listaInimigos;
         private Random randomGenerator;
+        private Texture2D imageOrbita = null;
         private Texture2D imageTile = null;
         private Texture2D imageInimigo = null;
         private Texture2D imageNucleo = null;
@@ -61,9 +65,10 @@ namespace Esfera
         private Texture2D imageGame = null;
         private Texture2D imageOver = null;
         private Texture2D imageCreditos = null;
+        private Texture2D imageBackgroundCreditos = null;
 
         private MainPage mainPage = null;
-        private CreditsPage creditsPage = null;
+        private CreditsPage creditsPage;
 
         private Nucleo nucleo;
 
@@ -75,6 +80,20 @@ namespace Esfera
         private int backgroundDeslocamentoY = 0;
         private int backgroundYSpeed = 0;
         private int backgroundXSpeed = 0;
+
+        public void restart()
+        {
+            this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 3, this.imageTile.Height);
+            this.tiles = getRandomTiles();
+            anel.setTiles(this.tiles);
+            this.listaInimigos = new List<InimigoLinhaReta>();
+            this.gameOver = false;
+            this.combo = 0;
+            this.multiplier = 1;
+            this.pontos = 0;
+            this.contadorSegundos = 0;
+            this.inimigoSpeedRatio = 1;
+        }
 
         public InimigoLinhaReta gerarInimigo()
         {
@@ -129,7 +148,7 @@ namespace Esfera
                     y = randomGenerator.Next(51) + 650;
                     break;
             }
-            double speed = randomGenerator.NextDouble() * 0.75 + 0.25 * this.inimigoSpeedRatio;
+            double speed = (randomGenerator.NextDouble() + 0.5) * this.inimigoSpeedRatio;
             PowerUP powerup = new PowerUP(x, y, speed, this.imagePowerUP);
             this.listaInimigos.Add(powerup);
         }
@@ -263,7 +282,7 @@ namespace Esfera
 
         public void PrintString(SpriteBatch sb, String s, int x, int y)
         {
-            this.PrintString(sb, s, x, y, Color.Black);
+            this.PrintString(sb, s, x, y, Color.DarkRed);
         }
 
         public void PrintString(SpriteBatch sb, String s, int x, int y, Color color)
@@ -286,6 +305,7 @@ namespace Esfera
             this.upPressed = false;
             this.rightPressed = false;
             this.enterPressed = false;
+            this.escPressed = false;
 
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.Left))
@@ -303,6 +323,11 @@ namespace Esfera
             if (keyState.IsKeyDown(Keys.Up))
             {
                 this.upPressed = true;
+
+            }
+            if (keyState.IsKeyDown(Keys.Escape))
+            {
+                this.escPressed = true;
 
             }
             if (keyState.IsKeyDown(Keys.Down))
@@ -386,7 +411,7 @@ namespace Esfera
             graphics.PreferredBackBufferHeight = 600;
             graphics.ApplyChanges();
 
-            musica = this.Content.Load<Song>("musicas/1");
+            musica = this.Content.Load<Song>("musicas/OrbitaLOOP");//("musicas/1");
             MediaPlayer.IsRepeating = true;
             this.Window.Title = "Game";
 
@@ -403,36 +428,65 @@ namespace Esfera
                 //fpsCounter = int.Parse(this.config.getFPS());
                 //Font1 = Content.Load<SpriteFont>(@"Arial");
             }
+            for (int i = 1; i <= 5; i = i + 1)
+            {
+                //imageInimigo = this.Content.Load<Texture2D>("temas/1/inimigo");
+                
+                inimigosArray[i] = this.Content.Load<Texture2D>("temas/inimigos/" + i);
+                //imageBackground = this.Content.Load<Texture2D>("temas/1/Crushed BG A");
+                //imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
+                //fpsCounter = int.Parse(this.config.getFPS());
+                //Font1 = Content.Load<SpriteFont>(@"Arial");
+            }
+            for (int i = 2; i <= 9; i = i + 1)
+            {
+                //imageInimigo = this.Content.Load<Texture2D>("temas/1/inimigo");
+                //nucleoArray[i] = this.Content.Load<Texture2D>("temas/" + i + "/1");
+                //tileArray[i] = this.Content.Load<Texture2D>("temas/" + i + "/2");
+                backgroundArray[i] = this.Content.Load<Texture2D>("temas/background/" + i);
+                //imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
+                //fpsCounter = int.Parse(this.config.getFPS());
+                //Font1 = Content.Load<SpriteFont>(@"Arial");
+            }
 
             this.randomGenerator = new Random();
             int temaCarregado = randomGenerator.Next(1, 4);
 
-            imageInimigo =
-                this.Content.Load<Texture2D>("temas/1/inimigo");
+            
             imageNucleo = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/1");
             imageTile = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/2");
-            imageBackground = this.Content.Load<Texture2D>("temas/1/Crushed BG A");
-            imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
+            int backgroundCarregado = randomGenerator.Next(2, 9);
+            imageBackground = this.Content.Load<Texture2D>("temas/background/" + backgroundCarregado);
+            imagePowerUP = this.Content.Load<Texture2D>("temas/powerup3");
+
+            int inimigoCarregado = randomGenerator.Next(1, 5);
+            imageInimigo = this.Content.Load<Texture2D>("temas/inimigos/" + inimigoCarregado);
+
             //fpsCounter = int.Parse(this.config.getFPS());
             Font1 = Content.Load<SpriteFont>(@"Arial");
 
             imageMainPage = this.Content.Load<Texture2D>("temas/1/Crushed BG A");
+            imageOrbita = this.Content.Load<Texture2D>("temas/ORBITA");
 
-            imageGame = this.Content.Load<Texture2D>("game");
-            imageOver = this.Content.Load<Texture2D>("over");
-            imageStart = this.Content.Load<Texture2D>("start");
-            imageCreditos = this.Content.Load<Texture2D>("game");
+            imageGame = this.Content.Load<Texture2D>("temas/game");
+            imageOver = this.Content.Load<Texture2D>("temas/over");
+            imageStart = this.Content.Load<Texture2D>("temas/start");
+            imageCreditos = this.Content.Load<Texture2D>("temas/cred");
+            imageBackgroundCreditos = this.Content.Load<Texture2D>("creditos");
 
-            mainPage = new MainPage(imageMainPage, imageStart, imageCreditos);
-            creditsPage = new CreditsPage(imageCreditos);
+
+            mainPage = new MainPage(imageMainPage, imageOrbita, imageStart, imageCreditos);
+
+            creditsPage = new CreditsPage(imageBackgroundCreditos);
+
             this.listaInimigos = new List<InimigoLinhaReta>();
             this.nucleo = new Nucleo(400, 300, this.imageNucleo);
 
-            this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 5, this.imageTile.Height);
+            this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 3, this.imageTile.Height);
             this.tiles = getRandomTiles();
             this.anel.setTiles(this.tiles);
 
-            this.anelFullArmor = new Anel(120, this.nucleo, 0, this.imageTile, 5, this.imageTile.Height);
+            this.anelFullArmor = new Anel(120, this.nucleo, 0, this.imageTile, 3, this.imageTile.Height);
             anelFullArmor.setTiles(gerarFullArmor());
 
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -470,7 +524,7 @@ namespace Esfera
             }
             if (mainPage.Visible)
             {
-                mainPage.Update(this);
+                mainPage.Update(this, creditsPage);
             }
             else {
                 // Allows the game to exit
@@ -479,10 +533,12 @@ namespace Esfera
 
                 if (this.verificarGameOver())
                 {
-                    if (enterPressed)
+                    
+                    if (escPressed)
                     {
                         mainPage.Visible = true;
                         //todo restart
+                        this.restart();
                     }
                     return;
                 }
@@ -506,9 +562,12 @@ namespace Esfera
 
                 if (upPressed && this.powerUPDuration > 0)
                 {
-                    this.anel.setRaio(this.anel.getRaio() + 10);
+                    if (this.anel.getRaio() < 308)  this.anel.setRaio(this.anel.getRaio() + 10);
                 }
-                if (downPressed && this.powerUPDuration > 0) this.anel.setRaio(this.anel.getRaio() - 10);
+                if (downPressed && this.powerUPDuration > 0)
+                {
+                    if (this.anel.getRaio() > 10) this.anel.setRaio(this.anel.getRaio() - 10);
+                }
 
                 checarColisao();
 
@@ -558,7 +617,7 @@ namespace Esfera
             if (creditsPage.Visible)
             {
                 creditsPage.Draw(this, spriteBatch);
-            }
+            } else 
             if (mainPage.Visible)
             {
                 mainPage.Draw(this, spriteBatch);
@@ -589,16 +648,17 @@ namespace Esfera
                 {
                     pontuacao = pontuacao + pontos;
                 }
-                PrintString(spriteBatch, pontuacao, 530, 570);
+                PrintString(spriteBatch, pontuacao, 10, 570);
 
-                PrintString(spriteBatch, "COMBO:" + combo, 530, 490);
-                PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 530, 530);
-                PrintString(spriteBatch, "TIME: " + contadorSegundos, 530, 10);
+                PrintString(spriteBatch, "COMBO:" + combo, 10, 490);
+                PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 10, 530);
+                PrintString(spriteBatch, "TIME: " + contadorSegundos, 10, 450);
 
                 if (this.verificarGameOver())
                 {
+                    PrintString(spriteBatch,"<Press ESC>",310,450);
                     spriteBatch.Draw(imageGame, new Rectangle(40, 60, imageGame.Width/3, imageGame.Height/3), Color.White);
-                    spriteBatch.Draw(imageOver, new Rectangle(200, 120, imageOver.Width/3, imageOver.Height/3), Color.White);
+                    spriteBatch.Draw(imageOver, new Rectangle(200, 180, imageOver.Width/3, imageOver.Height/3), Color.White);
                     
                 }
 
@@ -611,18 +671,23 @@ namespace Esfera
         int contadorSegundos = 0;
         public void AgendamentoDisparado()
         {
-            if (contadorSegundos % 60 == 0)
+            if (contadorSegundos % 10 == 0 && contadorSegundos != 0)
             {
                 int temaRandom = randomGenerator.Next(1,4);
                 this.anel.setImage(this.tileArray[temaRandom]);
                 if (this.anelFrozen != null) this.anelFrozen.setImage(this.tileArray[temaRandom]);
                 this.anelFullArmor.setImage(this.tileArray[temaRandom]);
                 this.nucleo.setImage(this.nucleoArray[temaRandom]);
+                int backgroundRandom = randomGenerator.Next(2, 9);
+                int inimigoRandom = randomGenerator.Next(1, 5);
+
+                this.imageBackground = this.backgroundArray[backgroundRandom];
+                this.imageInimigo = this.inimigosArray[inimigoRandom];
                 
             }
             if (contadorSegundos % 10 == 0)
             {
-                this.inimigoSpeedRatio = this.inimigoSpeedRatio + 0.1;
+                this.inimigoSpeedRatio = this.inimigoSpeedRatio + 0.3;
             }
             if (powerUPDuration > 1)
             {
@@ -636,7 +701,7 @@ namespace Esfera
                     powerUPDuration = 0;
                 }
             }
-            int numInimigos = randomGenerator.Next(1, 3) + contadorSegundos / 20;
+            int numInimigos = randomGenerator.Next(2, 6) + contadorSegundos / 10;
             gerarInimigos(numInimigos);
             int gerarPowerup = randomGenerator.Next(1, 10);
             if (gerarPowerup == 1)

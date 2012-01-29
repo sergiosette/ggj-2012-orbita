@@ -51,8 +51,8 @@ class Anel {
 		
         double x = 0;
         double y = 0;
-        game.PrintString(sb, "angulo:"+ getAngulo(), 40, 40);
-        game.PrintString(sb, "C", 400, 300);
+        //game.PrintString(sb, "angulo:"+ getAngulo(), 40, 40);
+        //game.PrintString(sb, "C", 400, 300);
         IList<Point> centros = buscarCentroTiles();
         for (int i = 0; i < centros.Count; i++)
         {

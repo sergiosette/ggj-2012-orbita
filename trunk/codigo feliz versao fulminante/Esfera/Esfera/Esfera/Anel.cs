@@ -65,10 +65,10 @@ class Anel {
             double xn = x / modulo;
             double yn = y / modulo;
             //sb.Draw(this.image, rect, null, Color.White, (float)angulo, new Vector2((float)-x, (float)-y), SpriteEffects.None, 0.0f);
-            sb.Draw(this.image, rect, null, Color.White, -(float)Math.Atan2(xn,yn) - (float)Math.PI/2, new Vector2((getImage().Width / 2), (getImage().Height / 2)), SpriteEffects.None, 0.0f);
+            sb.Draw(this.image, rect, null, Color.White, -(float)Math.Atan2(xn,yn), new Vector2((getImage().Width / 2), (getImage().Height / 2)), SpriteEffects.None, 0.0f);
 
             //sb.Draw(this.image, rect, null, Color.White, (float)Math.Atan(x / y), new Vector2((int)-getX(), (int)-getY()), SpriteEffects.None, 0.0f);
-            game.PrintString(sb, "#", (int)tile.X, (int)tile.Y);
+            //game.PrintString(sb, "#", (int)tile.X, (int)tile.Y);
 
         }
 

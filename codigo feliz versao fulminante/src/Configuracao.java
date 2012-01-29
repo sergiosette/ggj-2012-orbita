@@ -14,6 +14,7 @@ public class Configuracao {
 	private static String tile = "tile";
 	private static String nucleo = "nucleo";
 	private static String background = "background";
+	private static String powerup = "powerup";
 	
 	private HashMap<String,String> config = null;
 	
@@ -35,7 +36,10 @@ public class Configuracao {
 					this.config.put(nucleo, parse(line,nucleo));
 				} else if (line.startsWith(tile)) {
 					this.config.put(tile, parse(line,tile));
+				} else if (line.startsWith(powerup)) {
+					this.config.put(powerup, parse(line,powerup));
 				}
+				
 				line = reader.readLine();
 				
 			}
@@ -73,5 +77,9 @@ public class Configuracao {
 	public String getTile() {
 		return this.config.get(tile);
 	}
-	
+
+	public String getPowerup() {
+		return config.get(powerup);
+	}
+
 }

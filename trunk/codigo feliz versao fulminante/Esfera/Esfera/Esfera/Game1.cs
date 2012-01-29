@@ -22,11 +22,17 @@ namespace Esfera
 
         private double inimigoSpeedRatio = 1;
 
+        private Song musica;
+
+        private Texture2D[] tileArray = new Texture2D[5];
+        private Texture2D[] nucleoArray = new Texture2D[5];
+
         public static int WIDTH = 800;
         public static int HEIGHT = 600;
         private Anel anel;
         private Anel anelFrozen;
         private Anel anelFullArmor;
+        private bool tocando = false;
 
         private int powerUPDuration = 0;
 
@@ -373,20 +379,33 @@ namespace Esfera
             graphics.PreferredBackBufferHeight = 600;
             graphics.ApplyChanges();
 
-
+            musica = this.Content.Load<Song>("musicas/1");
+            MediaPlayer.IsRepeating = true;
             this.Window.Title = "Game";
 
             config = new Configuracao();
             config.carregar();
 
-            randomGenerator = new Random();
+            for (int i = 1; i <= 4; i = i + 1)
+            {
+                //imageInimigo = this.Content.Load<Texture2D>("temas/1/inimigo");
+                nucleoArray[i] = this.Content.Load<Texture2D>("temas/" + i + "/1");
+                tileArray[i] = this.Content.Load<Texture2D>("temas/" + i + "/2");
+                //imageBackground = this.Content.Load<Texture2D>("temas/1/Crushed BG A");
+                //imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
+                //fpsCounter = int.Parse(this.config.getFPS());
+                //Font1 = Content.Load<SpriteFont>(@"Arial");
+            }
+
+            this.randomGenerator = new Random();
             int temaCarregado = randomGenerator.Next(1, 4);
+
             imageInimigo =
-                this.Content.Load<Texture2D>("temas/" + temaCarregado + "/inimigo");
-            imageNucleo = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/nucleo");
-            imageTile = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/tile");
-            imageBackground = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/background");
-            imagePowerUP = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/powerup");
+                this.Content.Load<Texture2D>("temas/1/inimigo");
+            imageNucleo = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/1");
+            imageTile = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/2");
+            imageBackground = this.Content.Load<Texture2D>("temas/1/Crushed BG A");
+            imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
             //fpsCounter = int.Parse(this.config.getFPS());
             Font1 = Content.Load<SpriteFont>(@"Arial");
 
@@ -425,6 +444,11 @@ namespace Esfera
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (!tocando)
+            {
+                MediaPlayer.Play(musica);
+                tocando = true;
+            }
             checkInput();
             if (mainPage.Visible)
             {
@@ -525,7 +549,7 @@ namespace Esfera
                 anel.paint(spriteBatch, this);
                 anel.desenharBBs(spriteBatch);
 
-                PrintString(spriteBatch, "centros " + anel.buscarCentroTiles().Count, 40, 20);
+                // PrintString(spriteBatch, "centros " + anel.buscarCentroTiles().Count, 40, 20);
                 String pontuacao = "SCORE:";
                 if (pontos > 9000)
                 {
@@ -549,6 +573,15 @@ namespace Esfera
         int contadorSegundos = 0;
         public void AgendamentoDisparado()
         {
+            if (contadorSegundos % 60 == 0)
+            {
+                int temaRandom = randomGenerator.Next(1,4);
+                this.anel.setImage(this.tileArray[temaRandom]);
+                if (this.anelFrozen != null) this.anelFrozen.setImage(this.tileArray[temaRandom]);
+                this.anelFullArmor.setImage(this.tileArray[temaRandom]);
+                this.nucleo.setImage(this.nucleoArray[temaRandom]);
+                
+            }
             if (contadorSegundos % 10 == 0)
             {
                 this.inimigoSpeedRatio = this.inimigoSpeedRatio + 0.1;

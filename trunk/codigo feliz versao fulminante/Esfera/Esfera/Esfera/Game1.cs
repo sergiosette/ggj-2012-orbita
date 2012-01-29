@@ -468,7 +468,15 @@ namespace Esfera
                     this.Exit();
 
                 if (this.verificarGameOver())
+                {
+                    if (enterPressed)
+                    {
+                        mainPage.Visible = true;
+                        //todo restart
+                    }
                     return;
+                }
+                    
 
                 //if ( != 0)
 
@@ -572,6 +580,14 @@ namespace Esfera
                 PrintString(spriteBatch, "COMBO:" + combo, 530, 490);
                 PrintString(spriteBatch, "MULTIPLIER:" + multiplier + "x", 530, 530);
                 PrintString(spriteBatch, "TIME: " + contadorSegundos, 530, 10);
+
+                if (this.verificarGameOver())
+                {
+                    spriteBatch.Draw(imageGame, new Rectangle(40, 60, imageGame.Width/3, imageGame.Height/3), Color.White);
+                    spriteBatch.Draw(imageOver, new Rectangle(200, 120, imageOver.Width/3, imageOver.Height/3), Color.White);
+                    
+                }
+
             }
             spriteBatch.End();
 

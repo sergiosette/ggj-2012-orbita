@@ -380,13 +380,13 @@ namespace Esfera
             config.carregar();
 
             randomGenerator = new Random();
-
+            int temaCarregado = randomGenerator.Next(1, 4);
             imageInimigo =
-                this.Content.Load<Texture2D>("temas/1/inimigo");
-            imageNucleo = this.Content.Load<Texture2D>("temas/1/Crystal assettemp");
-            imageTile = this.Content.Load<Texture2D>("temas/1/Crystal asse2t");
-            imageBackground = this.Content.Load<Texture2D>("temas/1/Crushed BG A");
-            imagePowerUP = this.Content.Load<Texture2D>("temas/1/powerup");
+                this.Content.Load<Texture2D>("temas/" + temaCarregado + "/inimigo");
+            imageNucleo = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/nucleo");
+            imageTile = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/tile");
+            imageBackground = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/background");
+            imagePowerUP = this.Content.Load<Texture2D>("temas/" + temaCarregado + "/powerup");
             //fpsCounter = int.Parse(this.config.getFPS());
             Font1 = Content.Load<SpriteFont>(@"Arial");
 

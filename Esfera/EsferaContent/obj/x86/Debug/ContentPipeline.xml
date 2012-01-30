@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Arial.spritefont</Source>
+      <Name>Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\Arial.xnb</Output>
+      <Time>2012-01-29T03:13:42-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\3\Cyber asset 2.png</Source>
+      <Name>temas\3\Cyber asset 2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\3\Cyber asset 2.xnb</Output>
+      <Time>2012-01-29T11:37:14-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\3\Cyber asset 22.png</Source>
+      <Name>temas\3\Cyber asset 22</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\3\Cyber asset 22.xnb</Output>
+      <Time>2012-01-29T11:37:14-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\4\Zombie asse2t.png</Source>
+      <Name>temas\4\Zombie asse2t</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\4\Zombie asse2t.xnb</Output>
+      <Time>2012-01-29T11:37:14-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\4\Zombie asset.png</Source>
+      <Name>temas\4\Zombie asset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\4\Zombie asset.xnb</Output>
+      <Time>2012-01-29T11:37:14-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\1\1.png</Source>
+      <Name>temas\1\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\1\1.xnb</Output>
+      <Time>2012-01-29T13:50:16-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\1\2.png</Source>
+      <Name>temas\1\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\1\2.xnb</Output>
+      <Time>2012-01-29T13:50:16-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\2\1.png</Source>
+      <Name>temas\2\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\2\1.xnb</Output>
+      <Time>2012-01-29T13:50:18-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\2\2.png</Source>
+      <Name>temas\2\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\2\2.xnb</Output>
+      <Time>2012-01-29T13:50:18-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\3\1.png</Source>
+      <Name>temas\3\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\3\1.xnb</Output>
+      <Time>2012-01-29T13:50:20-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\3\2.png</Source>
+      <Name>temas\3\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\3\2.xnb</Output>
+      <Time>2012-01-29T13:50:20-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\4\1.png</Source>
+      <Name>temas\4\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\4\1.xnb</Output>
+      <Time>2012-01-29T13:50:22-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\4\2.png</Source>
+      <Name>temas\4\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\4\2.xnb</Output>
+      <Time>2012-01-29T13:50:22-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\over.png</Source>
+      <Name>temas\over</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\over.xnb</Output>
+      <Time>2012-01-29T14:35:52-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\pause.png</Source>
+      <Name>temas\pause</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\pause.xnb</Output>
+      <Time>2012-01-29T14:35:52-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\stage.png</Source>
+      <Name>temas\stage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\stage.xnb</Output>
+      <Time>2012-01-29T14:35:52-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\start.png</Source>
+      <Name>temas\start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\start.xnb</Output>
+      <Time>2012-01-29T14:35:52-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\game.png</Source>
+      <Name>temas\game</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\game.xnb</Output>
+      <Time>2012-01-29T14:38:20-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\ORBITA.png</Source>
+      <Name>temas\ORBITA</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\ORBITA.xnb</Output>
+      <Time>2012-01-29T14:46:46-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\powerup2.png</Source>
+      <Name>temas\powerup2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\powerup2.xnb</Output>
+      <Time>2012-01-29T14:57:50-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\10.jpg</Source>
+      <Name>temas\background\10</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\10.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\2.jpg</Source>
+      <Name>temas\background\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\2.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\3.jpg</Source>
+      <Name>temas\background\3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\3.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\4.jpg</Source>
+      <Name>temas\background\4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\4.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\5.jpg</Source>
+      <Name>temas\background\5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\5.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\6.jpg</Source>
+      <Name>temas\background\6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\6.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\7.jpg</Source>
+      <Name>temas\background\7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\7.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\8.jpg</Source>
+      <Name>temas\background\8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\8.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\9.jpg</Source>
+      <Name>temas\background\9</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\background\9.xnb</Output>
+      <Time>2012-01-29T15:03:38-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\powerup3.png</Source>
+      <Name>temas\powerup3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\powerup3.xnb</Output>
+      <Time>2012-01-29T15:05:00-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\1.png</Source>
+      <Name>temas\inimigos\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\inimigos\1.xnb</Output>
+      <Time>2012-01-29T15:20:48-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\2.png</Source>
+      <Name>temas\inimigos\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\inimigos\2.xnb</Output>
+      <Time>2012-01-29T15:21:32-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\3.png</Source>
+      <Name>temas\inimigos\3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\inimigos\3.xnb</Output>
+      <Time>2012-01-29T15:22:06-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\4.png</Source>
+      <Name>temas\inimigos\4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\inimigos\4.xnb</Output>
+      <Time>2012-01-29T15:22:44-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\5.png</Source>
+      <Name>temas\inimigos\5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\inimigos\5.xnb</Output>
+      <Time>2012-01-29T15:23:20-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\cred.png</Source>
+      <Name>temas\cred</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\temas\cred.xnb</Output>
+      <Time>2012-01-29T16:08:02-03:00</Time>
+    </Item>
+    <Item>
+      <Source>creditos.png</Source>
+      <Name>creditos</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\creditos.xnb</Output>
+      <Time>2012-01-29T15:42:26-03:00</Time>
+    </Item>
+    <Item>
+      <Source>musicas\1.mp3</Source>
+      <Name>musicas\1</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\musicas\1.xnb</Output>
+      <Extra>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\musicas\1.wma</Extra>
+      <Time>2012-01-29T12:44:02-03:00</Time>
+    </Item>
+    <Item>
+      <Source>musicas\OrbitaLOOP.mp3</Source>
+      <Name>musicas\OrbitaLOOP</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\musicas\OrbitaLOOP.xnb</Output>
+      <Extra>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\musicas\OrbitaLOOP.wma</Extra>
+      <Time>2012-01-29T14:29:32-03:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\EsferaContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\EsferaContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\Esfera\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-01-30T13:43:33.0728024-03:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

@@ -1,3 +1,0 @@
-E:\GGJ\Esfera\Esfera\EsferaContent\obj\x86\Debug\ResolveAssemblyReference.cache
-E:\GGJ\codigo feliz versao fulminante\Esfera\Esfera\EsferaContent\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\sss\projetos\orbita\codigo feliz versao fulminante\Esfera\EsferaContent\obj\x86\Debug\ResolveAssemblyReference.cache

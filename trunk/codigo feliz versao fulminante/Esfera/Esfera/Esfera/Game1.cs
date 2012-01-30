@@ -84,7 +84,12 @@ namespace Esfera
         public void restart()
         {
             this.anel = new Anel(160, this.nucleo, 0, this.imageTile, 3, this.imageTile.Height);
+            // this.anelFrozen = new Anel(160, this.nucleo, 0, this.imageTile, 3, this.imageTile.Height);
+
+            anelFullArmor.setRaio(120);
             this.tiles = getRandomTiles();
+            //anelFrozen.setTiles(this.tiles);
+            this.anelFrozen = anel;
             anel.setTiles(this.tiles);
             this.listaInimigos = new List<InimigoLinhaReta>();
             this.gameOver = false;

@@ -1,0 +1,2 @@
+C:\Documents and Settings\sss\projetos\svnorbita\Esfera\Esfera\EsferaContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\OrbitaContent\obj\x86\Debug\ResolveAssemblyReference.cache

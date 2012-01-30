@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Arial.spritefont</Source>
+      <Name>Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\Arial.xnb</Output>
+      <Time>2012-01-30T10:29:24.4353102-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\11.jpg</Source>
+      <Name>temas\background\11</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\11.xnb</Output>
+      <Time>2012-01-30T16:10:56.5837897-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\1.jpg</Source>
+      <Name>temas\background\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\1.xnb</Output>
+      <Time>2012-01-30T16:10:57.4008714-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\1\1.png</Source>
+      <Name>temas\1\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\1\1.xnb</Output>
+      <Time>2012-01-30T10:43:09.5519207-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\1\2.png</Source>
+      <Name>temas\1\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\1\2.xnb</Output>
+      <Time>2012-01-30T10:43:09.5988014-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\2\1.png</Source>
+      <Name>temas\2\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\2\1.xnb</Output>
+      <Time>2012-01-30T10:44:30.4680089-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\2\2.png</Source>
+      <Name>temas\2\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\2\2.xnb</Output>
+      <Time>2012-01-30T10:44:57.2837693-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\3\1.png</Source>
+      <Name>temas\3\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\3\1.xnb</Output>
+      <Time>2012-01-30T10:45:12.9731769-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\3\2.png</Source>
+      <Name>temas\3\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\3\2.xnb</Output>
+      <Time>2012-01-30T10:45:13.0044307-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\4\1.png</Source>
+      <Name>temas\4\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\4\1.xnb</Output>
+      <Time>2012-01-30T10:45:46.1334587-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\4\2.png</Source>
+      <Name>temas\4\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\4\2.xnb</Output>
+      <Time>2012-01-30T10:45:46.1490856-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\over.png</Source>
+      <Name>temas\over</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\over.xnb</Output>
+      <Time>2012-01-30T10:43:09.50504-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\pause.png</Source>
+      <Name>temas\pause</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\pause.xnb</Output>
+      <Time>2012-01-30T10:40:12.638637-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\stage.png</Source>
+      <Name>temas\stage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\stage.xnb</Output>
+      <Time>2012-01-30T10:43:09.4581593-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\start.png</Source>
+      <Name>temas\start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\start.xnb</Output>
+      <Time>2012-01-30T10:43:09.0518599-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\game.png</Source>
+      <Name>temas\game</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\game.xnb</Output>
+      <Time>2012-01-30T10:39:59.3739459-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\ORBITA.png</Source>
+      <Name>temas\ORBITA</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\ORBITA.xnb</Output>
+      <Time>2012-01-30T10:40:26.0908149-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\powerup2.png</Source>
+      <Name>temas\powerup2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\powerup2.xnb</Output>
+      <Time>2012-01-30T10:40:29.824927-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\10.jpg</Source>
+      <Name>temas\background\10</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\10.xnb</Output>
+      <Time>2012-01-30T16:10:56.1177431-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\2.jpg</Source>
+      <Name>temas\background\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\2.xnb</Output>
+      <Time>2012-01-30T16:10:58.4179731-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\3.jpg</Source>
+      <Name>temas\background\3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\3.xnb</Output>
+      <Time>2012-01-30T16:10:59.1630476-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\4.jpg</Source>
+      <Name>temas\background\4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\4.xnb</Output>
+      <Time>2012-01-30T16:10:59.7851098-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\5.jpg</Source>
+      <Name>temas\background\5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\5.xnb</Output>
+      <Time>2012-01-30T16:11:00.3561669-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\6.jpg</Source>
+      <Name>temas\background\6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\6.xnb</Output>
+      <Time>2012-01-30T16:11:01.0062319-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\7.jpg</Source>
+      <Name>temas\background\7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\7.xnb</Output>
+      <Time>2012-01-30T16:11:01.8353148-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\8.jpg</Source>
+      <Name>temas\background\8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\8.xnb</Output>
+      <Time>2012-01-30T16:11:02.3333646-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\9.jpg</Source>
+      <Name>temas\background\9</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\9.xnb</Output>
+      <Time>2012-01-30T16:11:02.7514064-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\powerup3.png</Source>
+      <Name>temas\powerup3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\powerup3.xnb</Output>
+      <Time>2012-01-30T10:40:29.9342943-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\1.png</Source>
+      <Name>temas\inimigos\1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\inimigos\1.xnb</Output>
+      <Time>2012-01-30T10:40:32.8403397-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\2.png</Source>
+      <Name>temas\inimigos\2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\inimigos\2.xnb</Output>
+      <Time>2012-01-30T10:40:32.8872114-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\3.png</Source>
+      <Name>temas\inimigos\3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\inimigos\3.xnb</Output>
+      <Time>2012-01-30T10:40:32.9184592-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\4.png</Source>
+      <Name>temas\inimigos\4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\inimigos\4.xnb</Output>
+      <Time>2012-01-30T10:40:32.9965787-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\inimigos\5.png</Source>
+      <Name>temas\inimigos\5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\inimigos\5.xnb</Output>
+      <Time>2012-01-30T10:40:33.0746982-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\cred.png</Source>
+      <Name>temas\cred</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\cred.xnb</Output>
+      <Time>2012-01-30T10:40:01.858146-03:00</Time>
+    </Item>
+    <Item>
+      <Source>creditos.png</Source>
+      <Name>creditos</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\creditos.xnb</Output>
+      <Time>2012-01-30T10:29:24.6227946-03:00</Time>
+    </Item>
+    <Item>
+      <Source>temas\background\start.jpg</Source>
+      <Name>temas\background\start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\temas\background\start.xnb</Output>
+      <Time>2012-01-30T17:19:30.5407087-03:00</Time>
+    </Item>
+    <Item>
+      <Source>musicas\1.mp3</Source>
+      <Name>musicas\1</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\musicas\1.xnb</Output>
+      <Extra>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\musicas\1.wma</Extra>
+      <Time>2012-01-30T10:29:24.7009131-03:00</Time>
+    </Item>
+    <Item>
+      <Source>musicas\OrbitaLOOP.mp3</Source>
+      <Name>musicas\OrbitaLOOP</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\musicas\OrbitaLOOP.xnb</Output>
+      <Extra>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\musicas\OrbitaLOOP.wma</Extra>
+      <Time>2012-01-30T14:19:04.514571-03:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\OrbitaContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\OrbitaContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Documents and Settings\sss\projetos\svnorbita\Orbita\Orbita\Orbita\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-01-30T13:43:33.0728024-03:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

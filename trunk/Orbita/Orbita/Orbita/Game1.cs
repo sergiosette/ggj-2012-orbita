@@ -706,7 +706,7 @@ namespace Esfera
                 if (this.anelFrozen != null) this.anelFrozen.setImage(this.tileArray[temaRandom]);
                 this.anelFullArmor.setImage(this.tileArray[temaRandom]);
                 this.nucleo.setImage(this.nucleoArray[temaRandom]);
-                int backgroundRandom = randomGenerator.Next(2, 11);
+                int backgroundRandom = randomGenerator.Next(2, 10);
                 int inimigoRandom = randomGenerator.Next(1, 6);
                 //this.anel.setTiles(this.getRandomTiles());
 

@@ -1,3 +1,5 @@
-tile=imagens\tile.png
-inimigo=imagens\inimigo.png
-nucleo=imagens\nucleo.jpg
+tile=imagens\tema1\tile.png
+inimigo=imagens\tema1\inimigo.png
+nucleo=imagens\tema1\nucleo.png
+background=imagens\tema1\fundo.jpg
+powerup=imagens\tema1\powerup.png

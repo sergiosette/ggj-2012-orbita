@@ -16,18 +16,18 @@ namespace OrbitaRefactored
 
         public String NomeImagem { get; set; }
         public Texture2D Sprite { get; set; }
-        public Point Centro
+        public Point PosicaoDesenho
         {
             get
             {
-                return new Point((int)Posicao.X - Sprite.Width, (int)Posicao.Y - Sprite.Height);
+                return new Point((int)Posicao.X - (Sprite.Width / 2), (int)Posicao.Y - (Sprite.Height / 2));
             }
         }
         public BoundingSphere BoundingBox
         {
             get
             {
-                return new BoundingSphere(new Vector3((float)Centro.X, (float)Centro.X, 0), Math.Max(this.Sprite.Width, this.Sprite.Height));
+                return new BoundingSphere(new Vector3((float)PosicaoDesenho.X, (float)PosicaoDesenho.X, 0), Math.Max(this.Sprite.Width, this.Sprite.Height));
             }
         }
 
@@ -36,7 +36,7 @@ namespace OrbitaRefactored
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Sprite, new Rectangle(Centro.X, Centro.Y, Sprite.Width, Sprite.Height), Color.White);
+            sb.Draw(Sprite, new Rectangle(PosicaoDesenho.X, PosicaoDesenho.Y, Sprite.Width, Sprite.Height), Color.White);
         }
 
         public void Update(GameTime gameTime)

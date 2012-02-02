@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbita", "Orbita\Orbita\Orb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrbitaContent", "Orbita\OrbitaContent\OrbitaContent.contentproj", "{D384BAD4-F2A4-4D63-8F5E-8C754182878E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrbitaRefactored", "OrbitaRefactored\OrbitaRefactored\OrbitaRefactored.csproj", "{E4E2A88A-57B0-464A-9A22-62F1FF9EE461}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "OrbitaRefactoredContent", "OrbitaRefactored\OrbitaRefactoredContent\OrbitaRefactoredContent.contentproj", "{7F1B7302-5AC8-47B7-B0EC-07015C4C8F87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -17,6 +21,12 @@ Global
 		{056A8743-D271-4D0F-8DA2-9BC7D44F2D72}.Release|x86.Build.0 = Release|x86
 		{D384BAD4-F2A4-4D63-8F5E-8C754182878E}.Debug|x86.ActiveCfg = Debug|x86
 		{D384BAD4-F2A4-4D63-8F5E-8C754182878E}.Release|x86.ActiveCfg = Release|x86
+		{E4E2A88A-57B0-464A-9A22-62F1FF9EE461}.Debug|x86.ActiveCfg = Debug|x86
+		{E4E2A88A-57B0-464A-9A22-62F1FF9EE461}.Debug|x86.Build.0 = Debug|x86
+		{E4E2A88A-57B0-464A-9A22-62F1FF9EE461}.Release|x86.ActiveCfg = Release|x86
+		{E4E2A88A-57B0-464A-9A22-62F1FF9EE461}.Release|x86.Build.0 = Release|x86
+		{7F1B7302-5AC8-47B7-B0EC-07015C4C8F87}.Debug|x86.ActiveCfg = Debug|x86
+		{7F1B7302-5AC8-47B7-B0EC-07015C4C8F87}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using OrbitaRefactored;
 using OrbitaRefactored.Movimentacao;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace OrbitaRefactored
 {
@@ -36,10 +38,14 @@ namespace OrbitaRefactored
 
         protected override void Initialize()
         {
+            
             // TODO: Add your initialization logic here
             this.fase = new Fase();
             fase.Largura = 800;
             fase.Altura = 600;
+            fase.InimigosPorSegundo = 5;
+            fase.InimigosIncremento = 1;
+            fase.InimigosIncrementoTempo = 10;
             fase.NomeBackground = "Fases/Fase1/Background/background";
 
             Nucleo nucleo = new Nucleo();
@@ -48,14 +54,12 @@ namespace OrbitaRefactored
             fase.Nucleo = nucleo;
 
             Escudo escudo = new Escudo();
-            escudo.X = 300;
-            escudo.Y = 200;
             escudo.NomeImagem = "Fases/Fase1/Escudo/escudo";
             escudo.VelocidadeAngular = 5;
             escudo.Raio = 100;
             escudo.IncrementoRaio = 20;
             
-            IList<Boolean> tiles = new List<Boolean>();
+            List<bool> tiles = new List<bool>();
             tiles.Add(false);
             tiles.Add(true);
             tiles.Add(true);
@@ -66,15 +70,25 @@ namespace OrbitaRefactored
             Inimigo inimigo = new Inimigo();
             inimigo.Posicao = new Vector2(100, 50);
             inimigo.NomeImagem = "Fases/Fase1/Inimigo/inimigo";
-            inimigo.VelocidadeAtual = 5;
-            inimigo.VelocidadeBase = 5;
+            inimigo.VelocidadeMin = 2;
+            inimigo.VelocidadeMax = 4;
             inimigo.VelocidadeIncremento = 1;
             inimigo.VelocidadeTempoIncremento = 0;
             inimigo.Movimentacao = new LinhaReta();
-            IList<Inimigo> inimigos = new List<Inimigo>();
+            List<Inimigo> inimigos = new List<Inimigo>();
             inimigos.Add(inimigo);
-            //fase.InimigosTemplates = inimigos;
-            fase.InimigosInstancias = inimigos;
+            fase.InimigosTemplates = inimigos;
+            //fase.InimigosInstancias = inimigos;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Fase));
+            StreamWriter writer = new StreamWriter("c:/Fase11.xml");
+            serializer.Serialize(writer, fase);
+            writer.Close();
+            
+            StreamReader reader = new StreamReader("c:/Fase11.xml");
+            fase = (Fase) serializer.Deserialize(reader);
+             
+
 
             this.fase.Initialize();
             base.Initialize();
@@ -109,5 +123,7 @@ namespace OrbitaRefactored
             this.fase.Draw(spriteBatch);
             base.Draw(gameTime);
         }
+
+        
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace OrbitaRefactored.Movimentacao
 {
-    class LinhaReta : IMovimentacao
+    public class LinhaReta : IMovimentacao
     {
         public LinhaReta() : base() 
         {

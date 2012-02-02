@@ -16,12 +16,11 @@ namespace OrbitaRefactored
         // Fase que criou o objeto
         private Fase fase;
 
-        private BoundingBox boundingBox;
-
         public double VelocidadeIncremento { get; set; }
-        public double VelocidadeBase { get; set; }
+        public double VelocidadeMin { get; set; }
+        public double VelocidadeMax { get; set; }
         public double VelocidadeTempoIncremento { get; set; } // a cada quantos segundos incrementa velocidade
-        public IMovimentacao Movimentacao { get; set; }
+        public LinhaReta Movimentacao { get; set; }
         public String NomeImagem { get; set; }
 
         [XmlIgnoreAttribute]
@@ -58,12 +57,13 @@ namespace OrbitaRefactored
             this.Posicao = posicao;
         }
 
-        public Inimigo(Inimigo inimigo) 
+        public Inimigo(Inimigo template, Vector2 posicao,double velocidade) 
         {
-            this.VelocidadeAtual = inimigo.VelocidadeAtual;
-            this.VelocidadeIncremento = inimigo.VelocidadeIncremento;
-            this.VelocidadeTempoIncremento = inimigo.VelocidadeTempoIncremento;
-            this.NomeImagem = inimigo.NomeImagem;
+            this.Sprite = template.Sprite;
+            this.VelocidadeAtual = velocidade;
+            this.Posicao = new Vector2(posicao.X, posicao.Y);
+            this.Movimentacao = template.Movimentacao;
+            this.VelocidadeIncremento = template.VelocidadeIncremento;
 
         }
 

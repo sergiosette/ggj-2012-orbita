@@ -25,11 +25,19 @@ namespace OrbitaRefactored
         public String NomeImagem { get; set; }
 
         [XmlIgnoreAttribute]
-        public Texture2D Sprite { get; set;  }
+        public Texture2D Sprite { get; set;  }        
+        [XmlIgnoreAttribute]
+        public double VelocidadeAtual { get; set; }
         [XmlIgnoreAttribute]
         public Vector2 Posicao { get; set; }
         [XmlIgnoreAttribute]
-        public double VelocidadeAtual { get; set; }
+        public Vector2 PosicaoDesenho
+        {
+            get
+            {
+                return new Vector2(Posicao.X - (Sprite.Width / 2), Posicao.Y - (Sprite.Height / 2));
+            }
+        }
 
         [XmlIgnoreAttribute]
         public BoundingBox BoundingBox

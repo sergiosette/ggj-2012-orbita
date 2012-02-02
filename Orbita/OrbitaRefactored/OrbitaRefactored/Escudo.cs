@@ -74,12 +74,12 @@ namespace OrbitaRefactored
                 Point tile = centros[i];
 
                 Rectangle rect = new Rectangle((int)tile.X, (int)tile.Y, Sprite.Width, Sprite.Height);
-                x = tile.X - (800 / 2);
-                y = tile.Y - (600 / 2);
+                x = tile.X - (fase.Nucleo.Posicao.X);
+                y = tile.Y - (fase.Nucleo.Posicao.Y);
                 double modulo = Math.Sqrt(x * x + y * y);
                 double xn = x / modulo;
                 double yn = y / modulo;
-                sb.Draw(Sprite, rect, null, Color.White, -(float)(Math.Atan2(xn, yn) - Math.PI), new Vector2((Sprite.Width / 2), (Sprite.Height / 2)), SpriteEffects.None, 0.0f);
+                sb.Draw(this.Sprite, rect, null, Color.White, -(float)(Math.Atan2(xn, yn) - Math.PI), new Vector2((Sprite.Width / 2), (Sprite.Height / 2)), SpriteEffects.None, 0.0f);
             }
         }
 
@@ -123,11 +123,11 @@ namespace OrbitaRefactored
             double incrementoVazio = anguloDoVazio();
 
             // POG
-            int centrox = fase.Nucleo.Centro.X;
-            int centroy = fase.Nucleo.Centro.Y;
+            int centrox = fase.Nucleo.Posicao.X;
+            int centroy = fase.Nucleo.Posicao.Y;
 
-            int bbinicialx = (int)(fase.Nucleo.Centro.X + this.Raio);//(int) centrox;//  (int) raio;
-            int bbinicialy = (int)fase.Nucleo.Centro.Y;//(int) centroy - (int)raio;
+            int bbinicialx = (int)(fase.Nucleo.Posicao.X + this.Raio);//(int) centrox;//  (int) raio;
+            int bbinicialy = (int)fase.Nucleo.Posicao.Y;//(int) centroy - (int)raio;
 
             int vetorCentroX = bbinicialx - centrox;
             int vetorCentroY = bbinicialy - centroy;
@@ -158,11 +158,11 @@ namespace OrbitaRefactored
             double incrementoVazio = anguloDoVazio();
 
             // POG
-            int centrox = fase.Nucleo.Centro.X;
-            int centroy = fase.Nucleo.Centro.Y;
+            int centrox = fase.Nucleo.PosicaoDesenho.X;
+            int centroy = fase.Nucleo.PosicaoDesenho.Y;
 
-            int bbinicialx = (int)(fase.Nucleo.Centro.X + this.Raio);//(int) centrox;//  (int) raio;
-            int bbinicialy = (int)fase.Nucleo.Centro.Y;//(int) centroy - (int)raio;
+            int bbinicialx = (int)(fase.Nucleo.PosicaoDesenho.X + this.Raio);//(int) centrox;//  (int) raio;
+            int bbinicialy = (int)fase.Nucleo.PosicaoDesenho.Y;//(int) centroy - (int)raio;
 
             int vetorCentroX = bbinicialx - centrox;
             int vetorCentroY = bbinicialy - centroy;

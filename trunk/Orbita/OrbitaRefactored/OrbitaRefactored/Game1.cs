@@ -81,11 +81,11 @@ namespace OrbitaRefactored
             //fase.InimigosInstancias = inimigos;
 
             XmlSerializer serializer = new XmlSerializer(typeof(Fase));
-            StreamWriter writer = new StreamWriter("c:/Fase11.xml");
+            StreamWriter writer = new StreamWriter("Fase1.xml");
             serializer.Serialize(writer, fase);
             writer.Close();
             
-            StreamReader reader = new StreamReader("c:/Fase11.xml");
+            StreamReader reader = new StreamReader("Fase1.xml");
             fase = (Fase) serializer.Deserialize(reader);
              
 

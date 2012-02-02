@@ -15,7 +15,12 @@ namespace OrbitaRefactored
         private Fase fase;
 
         public String NomeImagem { get; set; }
+        public Point Posicao { get; set; }
+
+        [XmlIgnore]
         public Texture2D Sprite { get; set; }
+        
+        
         public Point PosicaoDesenho
         {
             get
@@ -31,8 +36,6 @@ namespace OrbitaRefactored
             }
         }
 
-        [XmlIgnoreAttribute]
-        public Point Posicao { get; set; }
 
         public void Draw(SpriteBatch sb)
         {

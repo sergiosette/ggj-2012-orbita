@@ -16,52 +16,51 @@ namespace OrbitaRefactored
         private Fase fase;
 
         // Attributes
-        private IList<Boolean> tiles;
+        private List<bool> tiles;
 
         // Properties
-        public Rectangle BoundingBox { get; set; }        
-
         public double VelocidadeAngular { get; set; }
         public String NomeImagem { get; set; }
-        public Texture2D Sprite { get; set; }
         
         public double Raio { get; set; }
         public double IncrementoRaio { get; set; }
 
-        public IList<Boolean> Tiles
-        {
-            get
-            {
-                return tiles;
-            }
-            set
-            {
-                tiles = value;
-                foreach (Boolean b in Tiles)
-                {
-                    if (b)
-                    {
-                        this.countCheio++;
-                    }
-                    else
-                    {
-                        this.countEspaco++;
-                    }
-                }
-            }
-        } 
+        public List<bool> Tiles { get; set; }
+        
+        
 
-        [XmlIgnoreAttribute]
+        [XmlIgnore]
+        public Texture2D Sprite { get; set; }
+        [XmlIgnore]
         public double Angulo { get; set; }
-        [XmlIgnoreAttribute]
-        public double X { get; set; }
-        [XmlIgnoreAttribute]
-        public double Y { get; set; }
+        
 
         // Atributos copiados do Anel
 
-        private int countEspaco;
-        private int countCheio;
+        public int CountEspaco
+        {
+            get
+            {
+                int resultado = 0;
+                foreach (bool tile in Tiles)
+                {
+                    if (!tile) resultado++;
+                }
+                return resultado;
+            }
+        }
+        public int CountCheio
+        {
+            get
+            {
+                int resultado = 0;
+                foreach (bool tile in Tiles)
+                {
+                    if (tile) resultado++;
+                }
+                return resultado;
+            }
+        }
         
 
         public void Draw(SpriteBatch sb)
@@ -188,8 +187,8 @@ namespace OrbitaRefactored
 
         private double anguloDoVazio()
         {
-            double porcentagemNaoOcupada = (1 - (Sprite.Height * this.countCheio / (Math.PI * 2 * Math.Abs(Raio))));
-            double resultado = 360 * porcentagemNaoOcupada / countEspaco;
+            double porcentagemNaoOcupada = (1 - (Sprite.Height * this.CountCheio / (Math.PI * 2 * Math.Abs(Raio))));
+            double resultado = 360 * porcentagemNaoOcupada / CountEspaco;
             return resultado;
         }
 

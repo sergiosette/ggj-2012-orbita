@@ -101,6 +101,9 @@ namespace OrbitaRefactored
             graphics.ApplyChanges();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             this.fase.LoadContent(this.Content);
+            SoundManager.getInstance(this.Content).loadMusic();
+
+            SoundManager.getInstance(this.Content).playMusic(SoundManager.MUSIC_GAMEPLAY);
         }
 
         protected override void UnloadContent()

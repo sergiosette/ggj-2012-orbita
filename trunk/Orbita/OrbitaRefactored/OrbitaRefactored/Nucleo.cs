@@ -32,7 +32,7 @@ namespace OrbitaRefactored
         {
             get
             {
-                return new BoundingSphere(new Vector3((float)PosicaoDesenho.X, (float)PosicaoDesenho.X, 0), Math.Max(this.Sprite.Width, this.Sprite.Height));
+                return new BoundingSphere(new Vector3((float)Posicao.X, (float)Posicao.Y, 0), Math.Max(this.Sprite.Width, this.Sprite.Height));
             }
         }
 

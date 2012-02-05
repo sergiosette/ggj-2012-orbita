@@ -74,7 +74,7 @@ namespace OrbitaRefactored
 
         public void Update(GameTime gameTime)
         {
-            Vector2 deslocamento = Movimentacao.Andar(new Vector2((int)Posicao.X, (int)Posicao.Y), new Vector2(400, 300), VelocidadeAtual);
+            Vector2 deslocamento = Movimentacao.Andar(new Vector2((int)Posicao.X, (int)Posicao.Y), new Vector2(fase.Nucleo.Posicao.X, fase.Nucleo.Posicao.Y), VelocidadeAtual);
             Posicao = new Vector2(Posicao.X + deslocamento.X, Posicao.Y + deslocamento.Y);
         }
 

@@ -71,7 +71,6 @@ namespace OrbitaRefactored
             for (int i = 0; i < centros.Count; i++)
             {
                 Point tile = centros[i];
-
                 Rectangle rect = new Rectangle((int)tile.X, (int)tile.Y, Sprite.Width, Sprite.Height);
                 x = tile.X - (fase.Nucleo.Posicao.X);
                 y = tile.Y - (fase.Nucleo.Posicao.Y);

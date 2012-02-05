@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System.Xml.Serialization;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 namespace OrbitaRefactored
 {
@@ -46,11 +47,17 @@ namespace OrbitaRefactored
         {
 
         }
+
+        public Fase(Fase template)
+        {
+            InstanciarTemplate(template);
+        }
         
         public void Initialize()
         {
             this.randomGenerator = new Random((int)DateTime.Now.Ticks);
             this.InimigosInstancias = new List<Inimigo>();
+
             this.Nucleo.Initialize(this);
             this.Escudo.Initialize(this);
             foreach (Inimigo inimigo in InimigosTemplates)
@@ -95,7 +102,7 @@ namespace OrbitaRefactored
         public void Draw(SpriteBatch sb)
         {   
             sb.Begin();
-            sb.Draw(Background, new Rectangle(0, 0, 800, 600), Color.White);
+            sb.Draw(Background, new Rectangle(0, 0, this.Largura, this.Altura), Color.White);
             this.Nucleo.Draw(sb);
             this.Escudo.Draw(sb);
             foreach (Inimigo inimigo in InimigosInstancias)
@@ -129,7 +136,7 @@ namespace OrbitaRefactored
 
         public void UpdateGameOver()
         {
-            if (Escudo.Raio >= Math.Min(this.Altura / 2, this.Largura / 2))
+            if (Escudo.Raio >= Math.Max(this.Altura / 2, this.Largura / 2))
             {
                 GameOver = true;
             }
@@ -140,6 +147,7 @@ namespace OrbitaRefactored
             for (int i = 0; i < numeroInimigos; i = i + 1)
             {
                 Inimigo inimigo = GerarInimigoAleatorio();
+                inimigo.Initialize(this);
                 InimigosInstancias.Add(inimigo);
             }
         }
@@ -152,20 +160,20 @@ namespace OrbitaRefactored
             switch (quadrante)
             {
                 case 0:
-                    x = randomGenerator.Next(51) - 50;
-                    y = randomGenerator.Next(701) - 50;
+                    x = randomGenerator.Next(-200, 0);
+                    y = randomGenerator.Next(-200, this.Altura + 200);
                     break;
                 case 1:
-                    x = randomGenerator.Next(801);
-                    y = randomGenerator.Next(51) - 50;
+                    x = randomGenerator.Next(0, this.Largura);
+                    y = randomGenerator.Next(-200, 0);
                     break;
                 case 2:
-                    x = randomGenerator.Next(51) + 800;
-                    y = randomGenerator.Next(701) - 50;
+                    x = randomGenerator.Next(this.Largura,this.Largura + 200);
+                    y = randomGenerator.Next(-200, this.Altura + 200);
                     break;
                 case 3:
-                    x = randomGenerator.Next(801);
-                    y = randomGenerator.Next(51) + 650;
+                    x = randomGenerator.Next(0, this.Largura);
+                    y = randomGenerator.Next(this.Altura, this.Altura + 200);
                     break;
             }
             int templateRandom = randomGenerator.Next(0, InimigosTemplates.Count);
@@ -173,6 +181,34 @@ namespace OrbitaRefactored
             double speed = randomGenerator.Next((int) template.VelocidadeMin,(int) template.VelocidadeMax);
             Inimigo inimigo = new Inimigo(template, new Vector2(x,y), speed);
             return inimigo;
+        }
+
+        public void CarregarFaseDeXML(String xmlPath) {
+            StreamReader reader = new StreamReader(xmlPath);
+            XmlSerializer serializer = new XmlSerializer(typeof(Fase));
+            Fase template = (Fase)serializer.Deserialize(reader);
+            this.InstanciarTemplate(template);                        
+        }
+
+        public void GravarFaseEmXML(String xmlPath)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Fase));
+            StreamWriter writer = new StreamWriter(xmlPath);
+            serializer.Serialize(writer, this);
+            writer.Close();
+        }
+
+        private void InstanciarTemplate(Fase template)
+        {
+            this.Altura = template.Altura;
+            this.Largura = template.Largura;
+            this.Escudo = template.Escudo;
+            this.Nucleo = template.Nucleo;
+            this.InimigosTemplates = template.InimigosTemplates;
+            this.NomeBackground = template.NomeBackground;
+            this.InimigosPorSegundo = template.InimigosPorSegundo;
+            this.InimigosIncrementoTempo = template.InimigosIncrementoTempo;
+            this.InimigosIncremento = template.InimigosIncremento;
         }
     }
 }

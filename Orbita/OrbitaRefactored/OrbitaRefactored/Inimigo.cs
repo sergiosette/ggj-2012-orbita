@@ -15,7 +15,7 @@ namespace OrbitaRefactored
 
         // Fase que criou o objeto
         private Fase fase;
-
+        public Vector4 CorRGBA { get; set; }
         public double VelocidadeIncremento { get; set; }
         public double VelocidadeMin { get; set; }
         public double VelocidadeMax { get; set; }
@@ -23,6 +23,7 @@ namespace OrbitaRefactored
         public LinhaReta Movimentacao { get; set; }
         public String NomeImagem { get; set; }
 
+        private Color Cor { get; set; }
         [XmlIgnoreAttribute]
         public Texture2D Sprite { get; set;  }        
         [XmlIgnoreAttribute]
@@ -64,12 +65,13 @@ namespace OrbitaRefactored
             this.Posicao = new Vector2(posicao.X, posicao.Y);
             this.Movimentacao = template.Movimentacao;
             this.VelocidadeIncremento = template.VelocidadeIncremento;
+            this.CorRGBA = template.CorRGBA;
 
         }
 
         public void Draw(SpriteBatch sb)
-        {
-            sb.Draw(Sprite, new Rectangle((int)Posicao.X - (Sprite.Width / 2), (int)Posicao.Y - (Sprite.Width / 2), Sprite.Width, Sprite.Height), Color.White);
+        {   
+            sb.Draw(Sprite, new Rectangle((int)Posicao.X - (Sprite.Width / 2), (int)Posicao.Y - (Sprite.Width / 2), Sprite.Width, Sprite.Height), this.Cor);
         }
 
         public void Update(GameTime gameTime)
@@ -85,7 +87,8 @@ namespace OrbitaRefactored
 
         public void Initialize(Fase fase)
         {
-            this.fase = fase;
+            this.fase = fase;                        
+            this.Cor = new Color(CorRGBA);
         }
     }
 }

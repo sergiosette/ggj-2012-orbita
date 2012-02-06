@@ -37,61 +37,64 @@ namespace OrbitaRefactored
         }
 
         protected override void Initialize()
-        {   
-            //this.fase = new Fase();
-            //fase.Largura = 800;
-            //fase.Altura = 600;
-            //fase.InimigosPorSegundo = 5;
-            //fase.InimigosIncremento = 1;
-            //fase.InimigosIncrementoTempo = 10;
-            //fase.NomeBackground = "Fases/Fase1/Background/background";
-
-            //Nucleo nucleo = new Nucleo();
-            //nucleo.Posicao = new Point(400, 300);
-            //nucleo.NomeImagem = "Fases/Fase1/Nucleo/nucleo";
-            //fase.Nucleo = nucleo;
-
-            //Escudo escudo = new Escudo();
-            //escudo.NomeImagem = "Fases/Fase1/Escudo/escudo";
-            //escudo.VelocidadeAngular = 5;
-            //escudo.Raio = 100;
-            //escudo.IncrementoRaio = 20;
-            
-            //List<bool> tiles = new List<bool>();
-            //tiles.Add(false);
-            //tiles.Add(true);
-            //tiles.Add(true);
-            //tiles.Add(false);
-            //escudo.Tiles = tiles;            
-            //fase.Escudo = escudo;
-
-            //Inimigo inimigo = new Inimigo();
-            //inimigo.Posicao = new Vector2(100, 50);
-            //inimigo.NomeImagem = "Fases/Fase1/Inimigo/inimigo";
-            //inimigo.VelocidadeMin = 2;
-            //inimigo.VelocidadeMax = 4;
-            //inimigo.VelocidadeIncremento = 1;
-            //inimigo.VelocidadeTempoIncremento = 0;
-            //inimigo.Movimentacao = new LinhaReta();
-            //List<Inimigo> inimigos = new List<Inimigo>();
-            //inimigos.Add(inimigo);
-            //fase.InimigosTemplates = inimigos;
-            ////fase.InimigosInstancias = inimigos;
-
-            //XmlSerializer serializer = new XmlSerializer(typeof(Fase));
-            //StreamWriter writer = new StreamWriter("Fase1.xml");
-            //serializer.Serialize(writer, fase);
-            //writer.Close();
-            
-            //StreamReader reader = new StreamReader("Fase1.xml");
-            //fase = (Fase) serializer.Deserialize(reader);
+        {
+            //GerarXMLFase();
 
             this.fase = new Fase();
             this.fase.CarregarFaseDeXML("Fase1.xml");
-            this.fase.GravarFaseEmXML("Fase2.xml");
 
             this.fase.Initialize();
             base.Initialize();
+        }
+
+        private void GerarXMLFase()
+        {
+            this.fase = new Fase();
+            fase.Largura = 800;
+            fase.Altura = 600;
+            fase.InimigosPorSegundo = 5;
+            fase.InimigosIncremento = 1;
+            fase.InimigosIncrementoTempo = 10;
+            fase.NomeBackground = "Fases/Fase1/Background/background";
+
+            Nucleo nucleo = new Nucleo();
+            nucleo.Posicao = new Point(400, 300);
+            nucleo.NomeImagem = "Fases/Fase1/Nucleo/nucleo";
+            fase.Nucleo = nucleo;
+
+            Escudo escudo = new Escudo();
+            escudo.NomeImagem = "Fases/Fase1/Escudo/escudo";
+            escudo.VelocidadeAngular = 5;
+            escudo.Raio = 100;
+            escudo.IncrementoRaio = 20;
+
+            List<bool> tiles = new List<bool>();
+            tiles.Add(false);
+            tiles.Add(true);
+            tiles.Add(true);
+            tiles.Add(false);
+            escudo.Tiles = tiles;
+            fase.Escudo = escudo;
+
+            Inimigo inimigo = new Inimigo();
+            inimigo.Posicao = new Vector2(100, 50);
+            inimigo.NomeImagem = "Fases/Fase1/Inimigo/inimigo";
+            inimigo.VelocidadeMin = 2;
+            inimigo.VelocidadeMax = 4;
+            inimigo.VelocidadeIncremento = 1;
+            inimigo.VelocidadeTempoIncremento = 0;
+            inimigo.Movimentacao = new LinhaReta();
+            List<Inimigo> inimigos = new List<Inimigo>();
+            inimigos.Add(inimigo);
+            fase.InimigosTemplates = inimigos;
+            //fase.InimigosInstancias = inimigos;
+
+            Explosao explosao = new Explosao();
+            explosao.DuracaoMilisegundos = 1000;
+            explosao.PathSprite = "Fases/Fase1/Explosao/inimigo";
+            fase.ExplosaoTemplates = new List<Explosao> { explosao };
+
+            fase.GravarFaseEmXML("Fase1.xml");
         }
 
         protected override void LoadContent()

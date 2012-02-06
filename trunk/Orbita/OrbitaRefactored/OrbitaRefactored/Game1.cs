@@ -88,6 +88,7 @@ namespace OrbitaRefactored
 
             this.fase = new Fase();
             this.fase.CarregarFaseDeXML("Fase1.xml");
+            this.fase.GravarFaseEmXML("Fase2.xml");
 
             this.fase.Initialize();
             base.Initialize();

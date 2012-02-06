@@ -13,7 +13,7 @@ using System.IO;
 namespace OrbitaRefactored
 {
     public class Fase
-    {
+    {        
         // Keyboard states used to determine key presses
         
         public static KeyboardState currentKeyboardState;

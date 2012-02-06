@@ -32,6 +32,7 @@ namespace OrbitaRefactored
         public Escudo Escudo { get; set; }
         public Nucleo Nucleo { get; set; }
         public List<Inimigo> InimigosTemplates { get; set; }
+        public List<Explosao> ExplosaoTemplates { get; set; }
         public String NomeBackground { get; set; }
 
         // Elementos não serializaveis
@@ -45,6 +46,9 @@ namespace OrbitaRefactored
         public Texture2D Background { get; set; }
         [XmlIgnoreAttribute]
         public IList<Inimigo> InimigosInstancias { get; set; }
+        [XmlIgnoreAttribute]
+        public IList<Explosao> ExplosaoInstancias { get; set; }
+
 
         public Fase()
         {
@@ -62,6 +66,8 @@ namespace OrbitaRefactored
             this.randomGenerator = new Random((int)DateTime.Now.Ticks);
             this.InimigosInstancias = new List<Inimigo>();
 
+            this.ExplosaoInstancias = new List<Explosao>();
+
             this.Nucleo.Initialize(this);
             this.Escudo.Initialize(this);
             foreach (Inimigo inimigo in InimigosTemplates)
@@ -78,7 +84,12 @@ namespace OrbitaRefactored
             {
                 inimigo.LoadContent(manager);
             }
+            foreach (Explosao explosao in ExplosaoTemplates)
+            {
+                explosao.LoadContent(manager);
+            }
         }
+
         public void Update(GameTime gameTime)
         {
             if (!GameOver)
@@ -96,7 +107,13 @@ namespace OrbitaRefactored
                     inimigo.Update(gameTime);
                 }
                 UpdateColisoes();
-                UpdateGameOver();                
+                UpdateGameOver();
+
+                foreach (Explosao explosao in ExplosaoInstancias)
+                {
+                    explosao.Update(gameTime);
+                }
+
                 if (currentTotalTime.Seconds - previousTotalTime.Seconds > 0)
                 {
                     if (currentTotalTime.Seconds % InimigosIncrementoTempo == 0 && currentTotalTime.Seconds != 0)
@@ -105,8 +122,24 @@ namespace OrbitaRefactored
                     }
                     GerarInimigosAleatorios(this.InimigosPorSegundo);
                 }
+
+                RemoverExplosoesExpiradas();
             }
         }
+
+        public void RemoverExplosoesExpiradas()
+        {
+            IList<Explosao> explosoes = new List<Explosao>();
+            foreach (Explosao explosao in ExplosaoInstancias)
+            {
+                if (!explosao.Expirou)
+                {
+                    explosoes.Add(explosao);
+                }
+            }
+            this.ExplosaoInstancias = explosoes;
+        }
+
         public void Draw(SpriteBatch sb)
         {   
             sb.Begin();
@@ -117,6 +150,10 @@ namespace OrbitaRefactored
             {
                 inimigo.Draw(sb);
             }
+            foreach (Explosao explosao in ExplosaoInstancias)
+            {
+                explosao.Draw(sb);
+            }
             sb.End();
         }
 
@@ -124,22 +161,42 @@ namespace OrbitaRefactored
         {
             // Colisoes Inimigos com o Escudo
             IList<Inimigo> resultadoColisao = new List<Inimigo>();
+            bool colidiu = false;
             foreach (Inimigo inimigo in InimigosInstancias) 
             {
-                if (!Escudo.Colide(inimigo))                    
-                {   
-                    resultadoColisao.Add(inimigo);
+                colidiu = false;
+                if (Escudo.Colide(inimigo))
+                {
+                    colidiu = true;
                 }
-                if (Nucleo.Colide(inimigo))
-                {   
-                    Escudo.Raio = Escudo.Raio + Escudo.IncrementoRaio;
-                    resultadoColisao.Remove(inimigo);
+                else
+                {
+                    resultadoColisao.Add(inimigo);
+                    if (Nucleo.Colide(inimigo))
+                    {
+                        Escudo.Raio = Escudo.Raio + Escudo.IncrementoRaio;
+                        resultadoColisao.Remove(inimigo);
+                        colidiu = true;
+                    }
+                }
+                
+
+                if (colidiu)
+                {
+                    GerarExplosao(inimigo);
                 }
             }
             this.InimigosInstancias = resultadoColisao;
 
             // Colisoes Inimigos com Nucleo
             
+        }
+
+        public void GerarExplosao(Inimigo inimigo)
+        {
+            Explosao expl = new Explosao(this.ExplosaoTemplates.First<Explosao>(), inimigo.PosicaoDesenho);
+            this.ExplosaoInstancias.Add(expl);
+            //TODO: play sound
         }
 
         public void UpdateGameOver()
@@ -217,6 +274,7 @@ namespace OrbitaRefactored
             this.InimigosPorSegundoInicial = template.InimigosPorSegundoInicial;
             this.InimigosIncrementoTempo = template.InimigosIncrementoTempo;
             this.InimigosIncremento = template.InimigosIncremento;
+            this.ExplosaoTemplates = template.ExplosaoTemplates;
         }
     }
 }

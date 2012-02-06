@@ -23,6 +23,7 @@ namespace OrbitaRefactored
         public LinhaReta Movimentacao { get; set; }
         public String NomeImagem { get; set; }
 
+        [XmlIgnoreAttribute]
         private Color Cor { get; set; }
         [XmlIgnoreAttribute]
         public Texture2D Sprite { get; set;  }        

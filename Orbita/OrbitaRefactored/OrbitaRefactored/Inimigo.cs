@@ -45,7 +45,7 @@ namespace OrbitaRefactored
         {
             get
             {
-                return new BoundingBox(new Vector3((int)this.Posicao.X, (int)this.Posicao.Y,0), new Vector3(this.Sprite.Width, this.Sprite.Height,0));
+                return new BoundingBox(new Vector3(this.Posicao.X, this.Posicao.Y, 0), new Vector3(this.Posicao.X + this.Sprite.Width, this.Posicao.Y + this.Sprite.Height, 0));
             }
         }
 

@@ -120,6 +120,9 @@
     <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Fase1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>

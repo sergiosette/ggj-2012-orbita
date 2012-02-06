@@ -28,11 +28,11 @@ namespace OrbitaRefactored
                 return new Point((int)Posicao.X - (Sprite.Width / 2), (int)Posicao.Y - (Sprite.Height / 2));
             }
         }
-        public BoundingSphere BoundingBox
+        public BoundingBox BoundingBox
         {
             get
             {
-                return new BoundingSphere(new Vector3((float)Posicao.X, (float)Posicao.Y, 0), Math.Max(this.Sprite.Width, this.Sprite.Height));
+                return new BoundingBox(new Vector3(this.PosicaoDesenho.X, this.Posicao.Y, 0), new Vector3(this.PosicaoDesenho.X + this.Sprite.Width, this.PosicaoDesenho.Y + this.Sprite.Height, 0));
             }
         }
 

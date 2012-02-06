@@ -23,7 +23,7 @@ namespace OrbitaRefactored
         public static TimeSpan currentTotalTime;
 
         // Elementos serializaveis
-        public int InimigosPorSegundo { get; set; }
+        public int InimigosPorSegundoInicial { get; set; }        
         public int InimigosIncremento { get; set; }
         public int InimigosIncrementoTempo { get; set; } // A cada quantos segundos incrementa
 
@@ -35,6 +35,9 @@ namespace OrbitaRefactored
         public String NomeBackground { get; set; }
 
         // Elementos não serializaveis
+        [XmlIgnoreAttribute]
+        public int InimigosPorSegundo { get; set; }
+        [XmlIgnoreAttribute]
         private Random randomGenerator;
         [XmlIgnoreAttribute]
         private bool GameOver { get; set; }
@@ -55,6 +58,7 @@ namespace OrbitaRefactored
         
         public void Initialize()
         {
+            this.InimigosPorSegundo = this.InimigosPorSegundoInicial;
             this.randomGenerator = new Random((int)DateTime.Now.Ticks);
             this.InimigosInstancias = new List<Inimigo>();
 
@@ -95,6 +99,10 @@ namespace OrbitaRefactored
                 UpdateGameOver();                
                 if (currentTotalTime.Seconds - previousTotalTime.Seconds > 0)
                 {
+                    if (currentTotalTime.Seconds % InimigosIncrementoTempo == 0 && currentTotalTime.Seconds != 0)
+                    {
+                        InimigosPorSegundo = InimigosPorSegundo + InimigosIncremento;
+                    }
                     GerarInimigosAleatorios(this.InimigosPorSegundo);
                 }
             }
@@ -206,7 +214,7 @@ namespace OrbitaRefactored
             this.Nucleo = template.Nucleo;
             this.InimigosTemplates = template.InimigosTemplates;
             this.NomeBackground = template.NomeBackground;
-            this.InimigosPorSegundo = template.InimigosPorSegundo;
+            this.InimigosPorSegundoInicial = template.InimigosPorSegundoInicial;
             this.InimigosIncrementoTempo = template.InimigosIncrementoTempo;
             this.InimigosIncremento = template.InimigosIncremento;
         }

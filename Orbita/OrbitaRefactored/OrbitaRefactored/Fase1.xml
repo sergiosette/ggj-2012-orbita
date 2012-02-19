@@ -76,8 +76,12 @@
   <NomeBackground>Fases/Fase1/Background/background</NomeBackground>
   <ExplosaoTemplates>
 	<Explosao>
-	<DuracaoMilisegundos>2000</DuracaoMilisegundos>
+	<DuracaoMilisegundos>4000</DuracaoMilisegundos>
 	<PathSprite>Fases/Fase1/Explosao/inimigo</PathSprite>
+	</Explosao>
+	<Explosao>
+	<DuracaoMilisegundos>7000</DuracaoMilisegundos>
+	<PathSprite>Fases/Fase1/Explosao/inimigo3</PathSprite>
 	</Explosao>
 	</ExplosaoTemplates>
 </Fase>

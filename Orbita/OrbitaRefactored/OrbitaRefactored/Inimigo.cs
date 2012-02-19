@@ -45,9 +45,19 @@ namespace OrbitaRefactored
         {
             get
             {
-                return new BoundingBox(new Vector3(this.Posicao.X, this.Posicao.Y, 0), new Vector3(this.Posicao.X + this.Sprite.Width, this.Posicao.Y + this.Sprite.Height, 0));
+                return new BoundingBox(new Vector3(this.PosicaoDesenho.X, this.PosicaoDesenho.Y, 0), new Vector3(this.PosicaoDesenho.X + this.Sprite.Width, this.PosicaoDesenho.Y + this.Sprite.Height, 0));
             }
         }
+
+        [XmlIgnoreAttribute]
+        public OrientedBoundingBox OrientedBoundingBox
+        {
+            get
+            {
+                return new OrientedBoundingBox(new Vector2(this.Posicao.X, this.Posicao.Y), this.Sprite.Width, this.Sprite.Height);
+            }
+        }
+
 
         public Inimigo()
         {

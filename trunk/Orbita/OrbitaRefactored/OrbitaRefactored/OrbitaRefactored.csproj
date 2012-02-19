@@ -112,9 +112,11 @@
     <Compile Include="Fase.cs" />
     <Compile Include="Inimigo.cs" />
     <Compile Include="Managers\SoundManager.cs" />
+    <Compile Include="MathUtil.cs" />
     <Compile Include="Movimentacao\LinhaReta.cs" />
     <Compile Include="Movimentacao\IMovimentacao.cs" />
     <Compile Include="Nucleo.cs" />
+    <Compile Include="OrientedBoundingBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

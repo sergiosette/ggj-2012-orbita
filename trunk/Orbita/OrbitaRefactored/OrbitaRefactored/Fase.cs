@@ -168,23 +168,25 @@ namespace OrbitaRefactored
                 if (Escudo.Colide(inimigo))
                 {
                     colidiu = true;
+                    GerarExplosao(inimigo,this.ExplosaoTemplates.First<Explosao>());
                 }
                 else
                 {
                     resultadoColisao.Add(inimigo);
                     if (Nucleo.Colide(inimigo))
                     {
-                        Escudo.Raio = Escudo.Raio + Escudo.IncrementoRaio;
+                        //Escudo.Raio = Escudo.Raio + Escudo.IncrementoRaio;
                         resultadoColisao.Remove(inimigo);
                         colidiu = true;
+                        GerarExplosao(inimigo,this.ExplosaoTemplates.Last<Explosao>());
                     }
                 }
                 
 
-                if (colidiu)
-                {
-                    GerarExplosao(inimigo);
-                }
+                //if (colidiu)
+                //{
+                //    GerarExplosao(inimigo);
+                //}
             }
             this.InimigosInstancias = resultadoColisao;
 
@@ -192,9 +194,9 @@ namespace OrbitaRefactored
             
         }
 
-        public void GerarExplosao(Inimigo inimigo)
+        public void GerarExplosao(Inimigo inimigo, Explosao template)
         {
-            Explosao expl = new Explosao(this.ExplosaoTemplates.First<Explosao>(), inimigo.PosicaoDesenho);
+            Explosao expl = new Explosao(template, inimigo.PosicaoDesenho);
             this.ExplosaoInstancias.Add(expl);
             //TODO: play sound
         }

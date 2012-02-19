@@ -42,6 +42,7 @@ namespace OrbitaRefactored
 
             this.fase = new Fase();
             this.fase.CarregarFaseDeXML("Fase1.xml");
+            this.fase.Escudo.DimensaoBoundingBox = new Vector2(85,16);
 
             this.fase.Initialize();
             base.Initialize();

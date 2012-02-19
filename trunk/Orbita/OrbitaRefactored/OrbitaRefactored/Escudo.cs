@@ -27,7 +27,7 @@ namespace OrbitaRefactored
 
         public List<bool> Tiles { get; set; }
         
-        
+        public Vector2 DimensaoBoundingBox {get;set;}
 
         [XmlIgnore]
         public Texture2D Sprite { get; set; }
@@ -67,17 +67,19 @@ namespace OrbitaRefactored
         {
             double x = 0;
             double y = 0;
-            IList<Point> centros = buscarCentroTiles();
-            for (int i = 0; i < centros.Count; i++)
+            IList<OrientedBoundingBox> boxes = buscarOrientedBoundingBoxes();
+            for (int i = 0; i < boxes.Count; i++)
             {
-                Point tile = centros[i];
+                Vector2 tile = boxes[i].Center;
                 Rectangle rect = new Rectangle((int)tile.X, (int)tile.Y, Sprite.Width, Sprite.Height);
-                x = tile.X - (fase.Nucleo.Posicao.X);
-                y = tile.Y - (fase.Nucleo.Posicao.Y);
-                double modulo = Math.Sqrt(x * x + y * y);
-                double xn = x / modulo;
-                double yn = y / modulo;
-                sb.Draw(this.Sprite, rect, null, Color.White, -(float)(Math.Atan2(xn, yn) - Math.PI), new Vector2((Sprite.Width / 2), (Sprite.Height / 2)), SpriteEffects.None, 0.0f);
+                double angleRadiano = (boxes[i].Angle * Math.PI / 180);
+                sb.Draw(this.Sprite, rect, null, Color.White, (float) (angleRadiano), new Vector2((Sprite.Width / 2), (Sprite.Height / 2)), SpriteEffects.None, 0.0f);
+
+                //debug pontos de controle das bounding boxes
+                foreach (Vector2 v in boxes[i].GetEdges())
+                {
+                    sb.Draw(this.Sprite, new Rectangle((int)v.X-5, (int)v.Y-5, 10, 10), new Rectangle (10,10,10,10), Color.Cyan, 0, new Vector2(), SpriteEffects.None, 0.0f);
+                }
             }
         }
 
@@ -114,10 +116,10 @@ namespace OrbitaRefactored
         
         // Metodos copiados do Anel
 
-        public List<Point> buscarCentroTiles()
+        public List<OrientedBoundingBox> buscarOrientedBoundingBoxes()
         {
-            List<Point> listaCentroTiles = new List<Point>();
-            double incrementoTile = (360 * (Sprite.Width / (Math.PI * 2 * Math.Abs(Raio))));
+            List<OrientedBoundingBox> listaAnguloTiles = new List<OrientedBoundingBox>();
+            double incrementoTile = (360 * (Sprite.Width / (Math.PI * 2 * Math.Abs(Raio)))); //angulo em graus referentes ao arco ocupado pelo tile
             double incrementoVazio = anguloDoVazio();
 
             // POG
@@ -131,53 +133,25 @@ namespace OrbitaRefactored
             int vetorCentroY = bbinicialy - centroy;
 
             Point vetor = new Point(vetorCentroX, vetorCentroY);
-            vetor = rotate(vetor, Angulo);
+            vetor = MathUtil.rotate(vetor, Angulo);
 
             for (int i = 0; i < Tiles.Count; i++)
             {
                 if (Tiles[i])
                 {
-                    listaCentroTiles.Add(new Point(centrox + vetor.X, centroy + vetor.Y));
-                    vetor = rotate(vetor, incrementoTile);
+                    Vector2 tile = new Vector2(centrox + vetor.X, centroy + vetor.Y);
+                    double x = tile.X - (fase.Nucleo.Posicao.X);
+                    double y = tile.Y - (fase.Nucleo.Posicao.Y);
+                    double modulo = Math.Sqrt(x * x + y * y);
+                    double xn = x / modulo;
+                    double yn = y / modulo;
+                    double anguloRadiano = -Math.Atan2(xn, yn);
+                    listaAnguloTiles.Add(new OrientedBoundingBox(tile, (int)DimensaoBoundingBox.X, (int)DimensaoBoundingBox.Y, (float)(anguloRadiano*180/Math.PI)));
+                    vetor = MathUtil.rotate(vetor, incrementoTile);
                 }
                 else
                 {
-                    vetor = rotate(vetor, incrementoVazio);
-                }
-            }
-
-            return listaCentroTiles;
-        }
-
-        public List<double> buscarAnguloTiles()
-        {
-            List<double> listaAnguloTiles = new List<double>();
-            double incrementoTile = (360 * (Sprite.Width / (Math.PI * 2 * Math.Abs(Raio))));
-            double incrementoVazio = anguloDoVazio();
-
-            // POG
-            int centrox = fase.Nucleo.PosicaoDesenho.X;
-            int centroy = fase.Nucleo.PosicaoDesenho.Y;
-
-            int bbinicialx = (int)(fase.Nucleo.PosicaoDesenho.X + this.Raio);//(int) centrox;//  (int) raio;
-            int bbinicialy = (int)fase.Nucleo.PosicaoDesenho.Y;//(int) centroy - (int)raio;
-
-            int vetorCentroX = bbinicialx - centrox;
-            int vetorCentroY = bbinicialy - centroy;
-
-            Point vetor = new Point(vetorCentroX, vetorCentroY);
-            vetor = rotate(vetor, Angulo);
-
-            for (int i = 0; i < Tiles.Count; i++)
-            {
-                if (Tiles[i])
-                {
-                    listaAnguloTiles.Add(incrementoTile);
-                    vetor = rotate(vetor, incrementoTile);
-                }
-                else
-                {
-                    vetor = rotate(vetor, incrementoVazio);
+                    vetor = MathUtil.rotate(vetor, incrementoVazio);
                 }
             }
 
@@ -191,30 +165,26 @@ namespace OrbitaRefactored
             return resultado;
         }
 
-        private Point rotate(Point vector, double angle)
-        {
-            double a = angle * Math.PI / 180;
-            double s = Math.Sin(a);
-            double c = Math.Cos(a);
-            double ox = vector.X;
-            double oy = vector.Y;
-            //rotacionar o vetor direção
-            vector.X = (int)(ox * c + oy * (-s));
-            vector.Y = (int)(ox * s + oy * c);
-            //normalizar o vetor direção
-            //normalize (x, y);
-            return vector;
-        }
-
         public bool Colide(Inimigo inimigo)
         {
-            foreach (Point tile in this.buscarCentroTiles())
+            OrientedBoundingBox boxInimigo = inimigo.OrientedBoundingBox;
+            //foreach (Point tile in this.buscarCentroTiles())
+            //{
+            //    BoundingSphere tileBB = new BoundingSphere(new Vector3(tile.X, tile.Y, 0),Sprite.Height);
+            //    if (tileBB.Intersects(inimigo.BoundingBox))
+            //    {
+            //        return true;
+            //    }
+            //}
+            foreach (OrientedBoundingBox box in this.buscarOrientedBoundingBoxes())
             {
-                BoundingSphere tileBB = new BoundingSphere(new Vector3(tile.X, tile.Y, 0),Sprite.Height);
-                if (tileBB.Intersects(inimigo.BoundingBox))
+                Vector2? vetorColisao = box.Intersection(boxInimigo);
+                if (vetorColisao != null)
                 {
+                    inimigo.Posicao -= vetorColisao.Value;
                     return true;
                 }
+                
             }
             return false;
         }

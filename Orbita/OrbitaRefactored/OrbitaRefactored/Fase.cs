@@ -196,7 +196,7 @@ namespace OrbitaRefactored
 
         public void GerarExplosao(Inimigo inimigo, Explosao template)
         {
-            Explosao expl = new Explosao(template, inimigo.PosicaoDesenho);
+            Explosao expl = new Explosao(template, inimigo.Posicao);
             this.ExplosaoInstancias.Add(expl);
             //TODO: play sound
         }

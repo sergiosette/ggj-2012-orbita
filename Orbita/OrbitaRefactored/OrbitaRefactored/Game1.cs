@@ -42,7 +42,6 @@ namespace OrbitaRefactored
 
             this.fase = new Fase();
             this.fase.CarregarFaseDeXML("Fase1.xml");
-            this.fase.Escudo.DimensaoBoundingBox = new Vector2(85,16);
 
             this.fase.Initialize();
             base.Initialize();
@@ -75,6 +74,7 @@ namespace OrbitaRefactored
             tiles.Add(true);
             tiles.Add(false);
             escudo.Tiles = tiles;
+            escudo.DimensaoBoundingBox = new Vector2(85, 16);
             fase.Escudo = escudo;
 
             Inimigo inimigo = new Inimigo();
@@ -92,7 +92,9 @@ namespace OrbitaRefactored
 
             Explosao explosao = new Explosao();
             explosao.DuracaoMilisegundos = 1000;
-            explosao.PathSprite = "Fases/Fase1/Explosao/inimigo";
+            explosao.Sprite = new Sprite();
+            explosao.Sprite.TextureTimes = new List<int> { 500,500,500,500,500,500,500,500,500,500 };
+            explosao.Sprite.Paths = new List<string> { "inimigo_1", "inimigo_2", "inimigo_3", "inimigo_4", "inimigo_5", "inimigo_6", "inimigo_7", "inimigo_8", "inimigo_9", "inimigo_10" };
             fase.ExplosaoTemplates = new List<Explosao> { explosao };
 
             fase.GravarFaseEmXML("Fase1.xml");

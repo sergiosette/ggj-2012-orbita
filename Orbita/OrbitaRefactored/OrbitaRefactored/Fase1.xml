@@ -21,6 +21,10 @@
       <boolean>true</boolean>
       <boolean>false</boolean>
     </Tiles>
+    <DimensaoBoundingBox>
+      <X>85</X>
+      <Y>16</Y>
+    </DimensaoBoundingBox>    
   </Escudo>
   <Nucleo>
     <NomeImagem>Fases/Fase1/Nucleo/nucleo</NomeImagem>
@@ -76,12 +80,46 @@
   <NomeBackground>Fases/Fase1/Background/background</NomeBackground>
   <ExplosaoTemplates>
 	<Explosao>
-	<DuracaoMilisegundos>4000</DuracaoMilisegundos>
-	<PathSprite>Fases/Fase1/Explosao/inimigo</PathSprite>
+	<DuracaoMilisegundos>2000</DuracaoMilisegundos>
+    <Sprite>
+      <Paths>
+        <string>Fases/Fase1/Explosao/inimigo_1</string>
+        <string>Fases/Fase1/Explosao/inimigo_2</string>
+        <string>Fases/Fase1/Explosao/inimigo_3</string>
+        <string>Fases/Fase1/Explosao/inimigo_4</string>
+        <string>Fases/Fase1/Explosao/inimigo_5</string>
+        <string>Fases/Fase1/Explosao/inimigo_6</string>
+        <string>Fases/Fase1/Explosao/inimigo_7</string>
+        <string>Fases/Fase1/Explosao/inimigo_8</string>
+        <string>Fases/Fase1/Explosao/inimigo_9</string>
+        <string>Fases/Fase1/Explosao/inimigo_10</string>
+      </Paths>
+      <TextureTimes>
+        <int>80</int>
+        <int>80</int>
+        <int>80</int>
+        <int>80</int>
+        <int>100</int>
+        <int>100</int>
+        <int>100</int>
+        <int>150</int>
+        <int>150</int>
+        <int>150</int>
+      </TextureTimes>
+    </Sprite>
 	</Explosao>
 	<Explosao>
 	<DuracaoMilisegundos>7000</DuracaoMilisegundos>
-	<PathSprite>Fases/Fase1/Explosao/inimigo3</PathSprite>
+    <Sprite>
+      <Paths>
+        <string>Fases/Fase1/Explosao/inimigo_9</string>
+        <string>Fases/Fase1/Explosao/inimigo_10</string>
+      </Paths>
+      <TextureTimes>
+        <int>500</int>
+        <int>500</int>
+      </TextureTimes>  
+    </Sprite>  
 	</Explosao>
 	</ExplosaoTemplates>
 </Fase>

@@ -12,7 +12,7 @@ namespace OrbitaRefactored
     {
         public int DuracaoMilisegundos { get;set; }
         private Vector2 Posicao { get; set; }
-        public Texture2D Sprite { get; set; }
+        public Sprite Sprite { get; set; }
         public String PathSprite { get; set; }
         private TimeSpan Acumulado { get; set; }
 
@@ -28,27 +28,31 @@ namespace OrbitaRefactored
         public Explosao(Explosao template, Vector2 p): this()
         {
             Posicao = p;
-            Sprite = template.Sprite;
+            Sprite = new Sprite(template.Sprite);
             DuracaoMilisegundos = template.DuracaoMilisegundos;
         }
 
         public void Update(GameTime time)
         {
+            this.Sprite.Update(time);
             Acumulado += time.ElapsedGameTime;
             if (Acumulado.TotalMilliseconds > DuracaoMilisegundos)
             {
                 expirou = true;
             }
+            
         }
 
         public void LoadContent(ContentManager manager)
         {
-            this.Sprite = manager.Load<Texture2D>(PathSprite);
+            this.Sprite.LoadContent(manager);
+                //manager.Load<Texture2D>(PathSprite);
         }
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Sprite, new Vector2(Posicao.X, Posicao.Y), Color.SandyBrown);
+            Texture2D image = Sprite.CurrentSprite();
+            sb.Draw(Sprite.CurrentSprite(), new Vector2(Posicao.X - image.Width/2, Posicao.Y - image.Height/2), Color.White);
         }
     }
 }
